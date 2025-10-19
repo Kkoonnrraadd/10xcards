@@ -1,0 +1,14 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import LoginForm from "@/components/auth/LoginForm";
+
+// Middleware already handles redirect for authenticated users
+// This page is only accessible to non-authenticated users
+---
+
+<Layout title="Zaloguj się | 10xCards">
+  <main class="container mx-auto py-8 px-4 min-h-screen flex items-center justify-center">
+    <LoginForm client:load />
+  </main>
+</Layout>
+

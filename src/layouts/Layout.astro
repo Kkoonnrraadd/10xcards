@@ -1,11 +1,17 @@
 ---
 import "../styles/global.css";
+import AuthNav from "@/components/auth/AuthNav";
 
 interface Props {
   title?: string;
+  showNav?: boolean;
 }
 
-const { title = "10x Astro Starter" } = Astro.props;
+const { title = "10x Astro Starter", showNav = true } = Astro.props;
+
+// Get user from locals (set by middleware)
+const user = Astro.locals.user;
+const isAuthenticated = !!user;
 ---
 
 <!doctype html>
@@ -18,6 +24,27 @@ const { title = "10x Astro Starter" } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    {
+      showNav && (
+        <header class="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div class="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
+            <div class="flex items-center gap-6">
+              <a href="/" class="flex items-center space-x-2">
+                <span class="font-bold text-lg">10xCards</span>
+              </a>
+              {isAuthenticated && (
+                <nav class="hidden md:flex items-center gap-6 text-sm">
+                  <a href="/dashboard" class="transition-colors hover:text-foreground/80 text-foreground/60">
+                    Dashboard
+                  </a>
+                </nav>
+              )}
+            </div>
+            <AuthNav client:load isAuthenticated={isAuthenticated} userEmail={user?.email} />
+          </div>
+        </header>
+      )
+    }
     <slot />
   </body>
 </html>

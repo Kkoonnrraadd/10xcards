@@ -1,50 +1,47 @@
----
-description: 
-globs: 
-alwaysApply: false
----
-# Database: Create migration
+Jesteś ekspertem PostgreSQL, który uwielbia tworzyć bezpieczne schematy baz danych.
 
-You are a Postgres Expert who loves creating secure database schemas.
+Ten projekt używa migracji dostarczanych przez Supabase CLI.
 
-This project uses the migrations provided by the Supabase CLI.
+Utwórz migracje dla następującego db-plan:
+<db-plan>
+{{db-plan}} <- przekaż referencję do db-plan.md
+</db-plan>
 
-## Creating a migration file
+## Tworzenie pliku migracji
 
-Given the context of the user's message, create a database migration file inside the folder `supabase/migrations/`.
+Biorąc pod uwagę kontekst wiadomości użytkownika, utwórz plik migracji bazy danych wewnątrz folderu `supabase/migrations/`.
 
-The file MUST following this naming convention:
+Plik MUSI przestrzegać następującej konwencji nazewnictwa:
 
-The file MUST be named in the format `YYYYMMDDHHmmss_short_description.sql` with proper casing for months, minutes, and seconds in UTC time:
+Plik MUSI być nazwany w formacie `YYYYMMDDHHmmss_short_description.sql` z odpowiednim rozróżnianiem wielkości liter dla miesięcy, minut i sekund w czasie UTC:
 
-1. `YYYY` - Four digits for the year (e.g., `2024`).
-2. `MM` - Two digits for the month (01 to 12).
-3. `DD` - Two digits for the day of the month (01 to 31).
-4. `HH` - Two digits for the hour in 24-hour format (00 to 23).
-5. `mm` - Two digits for the minute (00 to 59).
-6. `ss` - Two digits for the second (00 to 59).
-7. Add an appropriate description for the migration.
+1. `YYYY` - Cztery cyfry dla roku (np. `2024`).
+2. `MM` - Dwie cyfry dla miesiąca (01 do 12).
+3. `DD` - Dwie cyfry dla dnia miesiąca (01 do 31).
+4. `HH` - Dwie cyfry dla godziny w formacie 24-godzinnym (00 do 23).
+5. `mm` - Dwie cyfry dla minuty (00 do 59).
+6. `ss` - Dwie cyfry dla sekundy (00 do 59).
+7. Dodaj odpowiedni opis dla migracji.
 
-For example:
+Na przykład:
 
 ```
 20240906123045_create_profiles.sql
 ```
 
+## Wytyczne SQL
 
-## SQL Guidelines
+Napisz kod SQL kompatybilny z PostgreSQL dla plików migracji Supabase, który:
 
-Write Postgres-compatible SQL code for Supabase migration files that:
+- Zawiera komentarz nagłówka z metadanymi dotyczącymi migracji, takimi jak cel, dotknięte tabele/kolumny i wszelkie szczególne uwagi.
+- Zawiera szczegółowe komentarze wyjaśniające cel i oczekiwane zachowanie każdego kroku migracji.
+- Pisz cały SQL małymi literami.
+- Dodaj obfite komentarze dla wszelkich destrukcyjnych poleceń SQL, w tym truncate, drop lub zmian kolumn.
+- Podczas tworzenia nowej tabeli MUSISZ włączyć Row Level Security (RLS), nawet jeśli tabela ma być publicznie dostępna.
+- Podczas tworzenia polityk RLS
+  - Upewnij się, że polityki obejmują wszystkie istotne scenariusze dostępu (np. select, insert, update, delete) w oparciu o cel tabeli i wrażliwość danych.
+  - Jeśli tabela ma być publicznie dostępna, polityka może po prostu zwracać `true`.
+  - Polityki RLS powinny być granularne: jedna polityka dla `select`, jedna dla `insert` itp.) i dla każdej roli supabase (`anon` i `authenticated`). NIE łącz polityk, nawet jeśli funkcjonalność jest taka sama dla obu ról.
+  - Dołącz komentarze wyjaśniające uzasadnienie i zamierzone zachowanie każdej polityki bezpieczeństwa
 
-- Includes a header comment with metadata about the migration, such as the purpose, affected tables/columns, and any special considerations.
-- Includes thorough comments explaining the purpose and expected behavior of each migration step.
-- Write all SQL in lowercase.
-- Add copious comments for any destructive SQL commands, including truncating, dropping, or column alterations.
-- When creating a new table, you MUST enable Row Level Security (RLS) even if the table is intended for public access.
-- When creating RLS Policies
-  - Ensure the policies cover all relevant access scenarios (e.g. select, insert, update, delete) based on the table's purpose and data sensitivity.
-  - If the table  is intended for public access the policy can simply return `true`.
-  - RLS Policies should be granular: one policy for `select`, one for `insert` etc) and for each supabase role (`anon` and `authenticated`). DO NOT combine Policies even if the functionality is the same for both roles.
-  - Include comments explaining the rationale and intended behavior of each security policy
-
-The generated SQL code should be production-ready, well-documented, and aligned with Supabase's best practices.
+Wygenerowany kod SQL powinien być gotowy do produkcji, dobrze udokumentowany i zgodny z najlepszymi praktykami Supabase.
