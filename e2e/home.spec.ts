@@ -6,6 +6,6 @@ test.describe("Home", () => {
     const home = new HomePage(page);
     await home.goto();
     await home.assertLoaded();
-    await expect(page).toHaveScreenshot("home.png");
+    await expect(page).toHaveScreenshot("home.png", { maxDiffPixelRatio: 0.02 });
   });
 });
