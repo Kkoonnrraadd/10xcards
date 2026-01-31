@@ -1,0 +1,22 @@
+name: "Node Setup and Install"
+description: "Setup Node.js using .nvmrc and install dependencies with npm ci"
+inputs:
+  node-version-file:
+    description: "Path to .nvmrc"
+    required: false
+    default: ".nvmrc"
+  cache:
+    description: "Dependency cache manager"
+    required: false
+    default: "npm"
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v6
+      with:
+        node-version-file: ${{ inputs.node-version-file }}
+        cache: ${{ inputs.cache }}
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
