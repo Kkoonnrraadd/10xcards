@@ -1,711 +1,581 @@
+
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Code coverage report for All files</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type="text/css">
-      .coverage-summary .sorter {
-        background-image: url(sort-arrow-sprite.png);
-      }
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(sort-arrow-sprite.png);
+        }
     </style>
-  </head>
-
-  <body>
-    <div class="wrapper">
-      <div class="pad1">
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
         <h1>All files</h1>
-        <div class="clearfix">
-          <div class="fl pad1y space-right2">
-            <span class="strong">2.36% </span>
-            <span class="quiet">Statements</span>
-            <span class="fraction">404/17094</span>
-          </div>
-
-          <div class="fl pad1y space-right2">
-            <span class="strong">46.07% </span>
-            <span class="quiet">Branches</span>
-            <span class="fraction">88/191</span>
-          </div>
-
-          <div class="fl pad1y space-right2">
-            <span class="strong">27.46% </span>
-            <span class="quiet">Functions</span>
-            <span class="fraction">39/142</span>
-          </div>
-
-          <div class="fl pad1y space-right2">
-            <span class="strong">2.36% </span>
-            <span class="quiet">Lines</span>
-            <span class="fraction">404/17094</span>
-          </div>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">3.51% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>624/17751</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">52.22% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>129/247</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">32.5% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>52/160</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">3.51% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>624/17751</span>
+            </div>
+        
+            
         </div>
         <p class="quiet">
-          Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the
-          previous block.
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
         <template id="filterTemplate">
-          <div class="quiet">
-            Filter:
-            <input type="search" id="fileSearch" />
-          </div>
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
         </template>
-      </div>
-      <div class="status-line low"></div>
-      <div class="pad1">
-        <table class="coverage-summary">
-          <thead>
-            <tr>
-              <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
-              <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
-              <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
-              <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
-              <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
-              <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
-              <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
-              <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
-              <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
-              <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="file low" data-value="10xcards"><a href="10xcards/index.html">10xcards</a></td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="119" class="abs low">0/119</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="4" class="abs low">0/4</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="4" class="abs low">0/4</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="119" class="abs low">0/119</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/.astro">
-                <a href="10xcards/.astro/index.html">10xcards/.astro</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/client/_astro">
-                <a href="10xcards/dist/client/_astro/index.html">10xcards/dist/client/_astro</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="228" class="abs low">0/228</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="20" class="abs low">0/20</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="20" class="abs low">0/20</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="228" class="abs low">0/228</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server">
-                <a href="10xcards/dist/server/index.html">10xcards/dist/server</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="446" class="abs low">0/446</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="6" class="abs low">0/6</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="6" class="abs low">0/6</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="446" class="abs low">0/446</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server/chunks">
-                <a href="10xcards/dist/server/chunks/index.html">10xcards/dist/server/chunks</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="8128" class="abs low">0/8128</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="20" class="abs low">0/20</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="20" class="abs low">0/20</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="8128" class="abs low">0/8128</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server/chunks/astro">
-                <a href="10xcards/dist/server/chunks/astro/index.html">10xcards/dist/server/chunks/astro</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2641" class="abs low">0/2641</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2641" class="abs low">0/2641</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server/pages">
-                <a href="10xcards/dist/server/pages/index.html">10xcards/dist/server/pages</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1495" class="abs low">0/1495</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="8" class="abs low">0/8</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="8" class="abs low">0/8</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1495" class="abs low">0/1495</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server/pages/api">
-                <a href="10xcards/dist/server/pages/api/index.html">10xcards/dist/server/pages/api</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="103" class="abs low">0/103</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="103" class="abs low">0/103</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server/pages/api/auth">
-                <a href="10xcards/dist/server/pages/api/auth/index.html">10xcards/dist/server/pages/api/auth</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="133" class="abs low">0/133</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="133" class="abs low">0/133</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server/pages/api/flashcards">
-                <a href="10xcards/dist/server/pages/api/flashcards/index.html"
-                  >10xcards/dist/server/pages/api/flashcards</a
-                >
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="428" class="abs low">0/428</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="428" class="abs low">0/428</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/dist/server/pages/api/study">
-                <a href="10xcards/dist/server/pages/api/study/index.html">10xcards/dist/server/pages/api/study</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="76" class="abs low">0/76</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="2" class="abs low">0/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="76" class="abs low">0/76</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/e2e"><a href="10xcards/e2e/index.html">10xcards/e2e</a></td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="10" class="abs low">0/10</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="10" class="abs low">0/10</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/e2e/pages">
-                <a href="10xcards/e2e/pages/index.html">10xcards/e2e/pages</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="10" class="abs low">0/10</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="10" class="abs low">0/10</td>
-            </tr>
-
-            <tr>
-              <td class="file empty" data-value="10xcards/src"><a href="10xcards/src/index.html">10xcards/src</a></td>
-              <td data-value="0" class="pic empty">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct empty">0%</td>
-              <td data-value="0" class="abs empty">0/0</td>
-              <td data-value="0" class="pct empty">0%</td>
-              <td data-value="1" class="abs empty">1/1</td>
-              <td data-value="0" class="pct empty">0%</td>
-              <td data-value="1" class="abs empty">1/1</td>
-              <td data-value="0" class="pct empty">0%</td>
-              <td data-value="0" class="abs empty">0/0</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/components">
-                <a href="10xcards/src/components/index.html">10xcards/src/components</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="91" class="abs low">0/91</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="91" class="abs low">0/91</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/components/auth">
-                <a href="10xcards/src/components/auth/index.html">10xcards/src/components/auth</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="963" class="abs low">0/963</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="7" class="abs low">0/7</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="7" class="abs low">0/7</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="963" class="abs low">0/963</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/components/dashboard">
-                <a href="10xcards/src/components/dashboard/index.html">10xcards/src/components/dashboard</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="457" class="abs low">0/457</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="5" class="abs low">0/5</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="5" class="abs low">0/5</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="457" class="abs low">0/457</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/components/ui">
-                <a href="10xcards/src/components/ui/index.html">10xcards/src/components/ui</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="371" class="abs low">0/371</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="9" class="abs low">0/9</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="9" class="abs low">0/9</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="371" class="abs low">0/371</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/db">
-                <a href="10xcards/src/db/index.html">10xcards/src/db</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="44" class="abs low">0/44</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="44" class="abs low">0/44</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/layouts">
-                <a href="10xcards/src/layouts/index.html">10xcards/src/layouts</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="59" class="abs low">0/59</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="59" class="abs low">0/59</td>
-            </tr>
-
-            <tr>
-              <td class="file high" data-value="10xcards/src/lib">
-                <a href="10xcards/src/lib/index.html">10xcards/src/lib</a>
-              </td>
-              <td data-value="100" class="pic high">
-                <div class="chart">
-                  <div class="cover-fill cover-full" style="width: 100%"></div>
-                  <div class="cover-empty" style="width: 0%"></div>
-                </div>
-              </td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="77" class="abs high">77/77</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="19" class="abs high">19/19</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="5" class="abs high">5/5</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="77" class="abs high">77/77</td>
-            </tr>
-
-            <tr>
-              <td class="file high" data-value="10xcards/src/lib/errors">
-                <a href="10xcards/src/lib/errors/index.html">10xcards/src/lib/errors</a>
-              </td>
-              <td data-value="100" class="pic high">
-                <div class="chart">
-                  <div class="cover-fill cover-full" style="width: 100%"></div>
-                  <div class="cover-empty" style="width: 0%"></div>
-                </div>
-              </td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="10" class="abs high">10/10</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="10" class="abs high">10/10</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/lib/services">
-                <a href="10xcards/src/lib/services/index.html">10xcards/src/lib/services</a>
-              </td>
-              <td data-value="46.38" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 46%"></div>
-                  <div class="cover-empty" style="width: 54%"></div>
-                </div>
-              </td>
-              <td data-value="46.38" class="pct low">46.38%</td>
-              <td data-value="429" class="abs low">199/429</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="42" class="abs high">42/42</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="15" class="abs high">15/15</td>
-              <td data-value="46.38" class="pct low">46.38%</td>
-              <td data-value="429" class="abs low">199/429</td>
-            </tr>
-
-            <tr>
-              <td class="file high" data-value="10xcards/src/lib/utils">
-                <a href="10xcards/src/lib/utils/index.html">10xcards/src/lib/utils</a>
-              </td>
-              <td data-value="87.17" class="pic high">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 87%"></div>
-                  <div class="cover-empty" style="width: 13%"></div>
-                </div>
-              </td>
-              <td data-value="87.17" class="pct high">87.17%</td>
-              <td data-value="78" class="abs high">68/78</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="15" class="abs high">15/15</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="7" class="abs high">7/7</td>
-              <td data-value="87.17" class="pct high">87.17%</td>
-              <td data-value="78" class="abs high">68/78</td>
-            </tr>
-
-            <tr>
-              <td class="file high" data-value="10xcards/src/lib/validation">
-                <a href="10xcards/src/lib/validation/index.html">10xcards/src/lib/validation</a>
-              </td>
-              <td data-value="100" class="pic high">
-                <div class="chart">
-                  <div class="cover-fill cover-full" style="width: 100%"></div>
-                  <div class="cover-empty" style="width: 0%"></div>
-                </div>
-              </td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="50" class="abs high">50/50</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="0" class="abs high">0/0</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="0" class="abs high">0/0</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="50" class="abs high">50/50</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/middleware">
-                <a href="10xcards/src/middleware/index.html">10xcards/src/middleware</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="49" class="abs low">0/49</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="1" class="abs low">0/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="49" class="abs low">0/49</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/pages">
-                <a href="10xcards/src/pages/index.html">10xcards/src/pages</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="102" class="abs low">0/102</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="7" class="abs low">0/7</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="7" class="abs low">0/7</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="102" class="abs low">0/102</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/pages/api/auth">
-                <a href="10xcards/src/pages/api/auth/index.html">10xcards/src/pages/api/auth</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="119" class="abs low">0/119</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="119" class="abs low">0/119</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/pages/api/flashcards">
-                <a href="10xcards/src/pages/api/flashcards/index.html">10xcards/src/pages/api/flashcards</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="280" class="abs low">0/280</td>
-              <td data-value="66.66" class="pct medium">66.66%</td>
-              <td data-value="3" class="abs medium">2/3</td>
-              <td data-value="66.66" class="pct medium">66.66%</td>
-              <td data-value="3" class="abs medium">2/3</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="280" class="abs low">0/280</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/pages/api/generation-logs">
-                <a href="10xcards/src/pages/api/generation-logs/index.html">10xcards/src/pages/api/generation-logs</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="32" class="abs low">0/32</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="1" class="abs high">1/1</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="1" class="abs high">1/1</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="32" class="abs low">0/32</td>
-            </tr>
-
-            <tr>
-              <td class="file low" data-value="10xcards/src/pages/api/study">
-                <a href="10xcards/src/pages/api/study/index.html">10xcards/src/pages/api/study</a>
-              </td>
-              <td data-value="0" class="pic low">
-                <div class="chart">
-                  <div class="cover-fill" style="width: 0%"></div>
-                  <div class="cover-empty" style="width: 100%"></div>
-                </div>
-              </td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="64" class="abs low">0/64</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="100" class="pct high">100%</td>
-              <td data-value="2" class="abs high">2/2</td>
-              <td data-value="0" class="pct low">0%</td>
-              <td data-value="64" class="abs low">0/64</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="push"></div>
-      <!-- for sticky footer -->
     </div>
-    <!-- /wrapper -->
-    <div class="footer quiet pad2 space-top1 center small">
-      Code coverage generated by
-      <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-      at 2025-10-19T19:13:03.141Z
-    </div>
-    <script src="prettify.js"></script>
-    <script>
-      window.onload = function () {
-        prettyPrint();
-      };
-    </script>
-    <script src="sorter.js"></script>
-    <script src="block-navigation.js"></script>
-  </body>
+    <div class='status-line low'></div>
+    <div class="pad1">
+<table class="coverage-summary">
+<thead>
+<tr>
+   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
+   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
+   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
+   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
+   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
+   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
+   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
+   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
+</tr>
+</thead>
+<tbody><tr>
+	<td class="file low" data-value="10xcards"><a href="10xcards/index.html">10xcards</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="139" class="abs low">0/139</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="139" class="abs low">0/139</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/.astro"><a href="10xcards/.astro/index.html">10xcards/.astro</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/client/_astro"><a href="10xcards/dist/client/_astro/index.html">10xcards/dist/client/_astro</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="228" class="abs low">0/228</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="20" class="abs low">0/20</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="20" class="abs low">0/20</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="228" class="abs low">0/228</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server"><a href="10xcards/dist/server/index.html">10xcards/dist/server</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="446" class="abs low">0/446</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="6" class="abs low">0/6</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="6" class="abs low">0/6</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="446" class="abs low">0/446</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server/chunks"><a href="10xcards/dist/server/chunks/index.html">10xcards/dist/server/chunks</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="8128" class="abs low">0/8128</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="20" class="abs low">0/20</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="20" class="abs low">0/20</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="8128" class="abs low">0/8128</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server/chunks/astro"><a href="10xcards/dist/server/chunks/astro/index.html">10xcards/dist/server/chunks/astro</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2641" class="abs low">0/2641</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2641" class="abs low">0/2641</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server/pages"><a href="10xcards/dist/server/pages/index.html">10xcards/dist/server/pages</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1502" class="abs low">0/1502</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="8" class="abs low">0/8</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="8" class="abs low">0/8</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1502" class="abs low">0/1502</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server/pages/api"><a href="10xcards/dist/server/pages/api/index.html">10xcards/dist/server/pages/api</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="103" class="abs low">0/103</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="103" class="abs low">0/103</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server/pages/api/auth"><a href="10xcards/dist/server/pages/api/auth/index.html">10xcards/dist/server/pages/api/auth</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="133" class="abs low">0/133</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="133" class="abs low">0/133</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server/pages/api/flashcards"><a href="10xcards/dist/server/pages/api/flashcards/index.html">10xcards/dist/server/pages/api/flashcards</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="428" class="abs low">0/428</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="428" class="abs low">0/428</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/dist/server/pages/api/study"><a href="10xcards/dist/server/pages/api/study/index.html">10xcards/dist/server/pages/api/study</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="76" class="abs low">0/76</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="2" class="abs low">0/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="76" class="abs low">0/76</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/e2e"><a href="10xcards/e2e/index.html">10xcards/e2e</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="347" class="abs low">0/347</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="347" class="abs low">0/347</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/e2e/helpers"><a href="10xcards/e2e/helpers/index.html">10xcards/e2e/helpers</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="177" class="abs low">0/177</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="3" class="abs high">3/3</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="3" class="abs high">3/3</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="177" class="abs low">0/177</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/e2e/pages"><a href="10xcards/e2e/pages/index.html">10xcards/e2e/pages</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="255" class="abs low">0/255</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="4" class="abs low">0/4</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="255" class="abs low">0/255</td>
+	</tr>
+
+<tr>
+	<td class="file empty" data-value="10xcards/src"><a href="10xcards/src/index.html">10xcards/src</a></td>
+	<td data-value="0" class="pic empty">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="0" class="abs empty">0/0</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="1" class="abs empty">1/1</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="1" class="abs empty">1/1</td>
+	<td data-value="0" class="pct empty">0%</td>
+	<td data-value="0" class="abs empty">0/0</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/components"><a href="10xcards/src/components/index.html">10xcards/src/components</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="91" class="abs low">0/91</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="91" class="abs low">0/91</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/components/auth"><a href="10xcards/src/components/auth/index.html">10xcards/src/components/auth</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="908" class="abs low">0/908</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="7" class="abs low">0/7</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="7" class="abs low">0/7</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="908" class="abs low">0/908</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/components/dashboard"><a href="10xcards/src/components/dashboard/index.html">10xcards/src/components/dashboard</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="467" class="abs low">0/467</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="5" class="abs low">0/5</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="5" class="abs low">0/5</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="467" class="abs low">0/467</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/components/ui"><a href="10xcards/src/components/ui/index.html">10xcards/src/components/ui</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="295" class="abs low">0/295</td>
+	<td data-value="11.11" class="pct low">11.11%</td>
+	<td data-value="9" class="abs low">1/9</td>
+	<td data-value="11.11" class="pct low">11.11%</td>
+	<td data-value="9" class="abs low">1/9</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="295" class="abs low">0/295</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/db"><a href="10xcards/src/db/index.html">10xcards/src/db</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="44" class="abs low">0/44</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="44" class="abs low">0/44</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/layouts"><a href="10xcards/src/layouts/index.html">10xcards/src/layouts</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="59" class="abs low">0/59</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="59" class="abs low">0/59</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="10xcards/src/lib"><a href="10xcards/src/lib/index.html">10xcards/src/lib</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
+	</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="77" class="abs high">77/77</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="19" class="abs high">19/19</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="5" class="abs high">5/5</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="77" class="abs high">77/77</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="10xcards/src/lib/errors"><a href="10xcards/src/lib/errors/index.html">10xcards/src/lib/errors</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
+	</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="10" class="abs high">10/10</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="10" class="abs high">10/10</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="10xcards/src/lib/services"><a href="10xcards/src/lib/services/index.html">10xcards/src/lib/services</a></td>
+	<td data-value="98.08" class="pic high">
+	<div class="chart"><div class="cover-fill" style="width: 98%"></div><div class="cover-empty" style="width: 2%"></div></div>
+	</td>
+	<td data-value="98.08" class="pct high">98.08%</td>
+	<td data-value="417" class="abs high">409/417</td>
+	<td data-value="88.37" class="pct high">88.37%</td>
+	<td data-value="86" class="abs high">76/86</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="24" class="abs high">24/24</td>
+	<td data-value="98.08" class="pct high">98.08%</td>
+	<td data-value="417" class="abs high">409/417</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="10xcards/src/lib/utils"><a href="10xcards/src/lib/utils/index.html">10xcards/src/lib/utils</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
+	</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="78" class="abs high">78/78</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="18" class="abs high">18/18</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="7" class="abs high">7/7</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="78" class="abs high">78/78</td>
+	</tr>
+
+<tr>
+	<td class="file high" data-value="10xcards/src/lib/validation"><a href="10xcards/src/lib/validation/index.html">10xcards/src/lib/validation</a></td>
+	<td data-value="100" class="pic high">
+	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
+	</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="50" class="abs high">50/50</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">0/0</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="0" class="abs high">0/0</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="50" class="abs high">50/50</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/middleware"><a href="10xcards/src/middleware/index.html">10xcards/src/middleware</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="55" class="abs low">0/55</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="1" class="abs low">0/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="55" class="abs low">0/55</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/pages"><a href="10xcards/src/pages/index.html">10xcards/src/pages</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="100" class="abs low">0/100</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="7" class="abs low">0/7</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="7" class="abs low">0/7</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="100" class="abs low">0/100</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/pages/api/auth"><a href="10xcards/src/pages/api/auth/index.html">10xcards/src/pages/api/auth</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="119" class="abs low">0/119</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="119" class="abs low">0/119</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/pages/api/flashcards"><a href="10xcards/src/pages/api/flashcards/index.html">10xcards/src/pages/api/flashcards</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="280" class="abs low">0/280</td>
+	<td data-value="66.66" class="pct medium">66.66%</td>
+	<td data-value="3" class="abs medium">2/3</td>
+	<td data-value="66.66" class="pct medium">66.66%</td>
+	<td data-value="3" class="abs medium">2/3</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="280" class="abs low">0/280</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/pages/api/generation-logs"><a href="10xcards/src/pages/api/generation-logs/index.html">10xcards/src/pages/api/generation-logs</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="32" class="abs low">0/32</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="1" class="abs high">1/1</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="1" class="abs high">1/1</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="32" class="abs low">0/32</td>
+	</tr>
+
+<tr>
+	<td class="file low" data-value="10xcards/src/pages/api/study"><a href="10xcards/src/pages/api/study/index.html">10xcards/src/pages/api/study</a></td>
+	<td data-value="0" class="pic low">
+	<div class="chart"><div class="cover-fill" style="width: 0%"></div><div class="cover-empty" style="width: 100%"></div></div>
+	</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="64" class="abs low">0/64</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="100" class="pct high">100%</td>
+	<td data-value="2" class="abs high">2/2</td>
+	<td data-value="0" class="pct low">0%</td>
+	<td data-value="64" class="abs low">0/64</td>
+	</tr>
+
+</tbody>
+</table>
+</div>
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2026-01-31T21:16:46.693Z
+            </div>
+        <script src="prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="sorter.js"></script>
+        <script src="block-navigation.js"></script>
+    </body>
 </html>
+    
