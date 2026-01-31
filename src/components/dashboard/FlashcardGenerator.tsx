@@ -26,7 +26,9 @@ export default function FlashcardGenerator({ isLoading, onSubmit }: FlashcardGen
 
   return (
     <div className="space-y-4" data-testid="flashcard-generator">
-      <h1 className="text-3xl font-bold" data-testid="generator-heading">Generator Fiszki</h1>
+      <h1 className="text-3xl font-bold" data-testid="generator-heading">
+        Generator Fiszki
+      </h1>
       <p className="text-muted-foreground">
         Wklej tekst (od {MIN_LENGTH} do {MAX_LENGTH} znaków), aby wygenerować fiszki przy użyciu AI.
       </p>

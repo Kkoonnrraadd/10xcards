@@ -20,11 +20,15 @@ export default function ReviewCard({ candidate, onAccept, onEdit, onReject }: Re
       <CardContent className="space-y-4">
         <div>
           <p className="text-sm font-medium text-muted-foreground">Przód</p>
-          <p className="font-semibold text-lg" data-testid="card-front">{candidate.front}</p>
+          <p className="font-semibold text-lg" data-testid="card-front">
+            {candidate.front}
+          </p>
         </div>
         <div>
           <p className="text-sm font-medium text-muted-foreground">Tył</p>
-          <p className="text-base" data-testid="card-back">{candidate.back}</p>
+          <p className="text-base" data-testid="card-back">
+            {candidate.back}
+          </p>
         </div>
       </CardContent>
       <CardFooter className="flex justify-end space-x-2 bg-muted/50 p-4 rounded-b-lg">

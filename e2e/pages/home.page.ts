@@ -1,4 +1,4 @@
-import { type Page, type Locator, expect } from '@playwright/test';
+import { type Page, type Locator, expect } from "@playwright/test";
 
 /**
  * Page Object Model for the Home page
@@ -15,7 +15,7 @@ export class HomePage {
    * Navigate to the home page
    */
   async goto() {
-    await this.page.goto('/');
+    await this.page.goto("/");
   }
 
   /**
@@ -29,15 +29,13 @@ export class HomePage {
    * Navigate to login page from home
    */
   async goToLogin() {
-    await this.page.goto('/login');
+    await this.page.goto("/login");
   }
 
   /**
    * Navigate to register page from home
    */
   async goToRegister() {
-    await this.page.goto('/register');
+    await this.page.goto("/register");
   }
 }
-
-

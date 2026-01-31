@@ -56,15 +56,13 @@ export default function EditCardDialog({
       onSaveAndAccept({ front, back });
     }
   };
-  
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Edytuj propozycję fiszki</DialogTitle>
-          <DialogDescription>
-            Wprowadź zmiany w treści fiszki i zapisz, aby ją zaakceptować.
-          </DialogDescription>
+          <DialogDescription>Wprowadź zmiany w treści fiszki i zapisz, aby ją zaakceptować.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -88,20 +86,22 @@ export default function EditCardDialog({
               Tył
             </label>
             <div className="col-span-3">
-                <Textarea
-                    id="back"
-                    value={back}
-                    onChange={(e) => setBack(e.target.value)}
-                    className={!isBackValid && back.length > 0 ? "border-red-500" : ""}
-                />
-                 <p className="text-xs text-muted-foreground mt-1 text-right">
-                    {back.length}/{MAX_BACK_LENGTH}
-                </p>
+              <Textarea
+                id="back"
+                value={back}
+                onChange={(e) => setBack(e.target.value)}
+                className={!isBackValid && back.length > 0 ? "border-red-500" : ""}
+              />
+              <p className="text-xs text-muted-foreground mt-1 text-right">
+                {back.length}/{MAX_BACK_LENGTH}
+              </p>
             </div>
           </div>
         </div>
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={onClose}>Anuluj</Button>
+          <Button type="button" variant="outline" onClick={onClose}>
+            Anuluj
+          </Button>
           <Button type="button" variant="secondary" onClick={handleSave} disabled={!isFormValid}>
             Zapisz
           </Button>

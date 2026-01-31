@@ -1,4 +1,4 @@
-import { type Page, type Locator, expect } from '@playwright/test';
+import { type Page, type Locator, expect } from "@playwright/test";
 
 /**
  * Page Object Model for the Register page
@@ -21,24 +21,24 @@ export class RegisterPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.registerForm = page.getByTestId('register-form');
-    this.emailInput = page.getByTestId('register-email-input');
-    this.passwordInput = page.getByTestId('register-password-input');
-    this.confirmPasswordInput = page.getByTestId('register-confirm-password-input');
-    this.submitButton = page.getByTestId('register-submit-button');
-    this.errorAlert = page.getByTestId('register-error-alert');
-    this.successMessage = page.getByTestId('register-success-message');
-    this.successAlert = page.getByTestId('register-success-alert');
-    this.loginLink = page.getByTestId('login-link');
-    this.heading = page.getByTestId('register-heading');
-    this.passwordRequirements = page.getByTestId('password-requirements');
+    this.registerForm = page.getByTestId("register-form");
+    this.emailInput = page.getByTestId("register-email-input");
+    this.passwordInput = page.getByTestId("register-password-input");
+    this.confirmPasswordInput = page.getByTestId("register-confirm-password-input");
+    this.submitButton = page.getByTestId("register-submit-button");
+    this.errorAlert = page.getByTestId("register-error-alert");
+    this.successMessage = page.getByTestId("register-success-message");
+    this.successAlert = page.getByTestId("register-success-alert");
+    this.loginLink = page.getByTestId("login-link");
+    this.heading = page.getByTestId("register-heading");
+    this.passwordRequirements = page.getByTestId("password-requirements");
   }
 
   /**
    * Navigate to the register page
    */
   async goto() {
-    await this.page.goto('/register');
+    await this.page.goto("/register");
   }
 
   /**
@@ -46,7 +46,7 @@ export class RegisterPage {
    */
   async assertLoaded() {
     await expect(this.heading).toBeVisible();
-    await expect(this.heading).toHaveText('Utwórz konto');
+    await expect(this.heading).toHaveText("Utwórz konto");
     await expect(this.registerForm).toBeVisible();
   }
 
@@ -117,4 +117,3 @@ export class RegisterPage {
     await this.loginLink.click();
   }
 }
-

@@ -13,10 +13,12 @@ Zaimplementowałem kompletny system testów E2E dla projektu 10xCards z użyciem
 Dodano selektory testowe do wszystkich kluczowych komponentów:
 
 #### Komponenty Auth:
+
 - ✅ `LoginForm.tsx` - formularz logowania
 - ✅ `RegisterForm.tsx` - formularz rejestracji
 
 #### Komponenty Dashboard:
+
 - ✅ `FlashcardGenerator.tsx` - generator fiszek
 - ✅ `FlashcardReviewer.tsx` - przeglądarka propozycji
 - ✅ `ReviewCard.tsx` - pojedyncza karta do recenzji
@@ -34,6 +36,7 @@ e2e/pages/
 ```
 
 Każdy Page Object zawiera:
+
 - Lokatory elementów
 - Metody interakcji (np. `login()`, `register()`)
 - Metody asercji (np. `assertLoaded()`)
@@ -43,6 +46,7 @@ Każdy Page Object zawiera:
 Utworzono kompleksowe zestawy testów:
 
 #### `e2e/auth.spec.ts` - Testy autentykacji
+
 - ✅ Wyświetlanie strony logowania
 - ✅ Obsługa błędnych danych logowania
 - ✅ Nawigacja między stronami auth
@@ -52,6 +56,7 @@ Utworzono kompleksowe zestawy testów:
 - ✅ Włączanie/wyłączanie przycisku submit
 
 #### `e2e/flashcards.spec.ts` - Testy fiszek
+
 - ✅ Wyświetlanie generatora
 - ✅ Licznik znaków
 - ✅ Walidacja długości tekstu
@@ -61,28 +66,33 @@ Utworzono kompleksowe zestawy testów:
 - ✅ Edycja fiszek
 
 #### `e2e/example.spec.ts` - Przykłady do nauki
+
 - ✅ Proste testy bez autentykacji
 - ✅ Testy nawigacji
 - ✅ Testy walidacji formularzy
 - ✅ Visual regression tests
 
 #### `e2e/home.spec.ts` - Test strony głównej
+
 - ✅ Ładowanie strony głównej
 
 ### 4. **Funkcje pomocnicze** ✅
 
 #### `e2e/helpers/test-data.ts`
+
 - Przykładowe dane testowe
 - Generatory unikalnych emaili
 - Stałe walidacji
 - Komunikaty błędów
 
 #### `e2e/helpers/auth-helpers.ts`
+
 - Funkcje logowania
 - Funkcje rejestracji
 - Zarządzanie sesją
 
 #### `e2e/helpers/assertions.ts`
+
 - Własne asercje
 - Funkcje sprawdzające stan UI
 - Pomocniki do testowania
@@ -90,6 +100,7 @@ Utworzono kompleksowe zestawy testów:
 ### 5. **Dokumentacja** ✅
 
 #### `e2e/README.md` - Główna dokumentacja (kompleksowa)
+
 - 📖 Wprowadzenie do testów E2E
 - 🏗️ Architektura testów
 - 🎨 Konwencje nazewnictwa
@@ -101,6 +112,7 @@ Utworzono kompleksowe zestawy testów:
 - 🎓 Najlepsze praktyki
 
 #### `e2e/QUICK_START.md` - Szybki start (5 minut)
+
 - 🚀 Pierwsze kroki
 - 📋 Podstawowe komendy
 - ✍️ Twój pierwszy test
@@ -108,6 +120,7 @@ Utworzono kompleksowe zestawy testów:
 - ❓ FAQ
 
 #### `e2e/ADVANCED_TECHNIQUES.md` - Zaawansowane techniki
+
 - 🔐 Testowanie z autentykacją
 - 🎭 Mockowanie API
 - 💾 Testowanie z bazą danych
@@ -124,9 +137,11 @@ Utworzono kompleksowe zestawy testów:
 ### Proces testowania E2E w 4 krokach:
 
 #### 1️⃣ **Identyfikacja komponentów**
+
 Zidentyfikowaliśmy kluczowe komponenty i strony w aplikacji.
 
 #### 2️⃣ **Dodanie selektorów `data-testid`**
+
 Dodaliśmy selektory wewnątrz komponentów (nie na zewnątrz!):
 
 ```tsx
@@ -135,16 +150,17 @@ Dodaliśmy selektory wewnątrz komponentów (nie na zewnątrz!):
 ```
 
 #### 3️⃣ **Budowa Page Object Models**
+
 Utworzyliśmy klasy enkapsulujące interakcje ze stronami:
 
 ```typescript
 export class LoginPage {
   readonly emailInput: Locator;
-  
+
   constructor(page: Page) {
-    this.emailInput = page.getByTestId('login-email-input');
+    this.emailInput = page.getByTestId("login-email-input");
   }
-  
+
   async login(email: string, password: string) {
     await this.emailInput.fill(email);
     // ...
@@ -153,14 +169,15 @@ export class LoginPage {
 ```
 
 #### 4️⃣ **Napisanie testów**
+
 Utworzyliśmy testy używając Page Objects:
 
 ```typescript
-test('should login', async ({ page }) => {
+test("should login", async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
-  await loginPage.login('user@test.com', 'pass123');
-  await expect(page).toHaveURL('/dashboard');
+  await loginPage.login("user@test.com", "pass123");
+  await expect(page).toHaveURL("/dashboard");
 });
 ```
 
@@ -202,11 +219,13 @@ npx playwright test --grep @smoke
 ## 📚 Dokumentacja
 
 ### Dla początkujących:
+
 1. **START TUTAJ:** `e2e/QUICK_START.md` - 5 minut do pierwszego testu
 2. Przeczytaj: `e2e/README.md` - pełna dokumentacja
 3. Zobacz: `e2e/example.spec.ts` - działające przykłady
 
 ### Dla zaawansowanych:
+
 1. `e2e/ADVANCED_TECHNIQUES.md` - zaawansowane techniki
 2. `e2e/helpers/` - funkcje pomocnicze do wykorzystania
 3. [Dokumentacja Playwright](https://playwright.dev/)
@@ -217,14 +236,14 @@ npx playwright test --grep @smoke
 
 ### Selektory `data-testid`:
 
-| Typ elementu | Konwencja | Przykład |
-|--------------|-----------|----------|
-| Formularz | `{nazwa}-form` | `login-form` |
-| Input | `{nazwa}-{typ}-input` | `login-email-input` |
-| Przycisk | `{akcja}-button` | `submit-button` |
-| Link | `{cel}-link` | `register-link` |
-| Alert | `{typ}-alert` | `error-alert` |
-| Kontener | `{nazwa}-{typ}` | `flashcard-generator` |
+| Typ elementu | Konwencja             | Przykład              |
+| ------------ | --------------------- | --------------------- |
+| Formularz    | `{nazwa}-form`        | `login-form`          |
+| Input        | `{nazwa}-{typ}-input` | `login-email-input`   |
+| Przycisk     | `{akcja}-button`      | `submit-button`       |
+| Link         | `{cel}-link`          | `register-link`       |
+| Alert        | `{typ}-alert`         | `error-alert`         |
+| Kontener     | `{nazwa}-{typ}`       | `flashcard-generator` |
 
 ---
 
@@ -233,6 +252,7 @@ npx playwright test --grep @smoke
 ### ✅ Już zaimplementowane:
 
 #### Autentykacja:
+
 - [x] Wyświetlanie formularzy
 - [x] Walidacja pól
 - [x] Obsługa błędów
@@ -240,6 +260,7 @@ npx playwright test --grep @smoke
 - [x] Wymagania hasła
 
 #### Fiszki:
+
 - [x] Generator UI
 - [x] Walidacja długości tekstu
 - [x] Licznik znaków
@@ -260,26 +281,31 @@ npx playwright test --grep @smoke
 ## 🎓 Najważniejsze zasady
 
 ### 1. **Używaj Page Object Models**
+
 ✅ Enkapsuluj interakcje w klasach  
 ✅ Jeden Page Object = jedna strona  
 ✅ Metody powinny być semantyczne
 
 ### 2. **Dodawaj `data-testid` wewnątrz komponentów**
+
 ✅ W pliku komponentu, nie na zewnątrz  
 ✅ Używaj spójnej konwencji nazewnictwa  
 ✅ Dodawaj do elementów interaktywnych
 
 ### 3. **Pisz testy według wzorca AAA**
+
 ✅ **Arrange** - przygotuj stan  
 ✅ **Act** - wykonaj akcję  
 ✅ **Assert** - sprawdź rezultat
 
 ### 4. **Izoluj testy**
+
 ✅ Każdy test niezależny  
 ✅ Własny setup w beforeEach  
 ✅ Cleanup w afterEach
 
 ### 5. **Używaj auto-waiting Playwright**
+
 ✅ `await expect(element).toBeVisible()`  
 ❌ Unikaj `waitForTimeout()`
 
@@ -307,10 +333,10 @@ npx playwright show-trace trace.zip
 await page.pause();
 
 // Zrób screenshot
-await page.screenshot({ path: 'debug.png' });
+await page.screenshot({ path: "debug.png" });
 
 // Pokaż console.log z przeglądarki
-page.on('console', msg => console.log(msg.text()));
+page.on("console", (msg) => console.log(msg.text()));
 ```
 
 ---
@@ -382,12 +408,14 @@ page.on('console', msg => console.log(msg.text()));
 ### Kiedy pisać testy E2E?
 
 ✅ **Pisz testy dla:**
+
 - Kluczowych przepływów użytkownika (happy paths)
 - Krytycznych funkcji biznesowych
 - Scenariuszy, które często się psują
 - Integracji między komponentami
 
 ❌ **NIE pisz testów dla:**
+
 - Szczegółów implementacji
 - Stylowania CSS
 - Logiki, którą można przetestować jednostkowo
@@ -404,6 +432,7 @@ page.on('console', msg => console.log(msg.text()));
 ## 🎉 Gratulacje!
 
 Masz teraz:
+
 - ✅ Kompletny system testów E2E
 - ✅ Page Object Models
 - ✅ Funkcje pomocnicze
@@ -424,7 +453,6 @@ Masz teraz:
 
 ---
 
-*Dokument wygenerowany: $(date)*  
-*Projekt: 10xCards*  
-*Framework: Playwright*
-
+_Dokument wygenerowany: $(date)_  
+_Projekt: 10xCards_  
+_Framework: Playwright_

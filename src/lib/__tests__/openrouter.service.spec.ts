@@ -22,18 +22,19 @@ describe("OpenRouterService", () => {
     (global.fetch as any).mockResolvedValue({
       ok: true,
       json: async () => ({
-        choices: [
-          { message: { content: JSON.stringify({ flashcards: [{ front: "Q", back: "A" }] }) } },
-        ],
+        choices: [{ message: { content: JSON.stringify({ flashcards: [{ front: "Q", back: "A" }] }) } }],
       }),
     });
 
     const svc = new OpenRouterService("test-key");
 
-    const result = await svc.generateChatCompletion<{ flashcards: Array<{ front: string; back: string }> }>({
+    const result = await svc.generateChatCompletion<{ flashcards: { front: string; back: string }[] }>({
       model: "m",
       messages: [],
-      response_format: { type: "json_schema", json_schema: { name: "flashcards", strict: true, schema: { type: "object" } } },
+      response_format: {
+        type: "json_schema",
+        json_schema: { name: "flashcards", strict: true, schema: { type: "object" } },
+      },
     });
 
     expect(result).toEqual({ flashcards: [{ front: "Q", back: "A" }] });
@@ -67,18 +68,18 @@ describe("OpenRouterService", () => {
   });
 });
 
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { OpenRouterService } from '../openrouter.service';
-import { OpenRouterError } from '../errors/OpenRouterError';
-import type { ChatCompletionOptions } from '@/types';
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { OpenRouterService } from "../openrouter.service";
+import { OpenRouterError } from "../errors/OpenRouterError";
+import type { ChatCompletionOptions } from "@/types";
 
 // Mock global fetch
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
-describe('OpenRouterService', () => {
-  const validApiKey = 'sk-or-test-key-123';
-  const apiBaseUrl = 'https://openrouter.ai/api/v1';
+describe("OpenRouterService", () => {
+  const validApiKey = "sk-or-test-key-123";
+  const apiBaseUrl = "https://openrouter.ai/api/v1";
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -92,70 +93,70 @@ describe('OpenRouterService', () => {
     vi.restoreAllMocks();
   });
 
-  describe('constructor', () => {
-    it('initializes with provided API key', () => {
+  describe("constructor", () => {
+    it("initializes with provided API key", () => {
       const service = new OpenRouterService(validApiKey);
       expect(service).toBeInstanceOf(OpenRouterService);
     });
 
-    it('uses API key from environment when not provided', () => {
-      process.env.OPENROUTER_API_KEY = 'env-key-123';
+    it("uses API key from environment when not provided", () => {
+      process.env.OPENROUTER_API_KEY = "env-key-123";
       const service = new OpenRouterService();
       expect(service).toBeInstanceOf(OpenRouterService);
     });
 
-    it('throws error when API key is missing', () => {
+    it("throws error when API key is missing", () => {
       expect(() => new OpenRouterService()).toThrow(
-        'OPENROUTER_API_KEY is required. Pass it as constructor parameter or set in environment.'
+        "OPENROUTER_API_KEY is required. Pass it as constructor parameter or set in environment."
       );
     });
 
-    it('uses custom site URL when provided', () => {
-      const service = new OpenRouterService(validApiKey, 'https://custom-site.com');
+    it("uses custom site URL when provided", () => {
+      const service = new OpenRouterService(validApiKey, "https://custom-site.com");
       expect(service).toBeInstanceOf(OpenRouterService);
     });
 
-    it('uses site URL from environment as fallback', () => {
-      process.env.SITE_URL = 'https://env-site.com';
+    it("uses site URL from environment as fallback", () => {
+      process.env.SITE_URL = "https://env-site.com";
       const service = new OpenRouterService(validApiKey);
       expect(service).toBeInstanceOf(OpenRouterService);
     });
 
-    it('uses default site URL when not provided', () => {
+    it("uses default site URL when not provided", () => {
       const service = new OpenRouterService(validApiKey);
       expect(service).toBeInstanceOf(OpenRouterService);
     });
 
-    it('uses custom app name when provided', () => {
-      const service = new OpenRouterService(validApiKey, undefined, 'CustomApp');
+    it("uses custom app name when provided", () => {
+      const service = new OpenRouterService(validApiKey, undefined, "CustomApp");
       expect(service).toBeInstanceOf(OpenRouterService);
     });
 
-    it('uses app name from environment as fallback', () => {
-      process.env.APP_NAME = 'EnvApp';
+    it("uses app name from environment as fallback", () => {
+      process.env.APP_NAME = "EnvApp";
       const service = new OpenRouterService(validApiKey);
       expect(service).toBeInstanceOf(OpenRouterService);
     });
 
-    it('uses default app name when not provided', () => {
+    it("uses default app name when not provided", () => {
       const service = new OpenRouterService(validApiKey);
       expect(service).toBeInstanceOf(OpenRouterService);
     });
   });
 
-  describe('generateChatCompletion', () => {
+  describe("generateChatCompletion", () => {
     let service: OpenRouterService;
 
     beforeEach(() => {
-      service = new OpenRouterService(validApiKey, 'https://test-site.com', 'TestApp');
+      service = new OpenRouterService(validApiKey, "https://test-site.com", "TestApp");
     });
 
-    it('successfully generates chat completion', async () => {
+    it("successfully generates chat completion", async () => {
       const mockResponse = {
         choices: [
           {
             message: {
-              content: 'Test response',
+              content: "Test response",
             },
           },
         ],
@@ -167,29 +168,29 @@ describe('OpenRouterService', () => {
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Hello' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Hello" }],
       };
 
       const result = await service.generateChatCompletion<string>(options);
 
-      expect(result).toBe('Test response');
+      expect(result).toBe("Test response");
       expect(mockFetch).toHaveBeenCalledWith(
         `${apiBaseUrl}/chat/completions`,
         expect.objectContaining({
-          method: 'POST',
+          method: "POST",
           headers: expect.objectContaining({
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${validApiKey}`,
-            'HTTP-Referer': 'https://test-site.com',
-            'X-Title': 'TestApp',
+            "HTTP-Referer": "https://test-site.com",
+            "X-Title": "TestApp",
           }),
         })
       );
     });
 
-    it('parses JSON response when json_schema format is specified', async () => {
-      const mockJsonContent = { flashcards: [{ front: 'Q', back: 'A' }] };
+    it("parses JSON response when json_schema format is specified", async () => {
+      const mockJsonContent = { flashcards: [{ front: "Q", back: "A" }] };
       const mockResponse = {
         choices: [
           {
@@ -206,15 +207,15 @@ describe('OpenRouterService', () => {
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Generate flashcards' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Generate flashcards" }],
         response_format: {
-          type: 'json_schema',
+          type: "json_schema",
           json_schema: {
-            name: 'flashcards',
+            name: "flashcards",
             strict: true,
             schema: {
-              type: 'object',
+              type: "object",
               properties: {},
             },
           },
@@ -226,12 +227,12 @@ describe('OpenRouterService', () => {
       expect(result).toEqual(mockJsonContent);
     });
 
-    it('returns raw content when json_schema format is not specified', async () => {
+    it("returns raw content when json_schema format is not specified", async () => {
       const mockResponse = {
         choices: [
           {
             message: {
-              content: 'Plain text response',
+              content: "Plain text response",
             },
           },
         ],
@@ -243,26 +244,26 @@ describe('OpenRouterService', () => {
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Hello' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Hello" }],
       };
 
       const result = await service.generateChatCompletion<string>(options);
 
-      expect(result).toBe('Plain text response');
+      expect(result).toBe("Plain text response");
     });
 
-    it('includes all optional parameters in request', async () => {
+    it("includes all optional parameters in request", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => ({
-          choices: [{ message: { content: 'Response' } }],
+          choices: [{ message: { content: "Response" } }],
         }),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
         temperature: 0.7,
         max_tokens: 1000,
         top_p: 0.9,
@@ -274,56 +275,56 @@ describe('OpenRouterService', () => {
       const requestBody = JSON.parse(fetchCall[1].body);
 
       expect(requestBody).toMatchObject({
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
         temperature: 0.7,
         max_tokens: 1000,
         top_p: 0.9,
       });
     });
 
-    it('throws OpenRouterError on HTTP error', async () => {
+    it("throws OpenRouterError on HTTP error", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 500,
-        statusText: 'Internal Server Error',
-        json: async () => ({ error: 'Server error details' }),
+        statusText: "Internal Server Error",
+        json: async () => ({ error: "Server error details" }),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       await expect(service.generateChatCompletion(options)).rejects.toThrow(OpenRouterError);
       await expect(service.generateChatCompletion(options)).rejects.toThrow(
-        'API request failed with status 500: Internal Server Error'
+        "API request failed with status 500: Internal Server Error"
       );
     });
 
-    it('includes error details in OpenRouterError', async () => {
+    it("includes error details in OpenRouterError", async () => {
       const errorDetails = {
         error: {
-          code: 'rate_limit_exceeded',
-          message: 'Too many requests',
+          code: "rate_limit_exceeded",
+          message: "Too many requests",
         },
       };
 
       mockFetch.mockResolvedValue({
         ok: false,
         status: 429,
-        statusText: 'Too Many Requests',
+        statusText: "Too Many Requests",
         json: async () => errorDetails,
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       try {
         await service.generateChatCompletion(options);
-        expect.fail('Should have thrown OpenRouterError');
+        expect.fail("Should have thrown OpenRouterError");
       } catch (error) {
         expect(error).toBeInstanceOf(OpenRouterError);
         if (error instanceof OpenRouterError) {
@@ -333,24 +334,24 @@ describe('OpenRouterService', () => {
       }
     });
 
-    it('handles malformed error response gracefully', async () => {
+    it("handles malformed error response gracefully", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 500,
-        statusText: 'Internal Server Error',
+        statusText: "Internal Server Error",
         json: async () => {
-          throw new Error('Invalid JSON');
+          throw new Error("Invalid JSON");
         },
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       try {
         await service.generateChatCompletion(options);
-        expect.fail('Should have thrown OpenRouterError');
+        expect.fail("Should have thrown OpenRouterError");
       } catch (error) {
         expect(error).toBeInstanceOf(OpenRouterError);
         if (error instanceof OpenRouterError) {
@@ -359,22 +360,22 @@ describe('OpenRouterService', () => {
       }
     });
 
-    it('handles 401 Unauthorized error', async () => {
+    it("handles 401 Unauthorized error", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 401,
-        statusText: 'Unauthorized',
-        json: async () => ({ error: 'Invalid API key' }),
+        statusText: "Unauthorized",
+        json: async () => ({ error: "Invalid API key" }),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       try {
         await service.generateChatCompletion(options);
-        expect.fail('Should have thrown');
+        expect.fail("Should have thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(OpenRouterError);
         if (error instanceof OpenRouterError) {
@@ -383,22 +384,22 @@ describe('OpenRouterService', () => {
       }
     });
 
-    it('handles 429 Rate Limit error', async () => {
+    it("handles 429 Rate Limit error", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 429,
-        statusText: 'Too Many Requests',
-        json: async () => ({ error: 'Rate limit exceeded' }),
+        statusText: "Too Many Requests",
+        json: async () => ({ error: "Rate limit exceeded" }),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       try {
         await service.generateChatCompletion(options);
-        expect.fail('Should have thrown');
+        expect.fail("Should have thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(OpenRouterError);
         if (error instanceof OpenRouterError) {
@@ -407,22 +408,22 @@ describe('OpenRouterService', () => {
       }
     });
 
-    it('handles 503 Service Unavailable error', async () => {
+    it("handles 503 Service Unavailable error", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 503,
-        statusText: 'Service Unavailable',
-        json: async () => ({ error: 'Service temporarily unavailable' }),
+        statusText: "Service Unavailable",
+        json: async () => ({ error: "Service temporarily unavailable" }),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       try {
         await service.generateChatCompletion(options);
-        expect.fail('Should have thrown');
+        expect.fail("Should have thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(OpenRouterError);
         if (error instanceof OpenRouterError) {
@@ -431,17 +432,17 @@ describe('OpenRouterService', () => {
       }
     });
 
-    it('sends correct headers with API key', async () => {
+    it("sends correct headers with API key", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => ({
-          choices: [{ message: { content: 'Response' } }],
+          choices: [{ message: { content: "Response" } }],
         }),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       await service.generateChatCompletion(options);
@@ -449,27 +450,27 @@ describe('OpenRouterService', () => {
       const fetchCall = mockFetch.mock.calls[0];
       const headers = fetchCall[1].headers;
 
-      expect(headers['Authorization']).toBe(`Bearer ${validApiKey}`);
-      expect(headers['Content-Type']).toBe('application/json');
-      expect(headers['HTTP-Referer']).toBe('https://test-site.com');
-      expect(headers['X-Title']).toBe('TestApp');
+      expect(headers["Authorization"]).toBe(`Bearer ${validApiKey}`);
+      expect(headers["Content-Type"]).toBe("application/json");
+      expect(headers["HTTP-Referer"]).toBe("https://test-site.com");
+      expect(headers["X-Title"]).toBe("TestApp");
     });
 
-    it('handles multiple messages in conversation', async () => {
+    it("handles multiple messages in conversation", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => ({
-          choices: [{ message: { content: 'Response' } }],
+          choices: [{ message: { content: "Response" } }],
         }),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
+        model: "openai/gpt-4o-mini",
         messages: [
-          { role: 'system', content: 'You are a helpful assistant' },
-          { role: 'user', content: 'Hello' },
-          { role: 'assistant', content: 'Hi there!' },
-          { role: 'user', content: 'How are you?' },
+          { role: "system", content: "You are a helpful assistant" },
+          { role: "user", content: "Hello" },
+          { role: "assistant", content: "Hi there!" },
+          { role: "user", content: "How are you?" },
         ],
       };
 
@@ -482,19 +483,19 @@ describe('OpenRouterService', () => {
       expect(requestBody.messages).toEqual(options.messages);
     });
 
-    it('logs errors to console', async () => {
-      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    it("logs errors to console", async () => {
+      const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
       mockFetch.mockResolvedValue({
         ok: false,
         status: 500,
-        statusText: 'Internal Server Error',
+        statusText: "Internal Server Error",
         json: async () => ({}),
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       try {
@@ -503,16 +504,13 @@ describe('OpenRouterService', () => {
         // Expected to throw
       }
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith(
-        'Error in generateChatCompletion:',
-        expect.any(OpenRouterError)
-      );
+      expect(consoleErrorSpy).toHaveBeenCalledWith("Error in generateChatCompletion:", expect.any(OpenRouterError));
 
       consoleErrorSpy.mockRestore();
     });
   });
 
-  describe('request payload structure', () => {
+  describe("request payload structure", () => {
     let service: OpenRouterService;
 
     beforeEach(() => {
@@ -520,15 +518,15 @@ describe('OpenRouterService', () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => ({
-          choices: [{ message: { content: 'Response' } }],
+          choices: [{ message: { content: "Response" } }],
         }),
       });
     });
 
-    it('includes only provided fields in payload', async () => {
+    it("includes only provided fields in payload", async () => {
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
       };
 
       await service.generateChatCompletion(options);
@@ -536,13 +534,13 @@ describe('OpenRouterService', () => {
       const fetchCall = mockFetch.mock.calls[0];
       const requestBody = JSON.parse(fetchCall[1].body);
 
-      expect(requestBody).toHaveProperty('model');
-      expect(requestBody).toHaveProperty('messages');
+      expect(requestBody).toHaveProperty("model");
+      expect(requestBody).toHaveProperty("messages");
       expect(requestBody.response_format).toBeUndefined();
       expect(requestBody.temperature).toBeUndefined();
     });
 
-    it('includes response_format when provided', async () => {
+    it("includes response_format when provided", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => ({
@@ -551,13 +549,13 @@ describe('OpenRouterService', () => {
       });
 
       const options: ChatCompletionOptions = {
-        model: 'openai/gpt-4o-mini',
-        messages: [{ role: 'user', content: 'Test' }],
+        model: "openai/gpt-4o-mini",
+        messages: [{ role: "user", content: "Test" }],
         response_format: {
-          type: 'json_schema',
+          type: "json_schema",
           json_schema: {
-            name: 'test',
-            schema: { type: 'object', properties: {} },
+            name: "test",
+            schema: { type: "object", properties: {} },
           },
         },
       };
@@ -571,4 +569,3 @@ describe('OpenRouterService', () => {
     });
   });
 });
-

@@ -66,11 +66,7 @@ export default function AuthNav({ isAuthenticated, userEmail }: AuthNavProps) {
             <span className="hidden sm:inline">Moje konto</span>
           </a>
         </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsLogoutDialogOpen(true)}
-        >
+        <Button variant="ghost" size="sm" onClick={() => setIsLogoutDialogOpen(true)}>
           <LogOut />
           <span className="hidden sm:inline">Wyloguj</span>
         </Button>
@@ -80,22 +76,13 @@ export default function AuthNav({ isAuthenticated, userEmail }: AuthNavProps) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Wylogowanie</DialogTitle>
-            <DialogDescription>
-              Czy na pewno chcesz się wylogować?
-            </DialogDescription>
+            <DialogDescription>Czy na pewno chcesz się wylogować?</DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setIsLogoutDialogOpen(false)}
-              disabled={isLoggingOut}
-            >
+            <Button variant="outline" onClick={() => setIsLogoutDialogOpen(false)} disabled={isLoggingOut}>
               Anuluj
             </Button>
-            <Button
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-            >
+            <Button onClick={handleLogout} disabled={isLoggingOut}>
               {isLoggingOut ? "Wylogowywanie..." : "Wyloguj się"}
             </Button>
           </DialogFooter>
@@ -104,4 +91,3 @@ export default function AuthNav({ isAuthenticated, userEmail }: AuthNavProps) {
     </>
   );
 }
-

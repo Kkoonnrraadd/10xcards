@@ -104,16 +104,12 @@ export default function DashboardPage() {
 
   const handleSaveEditedCard = (editedCandidate: FlashcardCandidateDTO) => {
     if (!candidateToEdit) return;
-    
+
     // Update the candidate in the list without removing it
     setCandidates((prev) =>
-      prev.map((c) =>
-        c.front === candidateToEdit.front && c.back === candidateToEdit.back
-          ? editedCandidate
-          : c
-      )
+      prev.map((c) => (c.front === candidateToEdit.front && c.back === candidateToEdit.back ? editedCandidate : c))
     );
-    
+
     toast.success("Zmiany zostały zapisane. Możesz edytować ponownie lub zaakceptować fiszkę.");
   };
 
@@ -180,7 +176,7 @@ export default function DashboardPage() {
 
   const handleAcceptAll = async () => {
     if (candidates.length === 0) return;
-    
+
     try {
       // Accept all candidates in parallel
       const promises = candidates.map(async (candidate) => {
@@ -204,7 +200,7 @@ export default function DashboardPage() {
       });
 
       await Promise.all(promises);
-      
+
       toast.success(`Wszystkie ${candidates.length} fiszek zostały zaakceptowane i dodane do kolekcji.`);
       setCandidates([]);
     } catch (err) {
@@ -215,7 +211,7 @@ export default function DashboardPage() {
 
   const handleRejectAll = async () => {
     if (candidates.length === 0) return;
-    
+
     try {
       // Reject all candidates in parallel
       const promises = candidates.map(async (candidate) => {
@@ -236,7 +232,7 @@ export default function DashboardPage() {
       });
 
       await Promise.all(promises);
-      
+
       toast.info(`Wszystkie ${candidates.length} propozycji zostały odrzucone.`);
       setCandidates([]);
       // Return to generator to create new set

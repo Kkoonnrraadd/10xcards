@@ -23,7 +23,14 @@ const createMockSupabaseClient = () => {
 
   return {
     from: mockFrom,
-    _mocks: { from: mockFrom, select: mockSelect, single: mockSingle, update: mockUpdate, order: mockOrder, limit: mockLimit },
+    _mocks: {
+      from: mockFrom,
+      select: mockSelect,
+      single: mockSingle,
+      update: mockUpdate,
+      order: mockOrder,
+      limit: mockLimit,
+    },
   } as unknown as SupabaseClient & { _mocks: any };
 };
 
@@ -53,7 +60,7 @@ describe("StudyService", () => {
       });
 
       // Second query returns count
-      ;(mockSupabase._mocks.from as any).mockReturnValueOnce({
+      (mockSupabase._mocks.from as any).mockReturnValueOnce({
         select: vi.fn().mockReturnThis(),
         eq: vi.fn().mockReturnThis(),
         lte: vi.fn().mockReturnThis(),
@@ -89,7 +96,7 @@ describe("StudyService", () => {
         data: [],
         error: null,
       });
-      ;(mockSupabase._mocks.from as any).mockReturnValueOnce({
+      (mockSupabase._mocks.from as any).mockReturnValueOnce({
         select: vi.fn().mockReturnThis(),
         eq: vi.fn().mockReturnThis(),
         lte: vi.fn().mockReturnThis(),
@@ -125,5 +132,3 @@ describe("StudyService", () => {
     });
   });
 });
-
-

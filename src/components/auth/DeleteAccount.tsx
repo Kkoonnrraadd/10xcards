@@ -33,13 +33,13 @@ export default function DeleteAccount() {
       // TODO: Implement Supabase auth integration
       // Call Edge Function or API endpoint to delete user account
       // const { error } = await supabase.functions.invoke('delete-user');
-      
+
       // if (error) throw error;
-      
+
       // Sign out and redirect to home
       // await supabase.auth.signOut();
       // window.location.href = "/";
-      
+
       toast.success("Konto zostało usunięte", {
         description: "Twoje konto i wszystkie powiązane dane zostały trwale usunięte.",
       });
@@ -63,9 +63,7 @@ export default function DeleteAccount() {
       <Card className="border-destructive">
         <CardHeader>
           <CardTitle className="text-destructive">Strefa niebezpieczna</CardTitle>
-          <CardDescription>
-            Nieodwracalne działania związane z Twoim kontem
-          </CardDescription>
+          <CardDescription>Nieodwracalne działania związane z Twoim kontem</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Alert variant="destructive">
@@ -76,11 +74,7 @@ export default function DeleteAccount() {
             </AlertDescription>
           </Alert>
 
-          <Button
-            variant="destructive"
-            onClick={() => setIsDialogOpen(true)}
-            className="w-full"
-          >
+          <Button variant="destructive" onClick={() => setIsDialogOpen(true)} className="w-full">
             Usuń konto
           </Button>
         </CardContent>
@@ -137,11 +131,7 @@ export default function DeleteAccount() {
             >
               Anuluj
             </Button>
-            <Button
-              variant="destructive"
-              onClick={handleDelete}
-              disabled={!isConfirmationValid || isLoading}
-            >
+            <Button variant="destructive" onClick={handleDelete} disabled={!isConfirmationValid || isLoading}>
               {isLoading ? "Usuwanie..." : "Usuń konto na zawsze"}
             </Button>
           </DialogFooter>
@@ -150,4 +140,3 @@ export default function DeleteAccount() {
     </>
   );
 }
-

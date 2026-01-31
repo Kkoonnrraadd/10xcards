@@ -49,6 +49,7 @@ src/
 ### 1. Generowanie Fiszek przez AI
 
 #### `POST /api/flashcards/generate`
+
 - **Opis**: Generuje kandydatów fiszek z tekstu źródłowego
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 10 req/min
@@ -61,9 +62,7 @@ src/
 - **Response (200)**:
   ```json
   {
-    "candidates": [
-      { "front": "Question", "back": "Answer" }
-    ]
+    "candidates": [{ "front": "Question", "back": "Answer" }]
   }
   ```
 - **Errors**: 400, 401, 429, 500, 504
@@ -74,6 +73,7 @@ src/
 ### 2. CRUD Fiszek
 
 #### `POST /api/flashcards`
+
 - **Opis**: Tworzy nową fiszkę (ręcznie lub z kandydata AI)
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -93,6 +93,7 @@ src/
 - **Status**: ✅ Zaimplementowane
 
 #### `GET /api/flashcards`
+
 - **Opis**: Listuje fiszki z paginacją i wyszukiwaniem
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -116,6 +117,7 @@ src/
 - **Status**: ✅ Zaimplementowane
 
 #### `GET /api/flashcards/:id`
+
 - **Opis**: Pobiera pojedynczą fiszkę
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -124,6 +126,7 @@ src/
 - **Status**: ✅ Zaimplementowane
 
 #### `PATCH /api/flashcards/:id`
+
 - **Opis**: Aktualizuje fiszkę (front i/lub back)
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -139,6 +142,7 @@ src/
 - **Status**: ✅ Zaimplementowane
 
 #### `DELETE /api/flashcards/:id`
+
 - **Opis**: Usuwa fiszkę
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -151,6 +155,7 @@ src/
 ### 3. Logi Generacji
 
 #### `POST /api/generation-logs`
+
 - **Opis**: Tworzy log dla odrzuconego kandydata AI
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -171,6 +176,7 @@ src/
 ### 4. Sesje Nauki
 
 #### `GET /api/study/due`
+
 - **Opis**: Pobiera fiszki do powtórki (due_date <= now)
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -187,6 +193,7 @@ src/
 - **Status**: ✅ Zaimplementowane
 
 #### `POST /api/study/review`
+
 - **Opis**: Przetwarza recenzję fiszki i aktualizuje FSRS
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
@@ -197,6 +204,7 @@ src/
     "rating": 1 | 2 | 3 | 4
   }
   ```
+
   - 1 = Again (complete failure)
   - 2 = Hard (difficult but recalled)
   - 3 = Good (recalled with some effort)
@@ -210,17 +218,20 @@ src/
 ## 🔒 Bezpieczeństwo
 
 ### Autentykacja
+
 - ✅ JWT token w nagłówku `Authorization: Bearer <token>`
 - ✅ Middleware wyciąga token i ustawia sesję Supabase
 - ✅ Funkcja `extractUser()` weryfikuje użytkownika w każdym endpoincie
 - ✅ Wszystkie endpointy wymagają autentykacji
 
 ### Autoryzacja
+
 - ✅ Row-Level Security (RLS) w Supabase
 - ✅ Automatyczne filtrowanie po `user_id`
 - ✅ Użytkownicy mają dostęp tylko do swoich danych
 
 ### Rate Limiting
+
 - ✅ In-memory rate limiter (fixed window)
 - ✅ 10 req/min dla `/api/flashcards/generate`
 - ✅ 100 req/min dla pozostałych endpointów
@@ -228,12 +239,14 @@ src/
 - ⚠️ **Uwaga**: Dla multi-instance deployment potrzebny Redis
 
 ### Walidacja
+
 - ✅ Wszystkie inputy walidowane przez Zod
 - ✅ UUID validation
 - ✅ Długości tekstów (front ≤200, back ≤500)
 - ✅ Range validation (page, limit, rating)
 
 ### Obsługa Błędów
+
 - ✅ Standardowy format błędów (ApiErrorResponseDTO)
 - ✅ Custom error classes (AIGenerationError, AITimeoutError, NotFoundError)
 - ✅ Sanityzacja komunikatów (nie eksponujemy szczegółów wewnętrznych)
@@ -244,10 +257,12 @@ src/
 ## 📦 Serwisy (Logika Biznesowa)
 
 ### ErrorLogService
+
 - ✅ `logGenerationError()` - zapisuje błędy AI do bazy
 - ✅ `hashSourceText()` - SHA-256 hash tekstu źródłowego
 
 ### AIGenerationService
+
 - ✅ `generateFlashcards()` - generuje kandydatów (obecnie mock)
 - ✅ `validateCandidates()` - waliduje długości
 - ⏳ `createPrompt()` - przygotowane na OpenRouter
@@ -255,11 +270,13 @@ src/
 - **Status**: Mockowane, gotowe na prawdziwą integrację
 
 ### GenerationLogService
+
 - ✅ `createRejectionLog()` - log dla odrzuconych
 - ✅ `createAcceptanceLog()` - log dla zaakceptowanych
 - ✅ `determineStatus()` - wykrywa czy była edycja
 
 ### FlashcardService
+
 - ✅ `createFlashcard()` - tworzy fiszkę + opcjonalny generation log
 - ✅ `listFlashcards()` - lista z paginacją + search (ILIKE)
 - ✅ `getFlashcard()` - pojedyncza fiszka
@@ -267,6 +284,7 @@ src/
 - ✅ `deleteFlashcard()` - usuwanie
 
 ### StudyService
+
 - ✅ `getDueFlashcards()` - fiszki do powtórki
 - ✅ `submitReview()` - przetwarzanie recenzji
 - ✅ `calculateFSRSParameters()` - obliczanie nowych parametrów (obecnie mock)
@@ -278,21 +296,26 @@ src/
 ## ⚠️ TODO / Wymagane Akcje
 
 ### 1. Instalacja Zależności
+
 ```bash
 npm install ts-fsrs
 ```
+
 - **Dlaczego**: Prawdziwy algorytm FSRS dla spaced repetition
 - **Gdzie**: `StudyService.calculateFSRSParameters()`
 - **Status**: Kod przygotowany, wymaga tylko instalacji pakietu
 
 ### 2. Integracja OpenRouter (opcjonalne na razie)
+
 - **Co**: Zamienić mock w `AIGenerationService` na prawdziwe wywołania API
 - **Gdzie**: `AIGenerationService.generateFlashcards()`
 - **Endpoint**: `https://openrouter.ai/api/v1/chat/completions`
 - **Status**: Kod przygotowany, działa z mockami
 
 ### 3. Zmienne Środowiskowe
+
 Upewnij się że masz w `.env`:
+
 ```env
 SUPABASE_URL=https://xxx.supabase.co
 SUPABASE_KEY=xxx
@@ -300,12 +323,14 @@ OPENROUTER_API_KEY=xxx  # Opcjonalne na razie (używamy mocków)
 ```
 
 ### 4. Testowanie
+
 - [ ] Testy jednostkowe dla serwisów
 - [ ] Testy integracyjne z testową bazą danych
 - [ ] Testy E2E dla endpointów API
 - [ ] Smoke tests na produkcji
 
 ### 5. Deployment
+
 - [ ] Skonfiguruj zmienne środowiskowe na produkcji
 - [ ] Deploy na DigitalOcean (Docker)
 - [ ] Zweryfikuj połączenia (Supabase, OpenRouter)
@@ -316,11 +341,13 @@ OPENROUTER_API_KEY=xxx  # Opcjonalne na razie (używamy mocków)
 ## 🎯 Metryki Sukcesu
 
 ### Performance
+
 - Response time: < 500ms dla 95% requestów (bez AI generation)
 - AI generation time: < 30s dla 95% requestów
 - Database query time: < 100ms dla 95% zapytań
 
 ### Quality
+
 - Test coverage: > 80%
 - Bug rate: < 1 bug per 1000 requests
 - Error rate: < 0.1% (bez 4xx)
@@ -330,23 +357,27 @@ OPENROUTER_API_KEY=xxx  # Opcjonalne na razie (używamy mocków)
 ## 📝 Notatki Implementacyjne
 
 ### Middleware
+
 - Token JWT jest wyciągany z nagłówka `Authorization`
 - Sesja Supabase jest ustawiana dla każdego requesta
 - Rate limiting działa przed wywołaniem endpointu
 - RLS w Supabase automatycznie filtruje dane
 
 ### Walidacja
+
 - Wszystkie schematy Zod w `src/lib/validation/schemas.ts`
 - Walidacja na początku każdego endpointu
 - Zwracamy szczegółowe błędy walidacji (flatten())
 
 ### Błędy
+
 - Standardowy format: `{ error: { code, message, details? } }`
 - Custom error classes dla różnych scenariuszy
 - Logowanie szczegółów po stronie serwera
 - Generyczne komunikaty dla użytkownika
 
 ### FSRS Algorithm
+
 - Obecnie mock implementation
 - Gotowe na integrację z `ts-fsrs`
 - Mapowanie ratingu: 1-4 (API) → 0-3 (FSRS)
@@ -377,4 +408,3 @@ OPENROUTER_API_KEY=xxx  # Opcjonalne na razie (używamy mocków)
 **Implementacja zakończona**: 18 października 2025
 **Czas implementacji**: ~3 godziny
 **Status**: ✅ Gotowe do testowania i deploymentu
-

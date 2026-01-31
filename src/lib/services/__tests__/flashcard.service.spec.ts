@@ -29,7 +29,14 @@ const createMockSupabaseClient = () => {
 
   return {
     from: mockFrom,
-    _mocks: { from: mockFrom, insert: mockInsert, select: mockSelect, single: mockSingle, update: mockUpdate, delete: mockDelete },
+    _mocks: {
+      from: mockFrom,
+      insert: mockInsert,
+      select: mockSelect,
+      single: mockSingle,
+      update: mockUpdate,
+      delete: mockDelete,
+    },
   } as unknown as SupabaseClient & { _mocks: any };
 };
 
@@ -54,12 +61,23 @@ describe("FlashcardService", () => {
       expect(result).toEqual({ id: "f1" });
       expect(mockSupabase._mocks.from).toHaveBeenCalledWith("flashcards");
       expect(mockSupabase._mocks.insert).toHaveBeenCalledWith(
-        expect.objectContaining({ user_id: userId, front: "Q?", back: "A", due_date: nowIso, stability: null, difficulty: null, review_history: null })
+        expect.objectContaining({
+          user_id: userId,
+          front: "Q?",
+          back: "A",
+          due_date: nowIso,
+          stability: null,
+          difficulty: null,
+          review_history: null,
+        })
       );
     });
 
     it("creates acceptance log when generation_metadata is provided", async () => {
-      mockSupabase._mocks.single.mockResolvedValue({ data: { id: "f2", front: "Edited", back: "Edited" }, error: null });
+      mockSupabase._mocks.single.mockResolvedValue({
+        data: { id: "f2", front: "Edited", back: "Edited" },
+        error: null,
+      });
 
       await service.createFlashcard("user_1", {
         front: "Edited",
@@ -75,7 +93,9 @@ describe("FlashcardService", () => {
 
     it("throws on database error", async () => {
       mockSupabase._mocks.single.mockResolvedValue({ data: null, error: { message: "DB fail" } });
-      await expect(service.createFlashcard("u", { front: "Q", back: "A" })).rejects.toThrow(/Failed to create flashcard: DB fail/);
+      await expect(service.createFlashcard("u", { front: "Q", back: "A" })).rejects.toThrow(
+        /Failed to create flashcard: DB fail/
+      );
     });
   });
 
@@ -109,7 +129,9 @@ describe("FlashcardService", () => {
         error: { message: "DB err" },
         count: 0,
       });
-      await expect(service.listFlashcards("u", { page: 1, limit: 20 })).rejects.toThrow(/Failed to list flashcards: DB err/);
+      await expect(service.listFlashcards("u", { page: 1, limit: 20 })).rejects.toThrow(
+        /Failed to list flashcards: DB err/
+      );
     });
   });
 
@@ -141,24 +163,39 @@ describe("FlashcardService", () => {
     });
     it("throws on other errors", async () => {
       mockSupabase._mocks.single.mockResolvedValue({ data: null, error: { code: "X", message: "boom" } });
-      await expect(service.updateFlashcard("u", "f", { front: "U" })).rejects.toThrow(/Failed to update flashcard: boom/);
+      await expect(service.updateFlashcard("u", "f", { front: "U" })).rejects.toThrow(
+        /Failed to update flashcard: boom/
+      );
     });
   });
 
   describe("deleteFlashcard", () => {
     it("returns true when count > 0", async () => {
-      (mockSupabase._mocks.from as any).mockReturnValueOnce({ delete: vi.fn().mockReturnThis(), eq: vi.fn().mockReturnThis(), error: null, count: 1 });
+      (mockSupabase._mocks.from as any).mockReturnValueOnce({
+        delete: vi.fn().mockReturnThis(),
+        eq: vi.fn().mockReturnThis(),
+        error: null,
+        count: 1,
+      });
       await expect(service.deleteFlashcard("u", "f")).resolves.toBe(true);
     });
     it("returns false when count == 0", async () => {
-      (mockSupabase._mocks.from as any).mockReturnValueOnce({ delete: vi.fn().mockReturnThis(), eq: vi.fn().mockReturnThis(), error: null, count: 0 });
+      (mockSupabase._mocks.from as any).mockReturnValueOnce({
+        delete: vi.fn().mockReturnThis(),
+        eq: vi.fn().mockReturnThis(),
+        error: null,
+        count: 0,
+      });
       await expect(service.deleteFlashcard("u", "f")).resolves.toBe(false);
     });
     it("throws on DB error", async () => {
-      (mockSupabase._mocks.from as any).mockReturnValueOnce({ delete: vi.fn().mockReturnThis(), eq: vi.fn().mockReturnThis(), error: { message: "x" }, count: null });
+      (mockSupabase._mocks.from as any).mockReturnValueOnce({
+        delete: vi.fn().mockReturnThis(),
+        eq: vi.fn().mockReturnThis(),
+        error: { message: "x" },
+        count: null,
+      });
       await expect(service.deleteFlashcard("u", "f")).rejects.toThrow(/Failed to delete flashcard: x/);
     });
   });
 });
-
-

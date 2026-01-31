@@ -176,4 +176,3 @@ export const DELETE: APIRoute = async ({ params, locals }) => {
     return createErrorResponse("INTERNAL_ERROR", "Failed to delete flashcard", 500);
   }
 };
-

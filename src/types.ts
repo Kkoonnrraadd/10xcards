@@ -227,40 +227,40 @@ export type ReviewHistory = ReviewHistoryEntry[];
 /**
  * Message in a chat completion request
  */
-export type ChatMessage = {
-  role: 'system' | 'user' | 'assistant';
+export interface ChatMessage {
+  role: "system" | "user" | "assistant";
   content: string;
-};
+}
 
 /**
  * JSON Schema definition for structured responses
  */
-export type JsonSchema = {
-  type: 'object';
+export interface JsonSchema {
+  type: "object";
   properties: Record<string, unknown>;
   required?: string[];
-};
+}
 
 /**
  * Response format configuration for structured JSON responses
  */
-export type ResponseFormat = {
-  type: 'json_schema';
+export interface ResponseFormat {
+  type: "json_schema";
   json_schema: {
     name: string;
     strict?: boolean;
     schema: JsonSchema;
   };
-};
+}
 
 /**
  * Options for chat completion requests to OpenRouter API
  */
-export type ChatCompletionOptions = {
+export interface ChatCompletionOptions {
   model: string;
   messages: ChatMessage[];
   response_format?: ResponseFormat;
   temperature?: number;
   max_tokens?: number;
   top_p?: number;
-};
+}

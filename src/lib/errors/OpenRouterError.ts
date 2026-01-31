@@ -8,9 +8,8 @@ export class OpenRouterError extends Error {
 
   constructor(message: string, statusCode: number, errorDetails?: any) {
     super(message);
-    this.name = 'OpenRouterError';
+    this.name = "OpenRouterError";
     this.statusCode = statusCode;
     this.errorDetails = errorDetails;
   }
 }
-

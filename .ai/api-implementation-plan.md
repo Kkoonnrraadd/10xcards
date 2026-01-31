@@ -112,7 +112,7 @@ Wszystkie schematy walidacji Zod w jednym pliku dla łatwego zarządzania.
 ### 3.2. Schematy walidacji
 
 ```typescript
-import { z } from 'zod';
+import { z } from "zod";
 
 // ============================================================================
 // Common schemas
@@ -184,12 +184,7 @@ export const getDueFlashcardsSchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(20),
 });
 
-export const reviewRatingSchema = z.union([
-  z.literal(1),
-  z.literal(2),
-  z.literal(3),
-  z.literal(4),
-]);
+export const reviewRatingSchema = z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]);
 
 export const submitReviewSchema = z.object({
   flashcard_id: uuidSchema,
@@ -236,10 +231,7 @@ export class FlashcardService {
    * @param data - Dane fiszki
    * @returns Utworzona fiszka
    */
-  async createFlashcard(
-    userId: string,
-    data: CreateFlashcardRequestDTO
-  ): Promise<FlashcardDTO>;
+  async createFlashcard(userId: string, data: CreateFlashcardRequestDTO): Promise<FlashcardDTO>;
 
   /**
    * Pobiera listę fiszek z paginacją i wyszukiwaniem
@@ -247,10 +239,7 @@ export class FlashcardService {
    * @param query - Parametry zapytania (page, limit, search)
    * @returns Lista fiszek z metadanymi paginacji
    */
-  async listFlashcards(
-    userId: string,
-    query: ListFlashcardsQueryDTO
-  ): Promise<ListFlashcardsResponseDTO>;
+  async listFlashcards(userId: string, query: ListFlashcardsQueryDTO): Promise<ListFlashcardsResponseDTO>;
 
   /**
    * Pobiera pojedynczą fiszkę
@@ -258,10 +247,7 @@ export class FlashcardService {
    * @param flashcardId - ID fiszki
    * @returns Fiszka lub null jeśli nie znaleziono
    */
-  async getFlashcard(
-    userId: string,
-    flashcardId: string
-  ): Promise<FlashcardDTO | null>;
+  async getFlashcard(userId: string, flashcardId: string): Promise<FlashcardDTO | null>;
 
   /**
    * Aktualizuje fiszkę
@@ -282,10 +268,7 @@ export class FlashcardService {
    * @param flashcardId - ID fiszki
    * @returns true jeśli usunięto, false jeśli nie znaleziono
    */
-  async deleteFlashcard(
-    userId: string,
-    flashcardId: string
-  ): Promise<boolean>;
+  async deleteFlashcard(userId: string, flashcardId: string): Promise<boolean>;
 }
 ```
 
@@ -316,10 +299,7 @@ export class AIGenerationService {
    * @returns Lista kandydatów fiszek
    * @throws AIGenerationError w przypadku błędu
    */
-  async generateFlashcards(
-    userId: string,
-    sourceText: string
-  ): Promise<FlashcardCandidateDTO[]>;
+  async generateFlashcards(userId: string, sourceText: string): Promise<FlashcardCandidateDTO[]>;
 
   /**
    * Tworzy prompt dla AI
@@ -340,9 +320,7 @@ export class AIGenerationService {
    * @param candidates - Lista kandydatów
    * @returns Przefiltrowana lista poprawnych kandydatów
    */
-  private validateCandidates(
-    candidates: FlashcardCandidateDTO[]
-  ): FlashcardCandidateDTO[];
+  private validateCandidates(candidates: FlashcardCandidateDTO[]): FlashcardCandidateDTO[];
 }
 ```
 
@@ -385,10 +363,7 @@ export class GenerationLogService {
    * @param data - Dane logu
    * @returns Utworzony log
    */
-  async createRejectionLog(
-    userId: string,
-    data: CreateGenerationLogRequestDTO
-  ): Promise<GenerationLogDTO>;
+  async createRejectionLog(userId: string, data: CreateGenerationLogRequestDTO): Promise<GenerationLogDTO>;
 
   /**
    * Tworzy log dla zaakceptowanej fiszki (z lub bez edycji)
@@ -446,10 +421,7 @@ export class StudyService {
    * @param limit - Maksymalna liczba fiszek
    * @returns Lista fiszek do powtórki i całkowita liczba zaległych
    */
-  async getDueFlashcards(
-    userId: string,
-    limit: number
-  ): Promise<DueFlashcardsResponseDTO>;
+  async getDueFlashcards(userId: string, limit: number): Promise<DueFlashcardsResponseDTO>;
 
   /**
    * Przetwarza recenzję fiszki i aktualizuje parametry FSRS
@@ -458,11 +430,7 @@ export class StudyService {
    * @param rating - Ocena (1-4)
    * @returns Zaktualizowana fiszka
    */
-  async submitReview(
-    userId: string,
-    flashcardId: string,
-    rating: ReviewRating
-  ): Promise<FlashcardDTO>;
+  async submitReview(userId: string, flashcardId: string, rating: ReviewRating): Promise<FlashcardDTO>;
 
   /**
    * Oblicza nowe parametry FSRS
@@ -485,10 +453,7 @@ export class StudyService {
    * @param rating - Ocena
    * @returns Zaktualizowana historia
    */
-  private updateReviewHistory(
-    currentHistory: ReviewHistory | null,
-    rating: ReviewRating
-  ): ReviewHistory;
+  private updateReviewHistory(currentHistory: ReviewHistory | null, rating: ReviewRating): ReviewHistory;
 }
 ```
 
@@ -559,6 +524,7 @@ export class ErrorLogService {
 **Opis**: Generuje kandydatów fiszek z tekstu źródłowego przez AI.
 
 **Request**:
+
 ```typescript
 POST /api/flashcards/generate
 Headers: {
@@ -571,6 +537,7 @@ Body: {
 ```
 
 **Response (200 OK)**:
+
 ```typescript
 {
   "candidates": [
@@ -583,6 +550,7 @@ Body: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowa długość source_text
 - 401: Brak lub nieprawidłowy token
 - 429: Przekroczono limit zapytań (10/min)
@@ -627,67 +595,38 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     body = await request.json();
   } catch {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid JSON body",
-      400
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid JSON body", 400);
   }
 
   // 3. Validate input
   const validation = generateFlashcardsSchema.safeParse(body);
   if (!validation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid input",
-      400,
-      validation.error.flatten()
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid input", 400, validation.error.flatten());
   }
 
   // 4. Generate flashcards
   try {
     const errorLogService = new ErrorLogService(locals.supabase);
-    const aiService = new AIGenerationService(
-      import.meta.env.OPENROUTER_API_KEY,
-      errorLogService
-    );
+    const aiService = new AIGenerationService(import.meta.env.OPENROUTER_API_KEY, errorLogService);
 
-    const candidates = await aiService.generateFlashcards(
-      user.id,
-      validation.data.source_text
-    );
+    const candidates = await aiService.generateFlashcards(user.id, validation.data.source_text);
 
-    return new Response(
-      JSON.stringify({ candidates }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ candidates }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (error) {
     if (error instanceof AITimeoutError) {
-      return createErrorResponse(
-        "AI_TIMEOUT",
-        "AI service took too long to respond. Please try again.",
-        504
-      );
-    }
-    
-    if (error instanceof AIGenerationError) {
-      return createErrorResponse(
-        "AI_GENERATION_FAILED",
-        "Failed to generate flashcards. Please try again.",
-        500,
-        { error_id: error.errorId }
-      );
+      return createErrorResponse("AI_TIMEOUT", "AI service took too long to respond. Please try again.", 504);
     }
 
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "An unexpected error occurred",
-      500
-    );
+    if (error instanceof AIGenerationError) {
+      return createErrorResponse("AI_GENERATION_FAILED", "Failed to generate flashcards. Please try again.", 500, {
+        error_id: error.errorId,
+      });
+    }
+
+    return createErrorResponse("INTERNAL_ERROR", "An unexpected error occurred", 500);
   }
 };
 ```
@@ -701,6 +640,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 **Opis**: Tworzy nową fiszkę (ręcznie lub akceptując kandydata AI).
 
 **Request**:
+
 ```typescript
 POST /api/flashcards
 Headers: {
@@ -718,6 +658,7 @@ Body: {
 ```
 
 **Response (201 Created)**:
+
 ```typescript
 {
   "id": "uuid",
@@ -734,6 +675,7 @@ Body: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowe dane wejściowe
 - 401: Brak lub nieprawidłowy token
 - 429: Przekroczono limit zapytań (100/min)
@@ -772,32 +714,20 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   const validation = createFlashcardSchema.safeParse(body);
   if (!validation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid input",
-      400,
-      validation.error.flatten()
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid input", 400, validation.error.flatten());
   }
 
   // 3. Create flashcard
   try {
     const flashcardService = new FlashcardService(locals.supabase);
-    const flashcard = await flashcardService.createFlashcard(
-      user.id,
-      validation.data
-    );
+    const flashcard = await flashcardService.createFlashcard(user.id, validation.data);
 
     return new Response(JSON.stringify(flashcard), {
       status: 201,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to create flashcard",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to create flashcard", 500);
   }
 };
 ```
@@ -811,6 +741,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 **Opis**: Pobiera listę fiszek z paginacją i wyszukiwaniem.
 
 **Request**:
+
 ```typescript
 GET /api/flashcards?page=1&limit=20&search=query
 Headers: {
@@ -819,6 +750,7 @@ Headers: {
 ```
 
 **Response (200 OK)**:
+
 ```typescript
 {
   "data": [
@@ -845,6 +777,7 @@ Headers: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowe parametry paginacji
 - 401: Brak lub nieprawidłowy token
 
@@ -883,32 +816,20 @@ export const GET: APIRoute = async ({ request, locals, url }) => {
   // 3. Validate
   const validation = listFlashcardsSchema.safeParse(query);
   if (!validation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid query parameters",
-      400,
-      validation.error.flatten()
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid query parameters", 400, validation.error.flatten());
   }
 
   // 4. List flashcards
   try {
     const flashcardService = new FlashcardService(locals.supabase);
-    const result = await flashcardService.listFlashcards(
-      user.id,
-      validation.data
-    );
+    const result = await flashcardService.listFlashcards(user.id, validation.data);
 
     return new Response(JSON.stringify(result), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to list flashcards",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to list flashcards", 500);
   }
 };
 ```
@@ -922,6 +843,7 @@ export const GET: APIRoute = async ({ request, locals, url }) => {
 **Opis**: Pobiera pojedynczą fiszkę.
 
 **Request**:
+
 ```typescript
 GET /api/flashcards/:id
 Headers: {
@@ -930,6 +852,7 @@ Headers: {
 ```
 
 **Response (200 OK)**:
+
 ```typescript
 {
   "id": "uuid",
@@ -946,6 +869,7 @@ Headers: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowy format UUID
 - 401: Brak lub nieprawidłowy token
 - 404: Fiszka nie znaleziona
@@ -973,20 +897,13 @@ export const GET: APIRoute = async ({ params, locals }) => {
   // 2. Validate ID
   const idValidation = uuidSchema.safeParse(params.id);
   if (!idValidation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid flashcard ID format",
-      400
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid flashcard ID format", 400);
   }
 
   // 3. Get flashcard
   try {
     const flashcardService = new FlashcardService(locals.supabase);
-    const flashcard = await flashcardService.getFlashcard(
-      user.id,
-      idValidation.data
-    );
+    const flashcard = await flashcardService.getFlashcard(user.id, idValidation.data);
 
     if (!flashcard) {
       return createErrorResponse("NOT_FOUND", "Flashcard not found", 404);
@@ -997,11 +914,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to get flashcard",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to get flashcard", 500);
   }
 };
 ```
@@ -1015,6 +928,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
 **Opis**: Aktualizuje fiszkę.
 
 **Request**:
+
 ```typescript
 PATCH /api/flashcards/:id
 Headers: {
@@ -1028,6 +942,7 @@ Body: {
 ```
 
 **Response (200 OK)**:
+
 ```typescript
 {
   "id": "uuid",
@@ -1044,6 +959,7 @@ Body: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowe dane lub UUID
 - 401: Brak lub nieprawidłowy token
 - 404: Fiszka nie znaleziona
@@ -1072,11 +988,7 @@ export const PATCH: APIRoute = async ({ params, request, locals }) => {
   // 2. Validate ID
   const idValidation = uuidSchema.safeParse(params.id);
   if (!idValidation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid flashcard ID format",
-      400
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid flashcard ID format", 400);
   }
 
   // 3. Parse and validate body
@@ -1089,22 +1001,13 @@ export const PATCH: APIRoute = async ({ params, request, locals }) => {
 
   const validation = updateFlashcardSchema.safeParse(body);
   if (!validation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid input",
-      400,
-      validation.error.flatten()
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid input", 400, validation.error.flatten());
   }
 
   // 4. Update flashcard
   try {
     const flashcardService = new FlashcardService(locals.supabase);
-    const flashcard = await flashcardService.updateFlashcard(
-      user.id,
-      idValidation.data,
-      validation.data
-    );
+    const flashcard = await flashcardService.updateFlashcard(user.id, idValidation.data, validation.data);
 
     if (!flashcard) {
       return createErrorResponse("NOT_FOUND", "Flashcard not found", 404);
@@ -1115,11 +1018,7 @@ export const PATCH: APIRoute = async ({ params, request, locals }) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to update flashcard",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to update flashcard", 500);
   }
 };
 ```
@@ -1133,6 +1032,7 @@ export const PATCH: APIRoute = async ({ params, request, locals }) => {
 **Opis**: Usuwa fiszkę.
 
 **Request**:
+
 ```typescript
 DELETE /api/flashcards/:id
 Headers: {
@@ -1141,11 +1041,13 @@ Headers: {
 ```
 
 **Response (204 No Content)**:
+
 ```
 (brak body)
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowy format UUID
 - 401: Brak lub nieprawidłowy token
 - 404: Fiszka nie znaleziona
@@ -1173,20 +1075,13 @@ export const DELETE: APIRoute = async ({ params, locals }) => {
   // 2. Validate ID
   const idValidation = uuidSchema.safeParse(params.id);
   if (!idValidation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid flashcard ID format",
-      400
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid flashcard ID format", 400);
   }
 
   // 3. Delete flashcard
   try {
     const flashcardService = new FlashcardService(locals.supabase);
-    const deleted = await flashcardService.deleteFlashcard(
-      user.id,
-      idValidation.data
-    );
+    const deleted = await flashcardService.deleteFlashcard(user.id, idValidation.data);
 
     if (!deleted) {
       return createErrorResponse("NOT_FOUND", "Flashcard not found", 404);
@@ -1194,11 +1089,7 @@ export const DELETE: APIRoute = async ({ params, locals }) => {
 
     return new Response(null, { status: 204 });
   } catch (error) {
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to delete flashcard",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to delete flashcard", 500);
   }
 };
 ```
@@ -1212,6 +1103,7 @@ export const DELETE: APIRoute = async ({ params, locals }) => {
 **Opis**: Tworzy log dla odrzuconego kandydata AI.
 
 **Request**:
+
 ```typescript
 POST /api/generation-logs
 Headers: {
@@ -1226,6 +1118,7 @@ Body: {
 ```
 
 **Response (201 Created)**:
+
 ```typescript
 {
   "id": "uuid",
@@ -1239,6 +1132,7 @@ Body: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowe dane (status musi być 'rejected')
 - 401: Brak lub nieprawidłowy token
 
@@ -1271,12 +1165,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   const validation = createGenerationLogSchema.safeParse(body);
   if (!validation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid input",
-      400,
-      validation.error.flatten()
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid input", 400, validation.error.flatten());
   }
 
   // 3. Create log
@@ -1289,11 +1178,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to create generation log",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to create generation log", 500);
   }
 };
 ```
@@ -1307,6 +1192,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 **Opis**: Pobiera fiszki do powtórki.
 
 **Request**:
+
 ```typescript
 GET /api/study/due?limit=20
 Headers: {
@@ -1315,6 +1201,7 @@ Headers: {
 ```
 
 **Response (200 OK)**:
+
 ```typescript
 {
   "data": [
@@ -1336,6 +1223,7 @@ Headers: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowy parametr limit
 - 401: Brak lub nieprawidłowy token
 
@@ -1371,32 +1259,20 @@ export const GET: APIRoute = async ({ url, locals }) => {
   // 3. Validate
   const validation = getDueFlashcardsSchema.safeParse(query);
   if (!validation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid query parameters",
-      400,
-      validation.error.flatten()
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid query parameters", 400, validation.error.flatten());
   }
 
   // 4. Get due flashcards
   try {
     const studyService = new StudyService(locals.supabase);
-    const result = await studyService.getDueFlashcards(
-      user.id,
-      validation.data.limit
-    );
+    const result = await studyService.getDueFlashcards(user.id, validation.data.limit);
 
     return new Response(JSON.stringify(result), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to get due flashcards",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to get due flashcards", 500);
   }
 };
 ```
@@ -1410,6 +1286,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
 **Opis**: Przetwarza recenzję fiszki i aktualizuje parametry FSRS.
 
 **Request**:
+
 ```typescript
 POST /api/study/review
 Headers: {
@@ -1423,6 +1300,7 @@ Body: {
 ```
 
 **Response (200 OK)**:
+
 ```typescript
 {
   "id": "uuid",
@@ -1444,6 +1322,7 @@ Body: {
 ```
 
 **Kody błędów**:
+
 - 400: Nieprawidłowy UUID lub rating
 - 401: Brak lub nieprawidłowy token
 - 404: Fiszka nie znaleziona
@@ -1482,22 +1361,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   const validation = submitReviewSchema.safeParse(body);
   if (!validation.success) {
-    return createErrorResponse(
-      "VALIDATION_ERROR",
-      "Invalid input",
-      400,
-      validation.error.flatten()
-    );
+    return createErrorResponse("VALIDATION_ERROR", "Invalid input", 400, validation.error.flatten());
   }
 
   // 3. Submit review
   try {
     const studyService = new StudyService(locals.supabase);
-    const flashcard = await studyService.submitReview(
-      user.id,
-      validation.data.flashcard_id,
-      validation.data.rating
-    );
+    const flashcard = await studyService.submitReview(user.id, validation.data.flashcard_id, validation.data.rating);
 
     return new Response(JSON.stringify(flashcard), {
       status: 200,
@@ -1508,11 +1378,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return createErrorResponse("NOT_FOUND", "Flashcard not found", 404);
     }
 
-    return createErrorResponse(
-      "INTERNAL_ERROR",
-      "Failed to submit review",
-      500
-    );
+    return createErrorResponse("INTERNAL_ERROR", "Failed to submit review", 500);
   }
 };
 ```
@@ -1591,15 +1457,15 @@ export class NotFoundError extends Error {
 
 ### 6.3. Mapowanie kodów błędów
 
-| HTTP Status | Error Code | Opis | Użycie |
-|------------|-----------|------|--------|
-| 400 | VALIDATION_ERROR | Nieprawidłowe dane wejściowe | Walidacja Zod |
-| 401 | UNAUTHORIZED | Brak lub nieprawidłowy token | Auth middleware |
-| 404 | NOT_FOUND | Zasób nie znaleziony | CRUD operations |
-| 429 | RATE_LIMIT_EXCEEDED | Przekroczono limit | Rate limiter |
-| 500 | AI_GENERATION_FAILED | Błąd usługi AI | AI service |
-| 504 | AI_TIMEOUT | Timeout usługi AI | AI service |
-| 500 | INTERNAL_ERROR | Nieoczekiwany błąd | Catch-all |
+| HTTP Status | Error Code           | Opis                         | Użycie          |
+| ----------- | -------------------- | ---------------------------- | --------------- |
+| 400         | VALIDATION_ERROR     | Nieprawidłowe dane wejściowe | Walidacja Zod   |
+| 401         | UNAUTHORIZED         | Brak lub nieprawidłowy token | Auth middleware |
+| 404         | NOT_FOUND            | Zasób nie znaleziony         | CRUD operations |
+| 429         | RATE_LIMIT_EXCEEDED  | Przekroczono limit           | Rate limiter    |
+| 500         | AI_GENERATION_FAILED | Błąd usługi AI               | AI service      |
+| 504         | AI_TIMEOUT           | Timeout usługi AI            | AI service      |
+| 500         | INTERNAL_ERROR       | Nieoczekiwany błąd           | Catch-all       |
 
 ---
 
@@ -1675,6 +1541,7 @@ USING (auth.uid() = user_id);
 ```
 
 **Kluczowe zasady**:
+
 - Wszystkie zapytania do bazy danych automatycznie filtrowane przez RLS
 - Nie trzeba ręcznie dodawać `WHERE user_id = X` w zapytaniach
 - Próby dostępu do cudzych danych zwracają puste wyniki
@@ -1682,6 +1549,7 @@ USING (auth.uid() = user_id);
 ### 7.3. Walidacja danych wejściowych
 
 **Zasady**:
+
 1. **Waliduj wszystko**: Nigdy nie ufaj danym wejściowym
 2. **Waliduj na backendzie**: Nawet jeśli frontend waliduje
 3. **Używaj Zod**: Spójne schematy walidacji
@@ -1689,38 +1557,32 @@ USING (auth.uid() = user_id);
 5. **Waliduj długości**: Zgodnie z ograniczeniami bazy danych
 
 **Przykład**:
+
 ```typescript
 // Walidacja UUID
 const idValidation = uuidSchema.safeParse(params.id);
 if (!idValidation.success) {
-  return createErrorResponse(
-    "VALIDATION_ERROR",
-    "Invalid UUID format",
-    400
-  );
+  return createErrorResponse("VALIDATION_ERROR", "Invalid UUID format", 400);
 }
 
 // Walidacja długości tekstu
 const flashcardValidation = createFlashcardSchema.safeParse(body);
 if (!flashcardValidation.success) {
-  return createErrorResponse(
-    "VALIDATION_ERROR",
-    "Invalid input",
-    400,
-    flashcardValidation.error.flatten()
-  );
+  return createErrorResponse("VALIDATION_ERROR", "Invalid input", 400, flashcardValidation.error.flatten());
 }
 ```
 
 ### 7.4. Sanityzacja błędów
 
 **Zasady**:
+
 1. **Nie eksponuj szczegółów wewnętrznych**: Stack traces, database errors
 2. **Używaj generycznych komunikatów**: "An error occurred" zamiast szczegółów
 3. **Loguj szczegóły po stronie serwera**: Dla debugowania
 4. **Zwracaj error_id**: Dla korelacji z logami
 
 **Przykład**:
+
 ```typescript
 try {
   // ... operacja
@@ -1729,24 +1591,20 @@ try {
   console.error("Detailed error:", error);
 
   // Zwróć generyczny komunikat użytkownikowi
-  return createErrorResponse(
-    "INTERNAL_ERROR",
-    "An unexpected error occurred",
-    500
-  );
+  return createErrorResponse("INTERNAL_ERROR", "An unexpected error occurred", 500);
 }
 ```
 
 ### 7.5. Ochrona przed atakami
 
-| Atak | Ochrona | Implementacja |
-|------|---------|---------------|
-| SQL Injection | Parameterized queries | Supabase client |
-| XSS | Sanityzacja inputu | Zod validation |
-| CSRF | SameSite cookies | Supabase Auth |
-| Rate limiting | Throttling | Rate limiter middleware |
-| Brute force | Rate limiting | Rate limiter middleware |
-| Token theft | HTTPS only | Deployment config |
+| Atak          | Ochrona               | Implementacja           |
+| ------------- | --------------------- | ----------------------- |
+| SQL Injection | Parameterized queries | Supabase client         |
+| XSS           | Sanityzacja inputu    | Zod validation          |
+| CSRF          | SameSite cookies      | Supabase Auth           |
+| Rate limiting | Throttling            | Rate limiter middleware |
+| Brute force   | Rate limiting         | Rate limiter middleware |
+| Token theft   | HTTPS only            | Deployment config       |
 
 ---
 
@@ -1821,10 +1679,10 @@ setInterval(cleanupRateLimitStore, 5 * 60 * 1000);
 
 ### 8.2. Limity dla endpointów
 
-| Endpoint | Limit | Okno czasowe |
-|----------|-------|--------------|
-| POST /api/flashcards/generate | 10 req | 1 minuta |
-| Wszystkie inne | 100 req | 1 minuta |
+| Endpoint                      | Limit   | Okno czasowe |
+| ----------------------------- | ------- | ------------ |
+| POST /api/flashcards/generate | 10 req  | 1 minuta     |
+| Wszystkie inne                | 100 req | 1 minuta     |
 
 ### 8.3. Użycie w middleware
 
@@ -1839,20 +1697,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // Rate limiting dla API routes
   if (context.url.pathname.startsWith("/api/")) {
     const user = await extractUser(context.locals.supabase);
-    
+
     if (user) {
       // Określ limit na podstawie endpointu
       const limit = context.url.pathname.includes("/generate") ? 10 : 100;
-      
+
       const rateLimitResult = checkRateLimit(user.id, limit);
-      
+
       if (rateLimitResult.exceeded) {
-        return createErrorResponse(
-          "RATE_LIMIT_EXCEEDED",
-          "Too many requests. Please try again later.",
-          429,
-          { retry_after: rateLimitResult.retryAfter }
-        );
+        return createErrorResponse("RATE_LIMIT_EXCEEDED", "Too many requests. Please try again later.", 429, {
+          retry_after: rateLimitResult.retryAfter,
+        });
       }
     }
   }
@@ -1882,6 +1737,7 @@ const headers = {
 ### Faza 1: Przygotowanie infrastruktury (1-2 dni)
 
 #### 1.1. Setup środowiska
+
 - [ ] Zainstaluj zależności: `zod`, `ts-fsrs`, `@supabase/supabase-js`
 - [ ] Skonfiguruj zmienne środowiskowe w `.env`:
   ```
@@ -1893,6 +1749,7 @@ const headers = {
 - [ ] Zweryfikuj połączenie z OpenRouter
 
 #### 1.2. Struktura katalogów
+
 - [ ] Utwórz `src/lib/services/`
 - [ ] Utwórz `src/lib/validation/`
 - [ ] Utwórz `src/lib/utils/`
@@ -1901,43 +1758,49 @@ const headers = {
 - [ ] Utwórz `src/pages/api/study/`
 
 #### 1.3. Typy i walidacja
+
 - [ ] Zaimplementuj `src/lib/validation/schemas.ts` (wszystkie schematy Zod)
 - [ ] Zweryfikuj zgodność z `src/types.ts`
 
 ### Faza 2: Utilities i helpers (1 dzień)
 
 #### 2.1. Authentication utilities
+
 - [ ] Zaimplementuj `src/lib/utils/auth.ts`
   - [ ] Funkcja `extractUser()`
   - [ ] Testy jednostkowe
 
 #### 2.2. Error handling utilities
+
 - [ ] Zaimplementuj `src/lib/utils/error.ts`
   - [ ] Funkcja `createErrorResponse()`
   - [ ] Custom error classes: `AIGenerationError`, `AITimeoutError`, `NotFoundError`
   - [ ] Testy jednostkowe
 
 #### 2.3. Rate limiting utilities
+
 - [ ] Zaimplementuj `src/lib/utils/rate-limit.ts`
   - [ ] Funkcja `checkRateLimit()`
   - [ ] Funkcja `cleanupRateLimitStore()`
   - [ ] Testy jednostkowe
 
 #### 2.4. Constants
+
 - [ ] Utwórz `src/lib/constants.ts`
+
   ```typescript
   export const RATE_LIMITS = {
     GENERATION: 10,
     DEFAULT: 100,
   };
-  
+
   export const VALIDATION_LIMITS = {
     SOURCE_TEXT_MIN: 1000,
     SOURCE_TEXT_MAX: 10000,
     FLASHCARD_FRONT_MAX: 200,
     FLASHCARD_BACK_MAX: 500,
   };
-  
+
   export const AI_CONFIG = {
     MODEL: "openai/gpt-4",
     TIMEOUT_MS: 60000,
@@ -1947,12 +1810,14 @@ const headers = {
 ### Faza 3: Services Layer (3-4 dni)
 
 #### 3.1. Error Log Service
+
 - [ ] Zaimplementuj `src/lib/services/error-log.service.ts`
   - [ ] Metoda `logGenerationError()`
   - [ ] Metoda `hashSourceText()`
   - [ ] Testy jednostkowe
 
 #### 3.2. AI Generation Service
+
 - [ ] Zaimplementuj `src/lib/services/ai-generation.service.ts`
   - [ ] Metoda `generateFlashcards()`
   - [ ] Metoda `createPrompt()`
@@ -1965,6 +1830,7 @@ const headers = {
   - [ ] Testy integracyjne z mock API
 
 #### 3.3. Generation Log Service
+
 - [ ] Zaimplementuj `src/lib/services/generation-log.service.ts`
   - [ ] Metoda `createRejectionLog()`
   - [ ] Metoda `createAcceptanceLog()`
@@ -1972,6 +1838,7 @@ const headers = {
   - [ ] Testy jednostkowe
 
 #### 3.4. Flashcard Service
+
 - [ ] Zaimplementuj `src/lib/services/flashcard.service.ts`
   - [ ] Metoda `createFlashcard()`
     - [ ] Integracja z GenerationLogService dla generation_metadata
@@ -1986,6 +1853,7 @@ const headers = {
   - [ ] Testy integracyjne z testową bazą danych
 
 #### 3.5. Study Service
+
 - [ ] Zaimplementuj `src/lib/services/study.service.ts`
   - [ ] Metoda `getDueFlashcards()`
   - [ ] Metoda `submitReview()`
@@ -1999,6 +1867,7 @@ const headers = {
 ### Faza 4: Middleware (1 dzień)
 
 #### 4.1. Astro Middleware
+
 - [ ] Zaimplementuj `src/middleware/index.ts`
   - [ ] Inicjalizacja Supabase client z JWT
   - [ ] Rate limiting dla API routes
@@ -2008,6 +1877,7 @@ const headers = {
 ### Faza 5: API Endpoints (4-5 dni)
 
 #### 5.1. Flashcard Generation
+
 - [ ] Zaimplementuj `src/pages/api/flashcards/generate.ts`
   - [ ] Handler POST
   - [ ] Authentication
@@ -2017,6 +1887,7 @@ const headers = {
   - [ ] Testy E2E
 
 #### 5.2. Flashcard CRUD
+
 - [ ] Zaimplementuj `src/pages/api/flashcards/index.ts`
   - [ ] Handler POST (create)
     - [ ] Authentication
@@ -2053,6 +1924,7 @@ const headers = {
     - [ ] Testy E2E
 
 #### 5.3. Generation Logs
+
 - [ ] Zaimplementuj `src/pages/api/generation-logs/index.ts`
   - [ ] Handler POST
   - [ ] Authentication
@@ -2062,6 +1934,7 @@ const headers = {
   - [ ] Testy E2E
 
 #### 5.4. Study Session
+
 - [ ] Zaimplementuj `src/pages/api/study/due.ts`
   - [ ] Handler GET
   - [ ] Authentication
@@ -2081,16 +1954,19 @@ const headers = {
 ### Faza 6: Testing i dokumentacja (2-3 dni)
 
 #### 6.1. Testy jednostkowe
+
 - [ ] Wszystkie serwisy mają testy jednostkowe
 - [ ] Wszystkie utilities mają testy jednostkowe
 - [ ] Coverage > 80%
 
 #### 6.2. Testy integracyjne
+
 - [ ] Testy z testową bazą danych Supabase
 - [ ] Testy z mock OpenRouter API
 - [ ] Testy FSRS calculations
 
 #### 6.3. Testy E2E
+
 - [ ] Wszystkie endpointy mają testy E2E
 - [ ] Testy scenariuszy użytkownika:
   - [ ] Generowanie fiszek → akceptacja → nauka
@@ -2101,6 +1977,7 @@ const headers = {
   - [ ] Sesja nauki (due flashcards → review)
 
 #### 6.4. Dokumentacja
+
 - [ ] API documentation (OpenAPI/Swagger - opcjonalne)
 - [ ] README z instrukcjami setup
 - [ ] Komentarze w kodzie (JSDoc)
@@ -2109,12 +1986,14 @@ const headers = {
 ### Faza 7: Deployment i monitoring (1-2 dni)
 
 #### 7.1. Deployment
+
 - [ ] Skonfiguruj zmienne środowiskowe na produkcji
 - [ ] Deploy na DigitalOcean (Docker)
 - [ ] Zweryfikuj połączenia (Supabase, OpenRouter)
 - [ ] Smoke tests na produkcji
 
 #### 7.2. Monitoring
+
 - [ ] Logowanie błędów (Sentry - opcjonalne)
 - [ ] Monitoring wydajności (opcjonalne)
 - [ ] Alerty dla błędów krytycznych (opcjonalne)
@@ -2122,11 +2001,13 @@ const headers = {
 ### Faza 8: Optymalizacja (ciągła)
 
 #### 8.1. Performance
+
 - [ ] Optymalizacja zapytań do bazy danych
 - [ ] Caching (jeśli potrzebne)
 - [ ] Indeksy w bazie danych (już zdefiniowane w db-plan.md)
 
 #### 8.2. Security audit
+
 - [ ] Review RLS policies
 - [ ] Review rate limiting
 - [ ] Review error sanitization
@@ -2137,6 +2018,7 @@ const headers = {
 ## 10. Checklist przed wdrożeniem
 
 ### Bezpieczeństwo
+
 - [ ] Wszystkie endpointy wymagają autentykacji
 - [ ] RLS policies włączone na wszystkich tabelach
 - [ ] Walidacja wszystkich inputów przez Zod
@@ -2146,6 +2028,7 @@ const headers = {
 - [ ] Zmienne środowiskowe zabezpieczone
 
 ### Funkcjonalność
+
 - [ ] Wszystkie endpointy zwracają poprawne kody statusu
 - [ ] Wszystkie endpointy zwracają poprawny format JSON
 - [ ] Paginacja działa poprawnie
@@ -2155,18 +2038,21 @@ const headers = {
 - [ ] Logowanie błędów działa poprawnie
 
 ### Testy
+
 - [ ] Testy jednostkowe przechodzą (coverage > 80%)
 - [ ] Testy integracyjne przechodzą
 - [ ] Testy E2E przechodzą
 - [ ] Smoke tests na produkcji przechodzą
 
 ### Dokumentacja
+
 - [ ] README zaktualizowany
 - [ ] API documentation dostępna
 - [ ] Komentarze w kodzie aktualne
 - [ ] Przykłady użycia dostępne
 
 ### Performance
+
 - [ ] Indeksy w bazie danych utworzone
 - [ ] Zapytania zoptymalizowane
 - [ ] Rate limiting nie blokuje normalnego użycia
@@ -2177,43 +2063,53 @@ const headers = {
 ## 11. Potencjalne problemy i rozwiązania
 
 ### Problem 1: AI Generation Timeout
+
 **Symptom**: Użytkownicy otrzymują 504 Gateway Timeout
 
 **Rozwiązania**:
+
 1. Zwiększ timeout do 90s
 2. Dodaj retry logic (max 2 próby)
 3. Użyj szybszego modelu AI
 4. Przenieś generację do background job (queue)
 
 ### Problem 2: Rate Limiting zbyt restrykcyjne
+
 **Symptom**: Użytkownicy często otrzymują 429
 
 **Rozwiązania**:
+
 1. Zwiększ limity (np. 20 req/min dla generation)
 2. Użyj sliding window zamiast fixed window
 3. Zaimplementuj tier-based limiting (premium users = wyższe limity)
 
 ### Problem 3: Wolne zapytania do bazy danych
+
 **Symptom**: Endpointy odpowiadają wolno (>1s)
 
 **Rozwiązania**:
+
 1. Sprawdź czy indeksy są utworzone
 2. Użyj `EXPLAIN ANALYZE` do analizy zapytań
 3. Dodaj caching (Redis) dla często używanych danych
 4. Zoptymalizuj zapytania (unikaj N+1)
 
 ### Problem 4: In-memory rate limiter nie działa w multi-instance deployment
+
 **Symptom**: Rate limiting nie działa poprawnie gdy jest wiele instancji aplikacji
 
 **Rozwiązania**:
+
 1. Użyj Redis do przechowywania rate limit counters
 2. Użyj Supabase Realtime do synchronizacji
 3. Użyj zewnętrznej usługi rate limiting (Cloudflare, AWS API Gateway)
 
 ### Problem 5: FSRS calculations niepoprawne
+
 **Symptom**: Due dates są nieprawidłowe, fiszki pojawiają się zbyt często/rzadko
 
 **Rozwiązania**:
+
 1. Zweryfikuj mapowanie ratingu (1-4 → 0-3)
 2. Sprawdź czy stability i difficulty są poprawnie inicjalizowane
 3. Zweryfikuj czy review_history jest poprawnie aktualizowana
@@ -2224,17 +2120,20 @@ const headers = {
 ## 12. Metryki sukcesu
 
 ### Performance Metrics
+
 - **Response time**: < 500ms dla 95% requestów (bez AI generation)
 - **AI generation time**: < 30s dla 95% requestów
 - **Database query time**: < 100ms dla 95% zapytań
 - **Uptime**: > 99.9%
 
 ### Quality Metrics
+
 - **Test coverage**: > 80%
 - **Bug rate**: < 1 bug per 1000 requests
 - **Error rate**: < 0.1% (bez 4xx)
 
 ### User Experience Metrics
+
 - **API error rate**: < 1%
 - **Rate limit hit rate**: < 5% użytkowników
 - **AI generation success rate**: > 95%
@@ -2244,22 +2143,26 @@ const headers = {
 ## 13. Maintenance Plan
 
 ### Codziennie
+
 - [ ] Sprawdź logi błędów
 - [ ] Sprawdź metryki wydajności
 - [ ] Sprawdź rate limit violations
 
 ### Co tydzień
+
 - [ ] Review security logs
 - [ ] Update dependencies (jeśli są security patches)
 - [ ] Backup bazy danych
 
 ### Co miesiąc
+
 - [ ] Review i optymalizacja zapytań do bazy danych
 - [ ] Review i aktualizacja dokumentacji
 - [ ] Security audit
 - [ ] Update dependencies (minor versions)
 
 ### Co kwartał
+
 - [ ] Major dependencies update
 - [ ] Performance optimization sprint
 - [ ] User feedback review i implementacja ulepszeń
@@ -2279,8 +2182,8 @@ Ten plan implementacji zapewnia kompleksowe wytyczne dla zespołu programistów 
 Szacowany czas implementacji: **14-18 dni roboczych** dla zespołu 2-3 programistów.
 
 **Następne kroki**:
+
 1. Review planu z zespołem
 2. Przydzielenie zadań
 3. Setup środowiska deweloperskiego
 4. Rozpoczęcie implementacji od Fazy 1
-

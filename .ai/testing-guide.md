@@ -5,6 +5,7 @@
 ### Przygotowanie
 
 1. **Uruchom serwer deweloperski**:
+
    ```bash
    npm run dev
    ```
@@ -437,6 +438,7 @@ Expected Response (429):
 ## 📊 Checklist Testowania
 
 ### Podstawowe Funkcjonalności
+
 - [ ] Generowanie kandydatów AI działa
 - [ ] Tworzenie fiszki ręcznie działa
 - [ ] Tworzenie fiszki z kandydata AI działa
@@ -451,6 +453,7 @@ Expected Response (429):
 - [ ] Przetwarzanie recenzji działa
 
 ### Bezpieczeństwo
+
 - [ ] Brak tokenu zwraca 401
 - [ ] Nieprawidłowy token zwraca 401
 - [ ] Użytkownik nie widzi cudzych fiszek
@@ -458,6 +461,7 @@ Expected Response (429):
 - [ ] Rate limiting działa (100/min dla reszty)
 
 ### Walidacja
+
 - [ ] Pusty front/back zwraca 400
 - [ ] Za długi front (>200) zwraca 400
 - [ ] Za długi back (>500) zwraca 400
@@ -467,6 +471,7 @@ Expected Response (429):
 - [ ] Nieprawidłowy rating (0, 5) zwraca 400
 
 ### Edge Cases
+
 - [ ] Usuwanie nieistniejącej fiszki zwraca 404
 - [ ] Aktualizacja nieistniejącej fiszki zwraca 404
 - [ ] Pusta lista fiszek zwraca prawidłową strukturę
@@ -511,4 +516,3 @@ SELECT * FROM generation_error_logs WHERE user_id = 'YOUR_USER_ID';
 ---
 
 **Powodzenia w testowaniu! 🚀**
-

@@ -1,10 +1,10 @@
 /**
  * Custom Assertions for E2E Tests
- * 
+ *
  * These helpers provide reusable assertion functions
  */
 
-import { type Page, expect } from '@playwright/test';
+import { type Page, expect } from "@playwright/test";
 
 /**
  * Assert that the page has a specific title pattern
@@ -58,28 +58,28 @@ export async function assertButtonEnabled(page: Page, testId: string) {
 /**
  * Assert that an error message is displayed
  */
-export async function assertErrorDisplayed(page: Page, errorTestId: string = 'error-alert') {
+export async function assertErrorDisplayed(page: Page, errorTestId = "error-alert") {
   await expect(page.getByTestId(errorTestId)).toBeVisible();
 }
 
 /**
  * Assert that a success message is displayed
  */
-export async function assertSuccessDisplayed(page: Page, successTestId: string = 'success-alert') {
+export async function assertSuccessDisplayed(page: Page, successTestId = "success-alert") {
   await expect(page.getByTestId(successTestId)).toBeVisible();
 }
 
 /**
  * Assert that a loading indicator is visible
  */
-export async function assertLoadingVisible(page: Page, loadingTestId: string = 'loading') {
+export async function assertLoadingVisible(page: Page, loadingTestId = "loading") {
   await expect(page.getByTestId(loadingTestId)).toBeVisible();
 }
 
 /**
  * Assert that a loading indicator is not visible
  */
-export async function assertLoadingNotVisible(page: Page, loadingTestId: string = 'loading') {
+export async function assertLoadingNotVisible(page: Page, loadingTestId = "loading") {
   await expect(page.getByTestId(loadingTestId)).not.toBeVisible();
 }
 
@@ -102,9 +102,9 @@ export async function assertInputValue(page: Page, testId: string, value: string
  * Assert that a toast/notification is displayed
  */
 export async function assertToastDisplayed(page: Page, message?: string) {
-  const toast = page.locator('[data-sonner-toast]').first();
+  const toast = page.locator("[data-sonner-toast]").first();
   await expect(toast).toBeVisible();
-  
+
   if (message) {
     await expect(toast).toContainText(message);
   }
@@ -113,7 +113,7 @@ export async function assertToastDisplayed(page: Page, message?: string) {
 /**
  * Assert that the page is redirected after an action
  */
-export async function assertRedirectedTo(page: Page, expectedUrl: string, timeout: number = 10000) {
+export async function assertRedirectedTo(page: Page, expectedUrl: string, timeout = 10000) {
   await page.waitForURL(expectedUrl, { timeout });
   await expect(page).toHaveURL(expectedUrl);
 }
@@ -125,4 +125,3 @@ export async function assertListLength(page: Page, listTestId: string, expectedL
   const items = page.getByTestId(listTestId);
   await expect(items).toHaveCount(expectedLength);
 }
-

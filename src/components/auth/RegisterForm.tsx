@@ -22,7 +22,7 @@ export default function RegisterForm() {
 
   const passwordStrength = useMemo(() => {
     if (password.length === 0) return null;
-    
+
     const checks = {
       length: password.length >= MIN_PASSWORD_LENGTH,
       uppercase: /[A-Z]/.test(password),
@@ -40,11 +40,7 @@ export default function RegisterForm() {
   }, [password, confirmPassword]);
 
   const isFormValid = useMemo(() => {
-    return (
-      validateEmail(email) &&
-      passwordStrength?.length &&
-      passwordsMatch === true
-    );
+    return validateEmail(email) && passwordStrength?.length && passwordsMatch === true;
   }, [email, passwordStrength, passwordsMatch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -116,8 +112,8 @@ export default function RegisterForm() {
           <CheckCircle2 className="size-4" />
           <AlertTitle>Rejestracja zakończona pomyślnie</AlertTitle>
           <AlertDescription>
-            Aby dokończyć proces rejestracji, kliknij w link aktywacyjny wysłany na Twój adres e-mail.
-            Link jest ważny przez 24 godziny.
+            Aby dokończyć proces rejestracji, kliknij w link aktywacyjny wysłany na Twój adres e-mail. Link jest ważny
+            przez 24 godziny.
           </AlertDescription>
         </Alert>
 
@@ -146,10 +142,10 @@ export default function RegisterForm() {
   return (
     <div className="w-full max-w-md mx-auto space-y-6" data-testid="register-form">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold" data-testid="register-heading">Utwórz konto</h1>
-        <p className="text-muted-foreground">
-          Wprowadź swoje dane, aby rozpocząć korzystanie z 10xCards
-        </p>
+        <h1 className="text-3xl font-bold" data-testid="register-heading">
+          Utwórz konto
+        </h1>
+        <p className="text-muted-foreground">Wprowadź swoje dane, aby rozpocząć korzystanie z 10xCards</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -183,22 +179,10 @@ export default function RegisterForm() {
           />
           {password.length > 0 && passwordStrength && (
             <div className="space-y-1 text-sm" data-testid="password-requirements">
-              <PasswordRequirement
-                met={passwordStrength.length}
-                text={`Co najmniej ${MIN_PASSWORD_LENGTH} znaków`}
-              />
-              <PasswordRequirement
-                met={passwordStrength.uppercase}
-                text="Jedna wielka litera"
-              />
-              <PasswordRequirement
-                met={passwordStrength.lowercase}
-                text="Jedna mała litera"
-              />
-              <PasswordRequirement
-                met={passwordStrength.number}
-                text="Jedna cyfra"
-              />
+              <PasswordRequirement met={passwordStrength.length} text={`Co najmniej ${MIN_PASSWORD_LENGTH} znaków`} />
+              <PasswordRequirement met={passwordStrength.uppercase} text="Jedna wielka litera" />
+              <PasswordRequirement met={passwordStrength.lowercase} text="Jedna mała litera" />
+              <PasswordRequirement met={passwordStrength.number} text="Jedna cyfra" />
             </div>
           )}
         </div>
@@ -232,7 +216,12 @@ export default function RegisterForm() {
           </Alert>
         )}
 
-        <Button type="submit" disabled={!isFormValid || isLoading} className="w-full" data-testid="register-submit-button">
+        <Button
+          type="submit"
+          disabled={!isFormValid || isLoading}
+          className="w-full"
+          data-testid="register-submit-button"
+        >
           {isLoading ? "Rejestracja..." : "Zarejestruj się"}
         </Button>
       </form>
@@ -255,10 +244,7 @@ function PasswordRequirement({ met, text }: { met: boolean; text: string }) {
       ) : (
         <XCircle className="size-4 text-muted-foreground" />
       )}
-      <span className={met ? "text-green-600 dark:text-green-500" : "text-muted-foreground"}>
-        {text}
-      </span>
+      <span className={met ? "text-green-600 dark:text-green-500" : "text-muted-foreground"}>{text}</span>
     </div>
   );
 }
-

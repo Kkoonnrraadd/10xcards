@@ -19,8 +19,8 @@ APP_NAME="10xcards"                # Optional, defaults to 10xcards
 ### 2. Import the Service
 
 ```typescript
-import { OpenRouterService } from '@/lib/openrouter.service';
-import { OpenRouterError } from '@/lib/errors/OpenRouterError';
+import { OpenRouterService } from "@/lib/openrouter.service";
+import { OpenRouterError } from "@/lib/errors/OpenRouterError";
 ```
 
 ## Basic Usage
@@ -32,14 +32,14 @@ const service = new OpenRouterService();
 
 try {
   const response = await service.generateChatCompletion<string>({
-    model: 'anthropic/claude-3.5-sonnet',
+    model: "anthropic/claude-3.5-sonnet",
     messages: [
-      { role: 'system', content: 'You are a helpful assistant.' },
-      { role: 'user', content: 'What is quantum physics?' }
+      { role: "system", content: "You are a helpful assistant." },
+      { role: "user", content: "What is quantum physics?" },
     ],
     temperature: 0.7,
   });
-  
+
   console.log(response); // String response from the model
 } catch (error) {
   if (error instanceof OpenRouterError) {
@@ -51,22 +51,22 @@ try {
 ### Structured JSON Response
 
 ```typescript
-import type { JsonSchema } from '@/types';
+import type { JsonSchema } from "@/types";
 
 const service = new OpenRouterService();
 
 // Define your response schema
 const schema: JsonSchema = {
-  type: 'object',
+  type: "object",
   properties: {
-    title: { type: 'string' },
-    summary: { type: 'string' },
+    title: { type: "string" },
+    summary: { type: "string" },
     keyPoints: {
-      type: 'array',
-      items: { type: 'string' }
-    }
+      type: "array",
+      items: { type: "string" },
+    },
   },
-  required: ['title', 'summary', 'keyPoints']
+  required: ["title", "summary", "keyPoints"],
 };
 
 try {
@@ -75,22 +75,22 @@ try {
     summary: string;
     keyPoints: string[];
   }>({
-    model: 'openai/gpt-4',
+    model: "openai/gpt-4",
     messages: [
-      { role: 'system', content: 'You are a content analyzer.' },
-      { role: 'user', content: 'Analyze this text: ...' }
+      { role: "system", content: "You are a content analyzer." },
+      { role: "user", content: "Analyze this text: ..." },
     ],
     response_format: {
-      type: 'json_schema',
+      type: "json_schema",
       json_schema: {
-        name: 'content_analysis',
+        name: "content_analysis",
         strict: true,
-        schema: schema
-      }
+        schema: schema,
+      },
     },
     temperature: 0.5,
   });
-  
+
   console.log(response.title);
   console.log(response.keyPoints);
 } catch (error) {
@@ -103,7 +103,7 @@ try {
 ### Constructor
 
 ```typescript
-new OpenRouterService()
+new OpenRouterService();
 ```
 
 - Reads configuration from environment variables
@@ -184,6 +184,7 @@ See [OpenRouter documentation](https://openrouter.ai/docs) for the full list.
 ## Integration Example: AI Generation Service
 
 See `src/lib/services/ai-generation.service.ts` for a real-world example of how to integrate the OpenRouter service into a higher-level service with:
+
 - Timeout handling
 - Error logging
 - Response validation
@@ -229,4 +230,3 @@ curl -X POST http://localhost:4321/api/flashcards/generate \
 - Increase the timeout value in your calling code
 - Use streaming for long responses (not currently supported)
 - Consider using a faster model
-

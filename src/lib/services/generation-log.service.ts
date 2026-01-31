@@ -31,10 +31,7 @@ export class GenerationLogService {
    * });
    * ```
    */
-  async createRejectionLog(
-    userId: string,
-    data: CreateGenerationLogRequestDTO
-  ): Promise<GenerationLogDTO> {
+  async createRejectionLog(userId: string, data: CreateGenerationLogRequestDTO): Promise<GenerationLogDTO> {
     const { error, data: log } = await this.supabase
       .from("generation_logs")
       .insert({
@@ -136,4 +133,3 @@ export class GenerationLogService {
     return frontUnchanged && backUnchanged ? "accepted" : "accepted_with_edit";
   }
 }
-

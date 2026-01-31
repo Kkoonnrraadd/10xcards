@@ -185,31 +185,40 @@ Test wywołuje:
 ## 🎯 Wzorzec AAA w akcji
 
 ### Arrange (Przygotowanie)
+
 ```typescript
 const loginPage = new LoginPage(page);
 await loginPage.goto();
 await loginPage.assertLoaded();
 ```
+
 **Co się dzieje:**
+
 - Tworzymy obiekt strony
 - Nawigujemy do URL
 - Czekamy aż strona się załaduje
 
 ### Act (Akcja)
+
 ```typescript
-await loginPage.login('user@test.com', 'password123');
+await loginPage.login("user@test.com", "password123");
 ```
+
 **Co się dzieje:**
+
 - Wypełniamy formularz
 - Klikamy przycisk submit
 - Czekamy na odpowiedź
 
 ### Assert (Sprawdzenie)
+
 ```typescript
-await expect(page).toHaveURL('/dashboard');
+await expect(page).toHaveURL("/dashboard");
 await expect(dashboardPage.heading).toBeVisible();
 ```
+
 **Co się dzieje:**
+
 - Sprawdzamy czy nastąpiło przekierowanie
 - Weryfikujemy czy dashboard się załadował
 
@@ -274,6 +283,7 @@ await page.getByTestId('button').click()
 ```
 
 **Dlatego NIE musisz:**
+
 ```typescript
 // ❌ Niepotrzebne!
 await page.waitForTimeout(1000);
@@ -281,7 +291,7 @@ await page.waitForSelector('[data-testid="button"]');
 await page.click('[data-testid="button"]');
 
 // ✅ Wystarczy to:
-await page.getByTestId('button').click();
+await page.getByTestId("button").click();
 ```
 
 ---
@@ -354,4 +364,3 @@ Test → Page Object → Selektor → Element → Akcja → Asercja
 **Teraz rozumiesz jak to wszystko działa! 🎉**
 
 Przejdź do `QUICK_START.md` aby napisać swój pierwszy test!
-
