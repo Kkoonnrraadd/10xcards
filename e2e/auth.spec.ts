@@ -182,7 +182,7 @@ test.describe("Authentication Flow", () => {
   });
 
   test.describe("Authentication Redirects", () => {
-    test("should redirect authenticated users away from login page", async ({ page }) => {
+    test("should redirect authenticated users away from login page", async () => {
       // Note: This test assumes middleware is working
       // You'll need to set up authentication state first
       test.skip();

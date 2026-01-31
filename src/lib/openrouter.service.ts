@@ -59,8 +59,6 @@ export class OpenRouterService {
 
       return content as T;
     } catch (error) {
-      // Log the error for debugging
-      console.error("Error in generateChatCompletion:", error);
       // Re-throw the structured error for the caller to handle
       throw error;
     }

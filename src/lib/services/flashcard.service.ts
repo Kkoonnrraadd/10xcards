@@ -66,7 +66,6 @@ export class FlashcardService {
       .single();
 
     if (error) {
-      console.error("Failed to create flashcard:", error);
       throw new Error(`Failed to create flashcard: ${error.message}`);
     }
 
@@ -126,7 +125,6 @@ export class FlashcardService {
     const { data, error, count } = await queryBuilder;
 
     if (error) {
-      console.error("Failed to list flashcards:", error);
       throw new Error(`Failed to list flashcards: ${error.message}`);
     }
 
@@ -173,7 +171,6 @@ export class FlashcardService {
         // Not found
         return null;
       }
-      console.error("Failed to get flashcard:", error);
       throw new Error(`Failed to get flashcard: ${error.message}`);
     }
 
@@ -221,7 +218,6 @@ export class FlashcardService {
         // Not found
         return null;
       }
-      console.error("Failed to update flashcard:", error);
       throw new Error(`Failed to update flashcard: ${error.message}`);
     }
 
@@ -252,7 +248,6 @@ export class FlashcardService {
       .eq("user_id", userId);
 
     if (error) {
-      console.error("Failed to delete flashcard:", error);
       throw new Error(`Failed to delete flashcard: ${error.message}`);
     }
 

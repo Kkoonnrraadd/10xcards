@@ -48,7 +48,6 @@ export class GenerationLogService {
       .single();
 
     if (error) {
-      console.error("Failed to create rejection log:", error);
       throw new Error(`Failed to create rejection log: ${error.message}`);
     }
 
@@ -107,7 +106,6 @@ export class GenerationLogService {
       .single();
 
     if (error) {
-      console.error("Failed to create acceptance log:", error);
       throw new Error(`Failed to create acceptance log: ${error.message}`);
     }
 

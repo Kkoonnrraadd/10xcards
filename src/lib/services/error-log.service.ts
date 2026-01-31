@@ -57,7 +57,6 @@ export class ErrorLogService {
       .single();
 
     if (error) {
-      console.error("Failed to log generation error:", error);
       throw new Error(`Failed to log generation error: ${error.message}`);
     }
 
