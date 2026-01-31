@@ -15,25 +15,25 @@ The service will be implemented as a TypeScript class to manage its state and de
 
 class OpenRouterService {
   private readonly apiKey: string;
-  private readonly apiBaseUrl: string = 'https://openrouter.ai/api/v1';
+  private readonly apiBaseUrl: string = "https://openrouter.ai/api/v1";
   private readonly siteUrl: string; // For headers
   private readonly appName: string; // For headers
 
   constructor() {
     if (!process.env.OPENROUTER_API_KEY) {
-      throw new Error('OPENROUTER_API_KEY environment variable is not set.');
+      throw new Error("OPENROUTER_API_KEY environment variable is not set.");
     }
     this.apiKey = process.env.OPENROUTER_API_KEY;
-    this.siteUrl = process.env.SITE_URL || 'http://localhost:4321';
-    this.appName = process.env.APP_NAME || '10xcards';
+    this.siteUrl = process.env.SITE_URL || "http://localhost:4321";
+    this.appName = process.env.APP_NAME || "10xcards";
   }
-  
+
   // ... methods
 }
 ```
 
--   **`constructor()`**: The constructor will not take any arguments. It will be responsible for sourcing the OpenRouter API key and other configuration directly from environment variables.
--   It will perform a crucial check for the `OPENROUTER_API_KEY`. If the key is not found in the environment variables, the constructor will throw an error immediately. This fail-fast approach prevents runtime errors in parts of the application that depend on the service.
+- **`constructor()`**: The constructor will not take any arguments. It will be responsible for sourcing the OpenRouter API key and other configuration directly from environment variables.
+- It will perform a crucial check for the `OPENROUTER_API_KEY`. If the key is not found in the environment variables, the constructor will throw an error immediately. This fail-fast approach prevents runtime errors in parts of the application that depend on the service.
 
 ## 3. Public Methods and Fields
 
@@ -43,8 +43,8 @@ The service will expose one primary public method.
 
 This is the main entry point for using the service.
 
--   **`options: ChatCompletionOptions`**: A single object containing all parameters for the request. This keeps the method signature clean and scalable.
--   **`Promise<T>`**: The method returns a promise that resolves to the content of the model's response. The generic type `T` allows the caller to specify the expected shape of the response, which is particularly useful for structured JSON.
+- **`options: ChatCompletionOptions`**: A single object containing all parameters for the request. This keeps the method signature clean and scalable.
+- **`Promise<T>`**: The method returns a promise that resolves to the content of the model's response. The generic type `T` allows the caller to specify the expected shape of the response, which is particularly useful for structured JSON.
 
 **`ChatCompletionOptions` Type Definition:**
 
@@ -52,18 +52,18 @@ This is the main entry point for using the service.
 // Location: src/types.ts
 
 export type ChatMessage = {
-  role: 'system' | 'user' | 'assistant';
+  role: "system" | "user" | "assistant";
   content: string;
 };
 
 export type JsonSchema = {
-  type: 'object';
+  type: "object";
   properties: Record<string, unknown>;
   required?: string[];
 };
 
 export type ResponseFormat = {
-  type: 'json_schema';
+  type: "json_schema";
   json_schema: {
     name: string;
     strict?: boolean;
@@ -84,14 +84,14 @@ export type ChatCompletionOptions = {
 
 ## 4. Private Methods and Fields
 
--   **`private readonly apiKey: string`**: Stores the API key securely.
--   **`private readonly apiBaseUrl: string`**: The base URL for the OpenRouter API.
--   **`private async _sendRequest(payload: unknown): Promise<any>`**: A private helper method to handle the actual `fetch` call. This method will be responsible for:
-    -   Setting the correct `Content-Type` and `Authorization` headers.
-    -   Adding recommended headers like `HTTP-Referer` and `X-Title`.
-    -   Sending the POST request.
-    -   Checking the HTTP response status and throwing an appropriate `OpenRouterError` for non-200 responses.
-    -   Parsing the JSON response body.
+- **`private readonly apiKey: string`**: Stores the API key securely.
+- **`private readonly apiBaseUrl: string`**: The base URL for the OpenRouter API.
+- **`private async _sendRequest(payload: unknown): Promise<any>`**: A private helper method to handle the actual `fetch` call. This method will be responsible for:
+  - Setting the correct `Content-Type` and `Authorization` headers.
+  - Adding recommended headers like `HTTP-Referer` and `X-Title`.
+  - Sending the POST request.
+  - Checking the HTTP response status and throwing an appropriate `OpenRouterError` for non-200 responses.
+  - Parsing the JSON response body.
 
 ## 5. Error Handling
 
@@ -106,7 +106,7 @@ export class OpenRouterError extends Error {
 
   constructor(message: string, statusCode: number, errorDetails?: any) {
     super(message);
-    this.name = 'OpenRouterError';
+    this.name = "OpenRouterError";
     this.statusCode = statusCode;
     this.errorDetails = errorDetails;
   }
@@ -114,12 +114,13 @@ export class OpenRouterError extends Error {
 ```
 
 The `_sendRequest` method will catch errors and wrap them in this class. Potential HTTP status codes to handle include:
--   **`401 Unauthorized`**: Invalid or missing API key.
--   **`402 Payment Required`**: User has hit their spending limit.
--   **`429 Too Many Requests`**: Rate limit exceeded.
--   **`404 Not Found`**: The requested model is not available.
--   **`400 Bad Request`**: The request payload is malformed.
--   **`5xx`**: Server-side error on OpenRouter's end.
+
+- **`401 Unauthorized`**: Invalid or missing API key.
+- **`402 Payment Required`**: User has hit their spending limit.
+- **`429 Too Many Requests`**: Rate limit exceeded.
+- **`404 Not Found`**: The requested model is not available.
+- **`400 Bad Request`**: The request payload is malformed.
+- **`5xx`**: Server-side error on OpenRouter's end.
 
 Any consumer of the service should wrap calls to `generateChatCompletion` in a `try...catch` block to handle these potential errors.
 
@@ -155,12 +156,13 @@ Any consumer of the service should wrap calls to `generateChatCompletion` in a `
 2.  Import the necessary types and the custom error.
 3.  Implement the `OpenRouterService` class structure with the constructor as described in section 2.
 4.  Implement the public `generateChatCompletion` method. This method should orchestrate the call.
+
     ```typescript
     import type { ChatCompletionOptions } from '../../types';
     import { OpenRouterError } from '../errors/OpenRouterError';
 
     // ... inside the class
-    
+
     public async generateChatCompletion<T>(options: ChatCompletionOptions): Promise<T> {
         const payload = {
             model: options.model,
@@ -178,7 +180,7 @@ Any consumer of the service should wrap calls to `generateChatCompletion` in a `
             if (options.response_format?.type === 'json_schema') {
                 return JSON.parse(content) as T;
             }
-            
+
             return content as T;
         } catch (error) {
             // Log the error for debugging
@@ -188,7 +190,9 @@ Any consumer of the service should wrap calls to `generateChatCompletion` in a `
         }
     }
     ```
+
 5.  Implement the private `_sendRequest` helper method.
+
     ```typescript
     // ... inside the class
 
@@ -223,42 +227,47 @@ Any consumer of the service should wrap calls to `generateChatCompletion` in a `
 2.  This endpoint will receive requests from the client, instantiate the `OpenRouterService`, and use it to interact with the API.
 
 **Example `src/pages/api/chat.ts`:**
+
 ```typescript
-import type { APIRoute } from 'astro';
-import { OpenRouterService } from '../../lib/services/OpenRouterService';
-import type { JsonSchema } from '../../types';
-import { OpenRouterError } from '../../lib/errors/OpenRouterError';
+import type { APIRoute } from "astro";
+import { OpenRouterService } from "../../lib/services/OpenRouterService";
+import type { JsonSchema } from "../../types";
+import { OpenRouterError } from "../../lib/errors/OpenRouterError";
 
 // Define a schema for the expected response
 const cardSchema: JsonSchema = {
-  type: 'object',
+  type: "object",
   properties: {
-    front: { type: 'string', description: 'The front content of the flashcard.' },
-    back: { type: 'string', description: 'The back content of the flashcard.' },
+    front: { type: "string", description: "The front content of the flashcard." },
+    back: { type: "string", description: "The back content of the flashcard." },
   },
-  required: ['front', 'back'],
+  required: ["front", "back"],
 };
 
 export const POST: APIRoute = async ({ request }) => {
   const { prompt } = await request.json();
 
   if (!prompt) {
-    return new Response(JSON.stringify({ error: 'Prompt is required' }), { status: 400 });
+    return new Response(JSON.stringify({ error: "Prompt is required" }), { status: 400 });
   }
 
   const openRouterService = new OpenRouterService();
 
   try {
     const cardContent = await openRouterService.generateChatCompletion<{ front: string; back: string }>({
-      model: 'anthropic/claude-3.5-sonnet',
+      model: "anthropic/claude-3.5-sonnet",
       messages: [
-        { role: 'system', content: 'You are an AI assistant that creates flashcards. Respond with JSON that adheres to the provided schema.' },
-        { role: 'user', content: `Create a flashcard from the following text: ${prompt}` },
+        {
+          role: "system",
+          content:
+            "You are an AI assistant that creates flashcards. Respond with JSON that adheres to the provided schema.",
+        },
+        { role: "user", content: `Create a flashcard from the following text: ${prompt}` },
       ],
       response_format: {
-        type: 'json_schema',
+        type: "json_schema",
         json_schema: {
-          name: 'flashcard',
+          name: "flashcard",
           strict: true,
           schema: cardSchema,
         },
@@ -268,15 +277,17 @@ export const POST: APIRoute = async ({ request }) => {
 
     return new Response(JSON.stringify(cardContent), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
-
   } catch (error) {
     if (error instanceof OpenRouterError) {
-      return new Response(JSON.stringify({ error: error.message, details: error.errorDetails }), { status: error.statusCode });
+      return new Response(JSON.stringify({ error: error.message, details: error.errorDetails }), {
+        status: error.statusCode,
+      });
     }
-    return new Response(JSON.stringify({ error: 'An unexpected error occurred.' }), { status: 500 });
+    return new Response(JSON.stringify({ error: "An unexpected error occurred." }), { status: 500 });
   }
 };
 ```
+
 This completes the implementation plan. By following these steps, a developer can create a robust, secure, and maintainable service for integrating OpenRouter into the application.

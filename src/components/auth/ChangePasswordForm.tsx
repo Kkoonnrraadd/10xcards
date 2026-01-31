@@ -18,7 +18,7 @@ export default function ChangePasswordForm() {
 
   const passwordStrength = useMemo(() => {
     if (newPassword.length === 0) return null;
-    
+
     const checks = {
       length: newPassword.length >= MIN_PASSWORD_LENGTH,
       uppercase: /[A-Z]/.test(newPassword),
@@ -36,11 +36,7 @@ export default function ChangePasswordForm() {
   }, [newPassword, confirmPassword]);
 
   const isFormValid = useMemo(() => {
-    return (
-      currentPassword.length > 0 &&
-      passwordStrength?.length &&
-      passwordsMatch === true
-    );
+    return currentPassword.length > 0 && passwordStrength?.length && passwordsMatch === true;
   }, [currentPassword, passwordStrength, passwordsMatch]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -77,22 +73,22 @@ export default function ChangePasswordForm() {
       //   email: user.email,
       //   password: currentPassword,
       // });
-      
+
       // if (signInError) {
       //   throw new Error("Obecne hasło jest nieprawidłowe.");
       // }
-      
+
       // Then update to new password
       // const { error } = await supabase.auth.updateUser({
       //   password: newPassword,
       // });
-      
+
       // if (error) throw error;
-      
+
       toast.success("Hasło zostało pomyślnie zmienione", {
         description: "Twoje nowe hasło jest już aktywne.",
       });
-      
+
       // Reset form
       setCurrentPassword("");
       setNewPassword("");
@@ -115,9 +111,7 @@ export default function ChangePasswordForm() {
     <Card>
       <CardHeader>
         <CardTitle>Zmień hasło</CardTitle>
-        <CardDescription>
-          Zaktualizuj hasło do swojego konta
-        </CardDescription>
+        <CardDescription>Zaktualizuj hasło do swojego konta</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -148,22 +142,10 @@ export default function ChangePasswordForm() {
             />
             {newPassword.length > 0 && passwordStrength && (
               <div className="space-y-1 text-sm">
-                <PasswordRequirement
-                  met={passwordStrength.length}
-                  text={`Co najmniej ${MIN_PASSWORD_LENGTH} znaków`}
-                />
-                <PasswordRequirement
-                  met={passwordStrength.uppercase}
-                  text="Jedna wielka litera"
-                />
-                <PasswordRequirement
-                  met={passwordStrength.lowercase}
-                  text="Jedna mała litera"
-                />
-                <PasswordRequirement
-                  met={passwordStrength.number}
-                  text="Jedna cyfra"
-                />
+                <PasswordRequirement met={passwordStrength.length} text={`Co najmniej ${MIN_PASSWORD_LENGTH} znaków`} />
+                <PasswordRequirement met={passwordStrength.uppercase} text="Jedna wielka litera" />
+                <PasswordRequirement met={passwordStrength.lowercase} text="Jedna mała litera" />
+                <PasswordRequirement met={passwordStrength.number} text="Jedna cyfra" />
               </div>
             )}
           </div>
@@ -213,10 +195,7 @@ function PasswordRequirement({ met, text }: { met: boolean; text: string }) {
       ) : (
         <XCircle className="size-4 text-muted-foreground" />
       )}
-      <span className={met ? "text-green-600 dark:text-green-500" : "text-muted-foreground"}>
-        {text}
-      </span>
+      <span className={met ? "text-green-600 dark:text-green-500" : "text-muted-foreground"}>{text}</span>
     </div>
   );
 }
-

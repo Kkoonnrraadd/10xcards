@@ -251,4 +251,3 @@ export class StudyService {
     return [...currentHistory, newEntry];
   }
 }
-

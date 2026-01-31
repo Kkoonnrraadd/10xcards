@@ -26,5 +26,3 @@ describe("extractUser", () => {
     expect(await extractUser(withError)).toBeNull();
   });
 });
-
-

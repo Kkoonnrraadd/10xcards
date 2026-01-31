@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/53</span>
+                <span class='fraction'>0/55</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/53</span>
+                <span class='fraction'>0/55</span>
             </div>
         
             
@@ -132,7 +132,10 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -159,6 +162,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -228,8 +234,10 @@ interface FlashcardGeneratorProps {
 <span class="cstat-no" title="statement not covered" >  };</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className="space-y-4"&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;h1 className="text-3xl font-bold"&gt;Generator Fiszki&lt;/h1&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div className="space-y-4" data-testid="flashcard-generator"&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;h1 className="text-3xl font-bold" data-testid="generator-heading"&gt;</span>
+        Generator Fiszki
+<span class="cstat-no" title="statement not covered" >      &lt;/h1&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;p className="text-muted-foreground"&gt;</span>
 <span class="cstat-no" title="statement not covered" >        Wklej tekst (od {MIN_LENGTH} do {MAX_LENGTH} znaków), aby wygenerować fiszki przy użyciu AI.</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/p&gt;</span>
@@ -241,14 +249,15 @@ interface FlashcardGeneratorProps {
 <span class="cstat-no" title="statement not covered" >            onChange={(e) =&gt; setSourceText(e.target.value)}</span>
 <span class="cstat-no" title="statement not covered" >            className="min-h-[300px] pr-20"</span>
 <span class="cstat-no" title="statement not covered" >            disabled={isLoading}</span>
+<span class="cstat-no" title="statement not covered" >            data-testid="source-text-input"</span>
 <span class="cstat-no" title="statement not covered" >          /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="absolute bottom-3 right-3 text-sm text-muted-foreground"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="absolute bottom-3 right-3 text-sm text-muted-foreground" data-testid="character-counter"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            {sourceText.length} / {MAX_LENGTH}</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        {!isValid &amp;&amp; sourceText.length &gt; 0 &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Alert variant="destructive"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Alert variant="destructive" data-testid="text-length-error"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;AlertTitle&gt;Nieprawidłowa długość tekstu&lt;/AlertTitle&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;AlertDescription&gt;</span>
 <span class="cstat-no" title="statement not covered" >              Tekst musi mieć od {MIN_LENGTH} do {MAX_LENGTH} znaków.</span>
@@ -257,13 +266,13 @@ interface FlashcardGeneratorProps {
         )}
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        {isLoading &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="space-y-2"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className="space-y-2" data-testid="generation-progress"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;p className="text-sm text-center"&gt;Analizowanie tekstu i generowanie fiszek...&lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;Progress value={undefined} /&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
         )}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        &lt;Button type="submit" disabled={!isValid || isLoading} className="w-full"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Button type="submit" disabled={!isValid || isLoading} className="w-full" data-testid="generate-button"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          {isLoading ? "Generowanie..." : "Generuj"}</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/Button&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/form&gt;</span>
@@ -277,7 +286,7 @@ interface FlashcardGeneratorProps {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-19T19:13:03.141Z
+                at 2026-01-31T21:16:46.693Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

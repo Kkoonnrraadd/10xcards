@@ -22,10 +22,12 @@ E2E_PASSWORD="pass"
 ```
 
 ### Wymagane zmienne:
+
 - **`E2E_USERNAME`** - email testowego użytkownika
 - **`E2E_PASSWORD`** - hasło testowego użytkownika
 
 ### Opcjonalne zmienne:
+
 - **`E2E_USERNAME_ID`** - ID użytkownika (jeśli potrzebne)
 - **`SUPABASE_URL`** - URL Supabase (dla testów API)
 - **`SUPABASE_ANON_KEY`** - klucz Supabase (dla testów API)
@@ -42,13 +44,13 @@ Testy dashboard automatycznie logują użytkownika przed każdym testem:
 test.beforeEach(async ({ page }) => {
   const testEmail = process.env.E2E_USERNAME || "test@test.com";
   const testPassword = process.env.E2E_PASSWORD || "pass";
-  
+
   // Login
   await page.goto("/login");
   await page.getByTestId("login-email-input").fill(testEmail);
   await page.getByTestId("login-password-input").fill(testPassword);
   await page.getByTestId("login-submit-button").click();
-  
+
   // Wait for redirect
   await page.waitForURL("/dashboard");
 });
@@ -59,9 +61,9 @@ test.beforeEach(async ({ page }) => {
 Możesz też użyć helpera `loginAsTestUser()`:
 
 ```typescript
-import { loginAsTestUser } from './helpers/auth-helpers';
+import { loginAsTestUser } from "./helpers/auth-helpers";
 
-test('my test', async ({ page }) => {
+test("my test", async ({ page }) => {
   await loginAsTestUser(page);
   // User is now logged in
 });
@@ -82,6 +84,7 @@ Jeśli masz już użytkownika w bazie danych:
 ### Opcja 2: Utwórz nowego użytkownika testowego
 
 #### Przez aplikację:
+
 1. Uruchom `npm run dev`
 2. Przejdź do `/register`
 3. Zarejestruj użytkownika z danymi:
@@ -91,6 +94,7 @@ Jeśli masz już użytkownika w bazie danych:
 5. Zaktualizuj `.env.test` z tymi danymi
 
 #### Przez Supabase:
+
 1. Otwórz Supabase Dashboard
 2. Przejdź do Authentication → Users
 3. Dodaj nowego użytkownika:
@@ -110,7 +114,7 @@ test.describe("Dashboard Tests", () => {
     // Login before each test
     const testEmail = process.env.E2E_USERNAME || "test@test.com";
     const testPassword = process.env.E2E_PASSWORD || "pass";
-    
+
     await page.goto("/login");
     await page.getByTestId("login-email-input").fill(testEmail);
     await page.getByTestId("login-password-input").fill(testPassword);
@@ -128,15 +132,15 @@ test.describe("Dashboard Tests", () => {
 ### Test z helper funkcją
 
 ```typescript
-import { loginAsTestUser } from './helpers/auth-helpers';
+import { loginAsTestUser } from "./helpers/auth-helpers";
 
 test("should generate flashcards", async ({ page }) => {
   // Login using helper
   await loginAsTestUser(page);
-  
+
   // Navigate to dashboard
   await page.goto("/dashboard");
-  
+
   // Test flashcard generation
   // ...
 });
@@ -173,6 +177,7 @@ test("should generate flashcards", async ({ page }) => {
 ### Problem: "Invalid login credentials"
 
 **Rozwiązanie:**
+
 1. Sprawdź czy użytkownik istnieje w bazie danych
 2. Zweryfikuj email i hasło w `.env.test`
 3. Sprawdź czy email został potwierdzony (jeśli wymagane)
@@ -180,12 +185,14 @@ test("should generate flashcards", async ({ page }) => {
 ### Problem: "User not found"
 
 **Rozwiązanie:**
+
 1. Utwórz użytkownika testowego (zobacz sekcję Setup)
 2. Upewnij się, że używasz właściwej bazy danych
 
 ### Problem: Testy timeout podczas logowania
 
 **Rozwiązanie:**
+
 1. Sprawdź czy serwer działa (`npm run dev`)
 2. Sprawdź czy URL w `.env.test` jest poprawny
 3. Zwiększ timeout w konfiguracji Playwright
@@ -195,11 +202,13 @@ test("should generate flashcards", async ({ page }) => {
 ## 📊 Które testy wymagają autentykacji?
 
 ### ✅ Wymagają logowania:
+
 - `e2e/flashcards.spec.ts` - wszystkie testy dashboard
 - `e2e/auth.spec.ts` - test "should successfully login"
 - Przyszłe testy funkcji wymagających autentykacji
 
 ### ❌ NIE wymagają logowania:
+
 - `e2e/example.spec.ts` - podstawowe testy UI
 - `e2e/auth.spec.ts` - większość testów formularzy
 - `e2e/home.spec.ts` - test strony głównej
@@ -233,7 +242,7 @@ test.afterEach(async ({ page }) => {
 ```typescript
 test("should be authenticated", async ({ page }) => {
   await loginAsTestUser(page);
-  
+
   // Verify authentication
   await page.goto("/dashboard");
   await expect(page).toHaveURL("/dashboard");
@@ -273,4 +282,3 @@ npm run e2e -- e2e/flashcards.spec.ts
 # Uruchom test logowania
 npm run e2e -- e2e/auth.spec.ts -g "should successfully login"
 ```
-

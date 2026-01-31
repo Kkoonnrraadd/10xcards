@@ -31,10 +31,7 @@ export class GenerationLogService {
    * });
    * ```
    */
-  async createRejectionLog(
-    userId: string,
-    data: CreateGenerationLogRequestDTO
-  ): Promise<GenerationLogDTO> {
+  async createRejectionLog(userId: string, data: CreateGenerationLogRequestDTO): Promise<GenerationLogDTO> {
     const { error, data: log } = await this.supabase
       .from("generation_logs")
       .insert({
@@ -48,7 +45,6 @@ export class GenerationLogService {
       .single();
 
     if (error) {
-      console.error("Failed to create rejection log:", error);
       throw new Error(`Failed to create rejection log: ${error.message}`);
     }
 
@@ -107,7 +103,6 @@ export class GenerationLogService {
       .single();
 
     if (error) {
-      console.error("Failed to create acceptance log:", error);
       throw new Error(`Failed to create acceptance log: ${error.message}`);
     }
 
@@ -138,4 +133,3 @@ export class GenerationLogService {
     return frontUnchanged && backUnchanged ? "accepted" : "accepted_with_edit";
   }
 }
-

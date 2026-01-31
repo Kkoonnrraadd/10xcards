@@ -52,7 +52,7 @@ export interface RateLimitResult {
  * }
  * ```
  */
-export function checkRateLimit(userId: string, limit: number, windowMs: number = 60000): RateLimitResult {
+export function checkRateLimit(userId: string, limit: number, windowMs = 60000): RateLimitResult {
   const now = Date.now();
   const key = userId;
 

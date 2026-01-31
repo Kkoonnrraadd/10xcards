@@ -142,4 +142,3 @@ export const GET: APIRoute = async ({ url, locals }) => {
     return createErrorResponse("INTERNAL_ERROR", "Failed to list flashcards", 500);
   }
 };
-

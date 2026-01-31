@@ -243,24 +243,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -281,6 +263,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,15 +351,13 @@ interface EditCardDialogProps {
 <span class="cstat-no" title="statement not covered" >      onSaveAndAccept({ front, back });</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
-  
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;Dialog open={isOpen} onOpenChange={onClose}&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;DialogContent className="sm:max-w-[425px]"&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;DialogHeader&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;DialogTitle&gt;Edytuj propozycję fiszki&lt;/DialogTitle&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;DialogDescription&gt;</span>
-            Wprowadź zmiany w treści fiszki i zapisz, aby ją zaakceptować.
-<span class="cstat-no" title="statement not covered" >          &lt;/DialogDescription&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;DialogDescription&gt;Wprowadź zmiany w treści fiszki i zapisz, aby ją zaakceptować.&lt;/DialogDescription&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/DialogHeader&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div className="grid gap-4 py-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;div className="grid grid-cols-4 items-center gap-4"&gt;</span>
@@ -383,20 +381,22 @@ interface EditCardDialogProps {
               Tył
 <span class="cstat-no" title="statement not covered" >            &lt;/label&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;div className="col-span-3"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;Textarea</span>
-<span class="cstat-no" title="statement not covered" >                    id="back"</span>
-<span class="cstat-no" title="statement not covered" >                    value={back}</span>
-<span class="cstat-no" title="statement not covered" >                    onChange={(e) =&gt; setBack(e.target.value)}</span>
-<span class="cstat-no" title="statement not covered" >                    className={!isBackValid &amp;&amp; back.length &gt; 0 ? "border-red-500" : ""}</span>
-<span class="cstat-no" title="statement not covered" >                /&gt;</span>
-<span class="cstat-no" title="statement not covered" >                 &lt;p className="text-xs text-muted-foreground mt-1 text-right"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                    {back.length}/{MAX_BACK_LENGTH}</span>
-<span class="cstat-no" title="statement not covered" >                &lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;Textarea</span>
+<span class="cstat-no" title="statement not covered" >                id="back"</span>
+<span class="cstat-no" title="statement not covered" >                value={back}</span>
+<span class="cstat-no" title="statement not covered" >                onChange={(e) =&gt; setBack(e.target.value)}</span>
+<span class="cstat-no" title="statement not covered" >                className={!isBackValid &amp;&amp; back.length &gt; 0 ? "border-red-500" : ""}</span>
+<span class="cstat-no" title="statement not covered" >              /&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p className="text-xs text-muted-foreground mt-1 text-right"&gt;</span>
+<span class="cstat-no" title="statement not covered" >                {back.length}/{MAX_BACK_LENGTH}</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;DialogFooter&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Button type="button" variant="outline" onClick={onClose}&gt;Anuluj&lt;/Button&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Button type="button" variant="outline" onClick={onClose}&gt;</span>
+            Anuluj
+<span class="cstat-no" title="statement not covered" >          &lt;/Button&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;Button type="button" variant="secondary" onClick={handleSave} disabled={!isFormValid}&gt;</span>
             Zapisz
 <span class="cstat-no" title="statement not covered" >          &lt;/Button&gt;</span>
@@ -415,7 +415,7 @@ interface EditCardDialogProps {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-19T19:13:03.079Z
+                at 2026-01-31T21:16:46.628Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

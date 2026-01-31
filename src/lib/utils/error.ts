@@ -26,7 +26,7 @@ export function createErrorResponse(
   code: ApiErrorCode,
   message: string,
   status: number,
-  details?: Record<string, any>
+  details?: Record<string, unknown>
 ): Response {
   const body: ApiErrorResponseDTO = {
     error: {
@@ -65,7 +65,7 @@ export class AIGenerationError extends Error {
  * (exceeds the configured timeout).
  */
 export class AITimeoutError extends Error {
-  constructor(message: string = "AI service timeout") {
+  constructor(message = "AI service timeout") {
     super(message);
     this.name = "AITimeoutError";
   }
@@ -78,7 +78,7 @@ export class AITimeoutError extends Error {
  * doesn't exist or the user doesn't have access to it.
  */
 export class NotFoundError extends Error {
-  constructor(message: string = "Resource not found") {
+  constructor(message = "Resource not found") {
     super(message);
     this.name = "NotFoundError";
   }

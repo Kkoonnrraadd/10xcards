@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/108</span>
+                <span class='fraction'>0/115</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/108</span>
+                <span class='fraction'>0/115</span>
             </div>
         
             
@@ -193,7 +193,15 @@
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -264,6 +272,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -281,12 +291,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -391,9 +407,11 @@
 <span class="cstat-no" title="statement not covered" >  };</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className="w-full max-w-md mx-auto space-y-6"&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div className="w-full max-w-md mx-auto space-y-6" data-testid="login-form"&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;div className="space-y-2 text-center"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;h1 className="text-3xl font-bold"&gt;Zaloguj się&lt;/h1&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;h1 className="text-3xl font-bold" data-testid="login-heading"&gt;</span>
+          Zaloguj się
+<span class="cstat-no" title="statement not covered" >        &lt;/h1&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;p className="text-muted-foreground"&gt;Wprowadź swoje dane, aby uzyskać dostęp do konta&lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
 &nbsp;
@@ -409,13 +427,18 @@
 <span class="cstat-no" title="statement not covered" >            disabled={isLoading}</span>
 <span class="cstat-no" title="statement not covered" >            aria-invalid={error ? "true" : "false"}</span>
 <span class="cstat-no" title="statement not covered" >            autoComplete="email"</span>
+<span class="cstat-no" title="statement not covered" >            data-testid="login-email-input"</span>
 <span class="cstat-no" title="statement not covered" >          /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        &lt;div className="space-y-2"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;div className="flex items-center justify-between"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;Label htmlFor="password"&gt;Hasło&lt;/Label&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;a href="/forgot-password" className="text-sm text-primary hover:underline"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;a</span>
+<span class="cstat-no" title="statement not covered" >              href="/forgot-password"</span>
+<span class="cstat-no" title="statement not covered" >              className="text-sm text-primary hover:underline"</span>
+<span class="cstat-no" title="statement not covered" >              data-testid="forgot-password-link"</span>
+<span class="cstat-no" title="statement not covered" >            &gt;</span>
               Zapomniałeś hasła?
 <span class="cstat-no" title="statement not covered" >            &lt;/a&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
@@ -428,25 +451,26 @@
 <span class="cstat-no" title="statement not covered" >            disabled={isLoading}</span>
 <span class="cstat-no" title="statement not covered" >            aria-invalid={error ? "true" : "false"}</span>
 <span class="cstat-no" title="statement not covered" >            autoComplete="current-password"</span>
+<span class="cstat-no" title="statement not covered" >            data-testid="login-password-input"</span>
 <span class="cstat-no" title="statement not covered" >          /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        {error &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;Alert variant="destructive"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Alert variant="destructive" data-testid="login-error-alert"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;AlertCircle /&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;AlertTitle&gt;Błąd logowania&lt;/AlertTitle&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;AlertDescription&gt;{error}&lt;/AlertDescription&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/Alert&gt;</span>
         )}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        &lt;Button type="submit" disabled={isLoading} className="w-full"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Button type="submit" disabled={isLoading} className="w-full" data-testid="login-submit-button"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          {isLoading ? "Logowanie..." : "Zaloguj się"}</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/Button&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/form&gt;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      &lt;div className="text-center text-sm"&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;span className="text-muted-foreground"&gt;Nie masz jeszcze konta? &lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;a href="/register" className="text-primary hover:underline font-medium"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;a href="/register" className="text-primary hover:underline font-medium" data-testid="register-link"&gt;</span>
           Zarejestruj się
 <span class="cstat-no" title="statement not covered" >        &lt;/a&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
@@ -460,7 +484,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-19T19:13:03.079Z
+                at 2026-01-31T21:16:46.628Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -31,6 +31,7 @@ e2e/
 ### Page Object Model (POM)
 
 **Page Object Model** to wzorzec projektowy, który:
+
 - Enkapsuluje interakcje ze stroną w klasach
 - Ułatwia utrzymanie testów
 - Redukuje duplikację kodu
@@ -46,9 +47,9 @@ export class LoginPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.emailInput = page.getByTestId('login-email-input');
-    this.passwordInput = page.getByTestId('login-password-input');
-    this.submitButton = page.getByTestId('login-submit-button');
+    this.emailInput = page.getByTestId("login-email-input");
+    this.passwordInput = page.getByTestId("login-password-input");
+    this.submitButton = page.getByTestId("login-submit-button");
   }
 
   async login(email: string, password: string) {
@@ -108,20 +109,20 @@ Stosujemy następującą konwencję dla `data-testid`:
 ### Podstawowa struktura testu
 
 ```typescript
-import { test, expect } from '@playwright/test';
-import { LoginPage } from './pages/login.page';
+import { test, expect } from "@playwright/test";
+import { LoginPage } from "./pages/login.page";
 
-test.describe('Login Flow', () => {
-  test('should login successfully', async ({ page }) => {
+test.describe("Login Flow", () => {
+  test("should login successfully", async ({ page }) => {
     // 1. Arrange - przygotuj stan początkowy
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    
+
     // 2. Act - wykonaj akcję
-    await loginPage.login('user@example.com', 'password123');
-    
+    await loginPage.login("user@example.com", "password123");
+
     // 3. Assert - sprawdź rezultat
-    await expect(page).toHaveURL('/dashboard');
+    await expect(page).toHaveURL("/dashboard");
   });
 });
 ```
@@ -208,17 +209,17 @@ npx playwright test --debug
 ### 2. Dodaj `page.pause()` w teście
 
 ```typescript
-test('debug test', async ({ page }) => {
-  await page.goto('/login');
+test("debug test", async ({ page }) => {
+  await page.goto("/login");
   await page.pause(); // Zatrzyma wykonanie
-  await page.fill('[data-testid="email"]', 'test@test.com');
+  await page.fill('[data-testid="email"]', "test@test.com");
 });
 ```
 
 ### 3. Zrób screenshot
 
 ```typescript
-await page.screenshot({ path: 'debug.png' });
+await page.screenshot({ path: "debug.png" });
 ```
 
 ### 4. Sprawdź trace
@@ -234,18 +235,18 @@ npx playwright show-trace trace.zip
 ### Scenariusz 1: Rejestracja i logowanie
 
 ```typescript
-test('complete registration flow', async ({ page }) => {
+test("complete registration flow", async ({ page }) => {
   // 1. Otwórz stronę rejestracji
   const registerPage = new RegisterPage(page);
   await registerPage.goto();
-  
+
   // 2. Wypełnij formularz
   const email = `test-${Date.now()}@example.com`;
-  await registerPage.register(email, 'SecurePass123', 'SecurePass123');
-  
+  await registerPage.register(email, "SecurePass123", "SecurePass123");
+
   // 3. Sprawdź komunikat o sukcesie
   await registerPage.assertSuccessMessageDisplayed();
-  
+
   // 4. Przejdź do logowania
   // (w rzeczywistości musisz potwierdzić email)
 });
@@ -254,22 +255,22 @@ test('complete registration flow', async ({ page }) => {
 ### Scenariusz 2: Generowanie fiszek
 
 ```typescript
-test('generate and review flashcards', async ({ page }) => {
+test("generate and review flashcards", async ({ page }) => {
   // 1. Zaloguj się (zakładając, że masz funkcję pomocniczą)
   await loginAsTestUser(page);
-  
+
   // 2. Przejdź do dashboardu
   const dashboard = new DashboardPage(page);
   await dashboard.assertLoaded();
-  
+
   // 3. Wygeneruj fiszki
   await dashboard.generateFlashcards(SAMPLE_TEXT);
-  
+
   // 4. Sprawdź, czy pojawiły się propozycje
   await dashboard.assertReviewerVisible();
   const count = await dashboard.getReviewCardsCount();
   expect(count).toBeGreaterThan(0);
-  
+
   // 5. Zaakceptuj pierwszą fiszkę
   await dashboard.acceptFirstCard();
 });
@@ -281,18 +282,18 @@ Konfiguracja Playwright znajduje się w `playwright.config.ts`:
 
 ```typescript
 export default defineConfig({
-  testDir: 'e2e',                    // Katalog z testami
-  fullyParallel: true,               // Równoległe wykonywanie
+  testDir: "e2e", // Katalog z testami
+  fullyParallel: true, // Równoległe wykonywanie
   use: {
-    baseURL: 'http://localhost:4321', // Bazowy URL
-    trace: 'on-first-retry',          // Trace przy powtórkach
-    screenshot: 'only-on-failure',    // Screenshot przy błędach
-    video: 'retain-on-failure',       // Video przy błędach
+    baseURL: "http://localhost:4321", // Bazowy URL
+    trace: "on-first-retry", // Trace przy powtórkach
+    screenshot: "only-on-failure", // Screenshot przy błędach
+    video: "retain-on-failure", // Video przy błędach
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
   ],
 });
@@ -303,28 +304,32 @@ export default defineConfig({
 ### 1. Używaj Page Object Models
 
 ✅ **Dobrze:**
+
 ```typescript
 const loginPage = new LoginPage(page);
-await loginPage.login('user@test.com', 'pass123');
+await loginPage.login("user@test.com", "pass123");
 ```
 
 ❌ **Źle:**
+
 ```typescript
-await page.fill('[data-testid="email"]', 'user@test.com');
-await page.fill('[data-testid="password"]', 'pass123');
+await page.fill('[data-testid="email"]', "user@test.com");
+await page.fill('[data-testid="password"]', "pass123");
 await page.click('[data-testid="submit"]');
 ```
 
 ### 2. Używaj asercji z Playwright
 
 ✅ **Dobrze:**
+
 ```typescript
-await expect(page.getByTestId('error')).toBeVisible();
+await expect(page.getByTestId("error")).toBeVisible();
 ```
 
 ❌ **Źle:**
+
 ```typescript
-const isVisible = await page.getByTestId('error').isVisible();
+const isVisible = await page.getByTestId("error").isVisible();
 expect(isVisible).toBe(true);
 ```
 
@@ -333,14 +338,16 @@ expect(isVisible).toBe(true);
 Playwright automatycznie czeka na elementy - nie używaj `waitForTimeout` bez potrzeby:
 
 ✅ **Dobrze:**
+
 ```typescript
-await expect(page.getByTestId('result')).toBeVisible();
+await expect(page.getByTestId("result")).toBeVisible();
 ```
 
 ❌ **Źle:**
+
 ```typescript
 await page.waitForTimeout(3000);
-const result = await page.getByTestId('result');
+const result = await page.getByTestId("result");
 ```
 
 ### 4. Izoluj testy
@@ -350,18 +357,20 @@ Każdy test powinien być niezależny:
 ```typescript
 test.beforeEach(async ({ page }) => {
   // Przygotuj czysty stan dla każdego testu
-  await page.goto('/');
+  await page.goto("/");
 });
 ```
 
 ### 5. Używaj opisowych nazw testów
 
 ✅ **Dobrze:**
+
 ```typescript
 test('should display error when login with invalid credentials', async ({ page }) => {
 ```
 
 ❌ **Źle:**
+
 ```typescript
 test('test 1', async ({ page }) => {
 ```
@@ -374,7 +383,7 @@ test('test 1', async ({ page }) => {
 test.beforeEach(async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.goto();
-  await loginPage.login('test@example.com', 'password');
+  await loginPage.login("test@example.com", "password");
 });
 ```
 
@@ -382,26 +391,26 @@ test.beforeEach(async ({ page }) => {
 
 ```typescript
 // auth.setup.ts
-import { test as setup } from '@playwright/test';
+import { test as setup } from "@playwright/test";
 
-setup('authenticate', async ({ page }) => {
-  await page.goto('/login');
-  await page.fill('[data-testid="email"]', 'test@example.com');
-  await page.fill('[data-testid="password"]', 'password');
+setup("authenticate", async ({ page }) => {
+  await page.goto("/login");
+  await page.fill('[data-testid="email"]', "test@example.com");
+  await page.fill('[data-testid="password"]', "password");
   await page.click('[data-testid="submit"]');
-  
+
   // Zapisz stan autentykacji
-  await page.context().storageState({ path: 'auth.json' });
+  await page.context().storageState({ path: "auth.json" });
 });
 
 // playwright.config.ts
 export default defineConfig({
   projects: [
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
-      name: 'chromium',
-      use: { storageState: 'auth.json' },
-      dependencies: ['setup'],
+      name: "chromium",
+      use: { storageState: "auth.json" },
+      dependencies: ["setup"],
     },
   ],
 });
@@ -420,6 +429,7 @@ playwright-report/index.html
 ```
 
 Raport zawiera:
+
 - Listę wszystkich testów
 - Czas wykonania
 - Screenshoty przy błędach
@@ -431,6 +441,7 @@ Raport zawiera:
 ### Problem: Test czasami przechodzi, czasami nie (flaky test)
 
 **Rozwiązanie:**
+
 - Używaj `await expect()` zamiast ręcznego czekania
 - Sprawdź, czy nie ma race conditions
 - Upewnij się, że testy są izolowane
@@ -438,9 +449,10 @@ Raport zawiera:
 ### Problem: Element nie jest znaleziony
 
 **Rozwiązanie:**
+
 ```typescript
 // Sprawdź, czy element jest widoczny
-await expect(page.getByTestId('element')).toBeVisible();
+await expect(page.getByTestId("element")).toBeVisible();
 
 // Poczekaj na element
 await page.waitForSelector('[data-testid="element"]');
@@ -449,6 +461,7 @@ await page.waitForSelector('[data-testid="element"]');
 ### Problem: Testy są wolne
 
 **Rozwiązanie:**
+
 - Używaj `fullyParallel: true` w konfiguracji
 - Unikaj niepotrzebnych `waitForTimeout`
 - Rozważ mockowanie API dla niektórych testów
@@ -473,4 +486,3 @@ await page.waitForSelector('[data-testid="element"]');
 **Powodzenia w testowaniu! 🚀**
 
 Jeśli masz pytania lub napotkasz problemy, sprawdź dokumentację Playwright lub skonsultuj się z zespołem.
-

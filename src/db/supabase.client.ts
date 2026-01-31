@@ -9,7 +9,8 @@ export type SupabaseClient = SupabaseClientType<Database>;
 // Cookie options for server-side auth
 export const cookieOptions: CookieOptionsWithName = {
   path: "/",
-  secure: true,
+  // Use secure cookies only in production (HTTPS). In dev/test over HTTP, they won't be set otherwise.
+  secure: import.meta.env.PROD,
   httpOnly: true,
   sameSite: "lax",
 };

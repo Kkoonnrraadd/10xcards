@@ -13,11 +13,13 @@ Zebrałem już kluczowe pliki API, serwisy i middleware. Teraz równolegle odczy
 ## <plan_testów>
 
 ### 1. Wprowadzenie i cele testowania
+
 - Celem jest zapewnienie jakości aplikacji 10xCards opartej na Astro 5, TypeScript 5, React 19, Tailwind 4, shadcn/ui oraz Supabase (Auth, PostgreSQL, RLS) z integracją AI (OpenRouter).
 - Główne obszary: poprawność i odporność API (`/src/pages/api/**`), bezpieczeństwo (Auth + RLS), stabilność integracji AI, poprawność algorytmu nauki (FSRS – obecnie mock), użyteczność i dostępność UI, wydajność oraz limity zapytań.
 - Cel dodatkowy: wczesne wykrywanie regresji poprzez automatyzację testów i integrację z CI.
 
 ### 2. Zakres testów
+
 - Backend/SSR:
   - Middleware `src/middleware/index.ts` (ochrona tras, rate limiting).
   - Endpoints API:
@@ -40,6 +42,7 @@ Zebrałem już kluczowe pliki API, serwisy i middleware. Teraz równolegle odczy
 Nie wchodzą w zakres: testy wizualne piksel‑perfect, testy kompatybilności przeglądarek legacy (IE/Edge Legacy).
 
 ### 3. Typy testów
+
 - Testy jednostkowe (Vitest):
   - Walidacja Zod (`schemas.ts`): ścieżki sukcesu i błędów (min/max, literal, union).
   - Utils: `createErrorResponse`, klasy błędów, `checkRateLimit` (okno czasowe, reset, retryAfter), `extractUser`.
@@ -65,6 +68,7 @@ Nie wchodzą w zakres: testy wizualne piksel‑perfect, testy kompatybilności p
   - Formularze (walidacje inline), komunikaty błędów, spójność UI (shadcn/ui).
 
 ### 4. Scenariusze testowe dla kluczowych funkcjonalności
+
 - Middleware i Auth
   - Wejście na `"/login"` z aktywną sesją → redirect `"/dashboard"`.
   - Wejście na `"/dashboard"` bez sesji → redirect `"/login"`.
@@ -109,6 +113,7 @@ Nie wchodzą w zakres: testy wizualne piksel‑perfect, testy kompatybilności p
   - Dashboard: generowanie AI (loading, timeout UI, 429 UI), akceptacja/edycja/odrzucenie; lista fiszek (paginacja, search); przegląd/ocena.
 
 ### 5. Środowisko testowe
+
 - Wersje:
   - Node 22.x, Astro 5 (adapter node), TS 5, React 19.
 - Baza i backend:
@@ -122,6 +127,7 @@ Nie wchodzą w zakres: testy wizualne piksel‑perfect, testy kompatybilności p
   - Skrypty seed/migrations dla danych użytkowników i przykładowych fiszek.
 
 ### 6. Narzędzia do testowania
+
 - Jednostkowe/integracyjne: Vitest, ts-node/ESM (wbudowane w Vitest), supertest/undici fetch, MSW (mock HTTP).
 - E2E: Playwright (testy i a11y przez `@axe-core/playwright`).
 - Wydajność: k6 lub Artillery.
@@ -130,6 +136,7 @@ Nie wchodzą w zakres: testy wizualne piksel‑perfect, testy kompatybilności p
 - CI: GitHub Actions (matryce: test unit/integration, e2e, lint/type-check; cache node_modules; artefakty raportów).
 
 ### 7. Harmonogram testów
+
 - Tydzień 1:
   - Jednostkowe: Zod, utils, `FlashcardService`, `GenerationLogService`, `ErrorLogService`.
   - Integracyjne: CRUD `/api/flashcards`, `/api/generation-logs`.
@@ -145,6 +152,7 @@ Nie wchodzą w zakres: testy wizualne piksel‑perfect, testy kompatybilności p
   - Integracja pełna z CI + progi jakości.
 
 ### 8. Kryteria akceptacji testów
+
 - Testy automatyczne:
   - Jednostkowe/integracyjne: ≥ 80% lines/branches dla `src/lib`, `src/pages/api`, `src/middleware`.
   - 100% pokrycia ścieżek błędów dla `createErrorResponse`, `rate-limit`, walidacji Zod.
@@ -162,12 +170,14 @@ Nie wchodzą w zakres: testy wizualne piksel‑perfect, testy kompatybilności p
   - Brak flaky testów w 3 kolejnych przebiegach CI.
 
 ### 9. Role i odpowiedzialności
+
 - QA Lead: właściciel planu, priorytety, przeglądy, jakość raportów.
 - QA Engineer: implementacja testów, uruchamianie, analiza defektów, a11y.
 - Developerzy: wsparcie w testowalności (DI, mocki), poprawki defektów, utrzymanie kontraktów.
 - DevOps: konfiguracja CI/CD, sekrety, izolacja środowisk, raporty artefaktów.
 
 ### 10. Procedury raportowania błędów
+
 - Zgłoszenie (ticket):
   - Tytuł, środowisko, wersja commit, kroki reprodukcji, oczekiwane vs rzeczywiste, logi (status, body, `error.code`, `details`), zrzuty ekranu/trace.
   - Dla AI: dołącz `error_id` z odpowiedzi `AI_GENERATION_FAILED`.

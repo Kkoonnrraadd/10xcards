@@ -346,7 +346,8 @@
 <a name='L281'></a><a href='#L281'>281</a>
 <a name='L282'></a><a href='#L282'>282</a>
 <a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -454,10 +455,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -615,6 +612,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -735,16 +737,12 @@ type ViewMode = "generator" | "review";
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  const handleSaveEditedCard = (editedCandidate: FlashcardCandidateDTO) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (!candidateToEdit) return;</span>
-    
+&nbsp;
     // Update the candidate in the list without removing it
 <span class="cstat-no" title="statement not covered" >    setCandidates((prev) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >      prev.map((c) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >        c.front === candidateToEdit.front &amp;&amp; c.back === candidateToEdit.back</span>
-<span class="cstat-no" title="statement not covered" >          ? editedCandidate</span>
-<span class="cstat-no" title="statement not covered" >          : c</span>
-<span class="cstat-no" title="statement not covered" >      )</span>
+<span class="cstat-no" title="statement not covered" >      prev.map((c) =&gt; (c.front === candidateToEdit.front &amp;&amp; c.back === candidateToEdit.back ? editedCandidate : c))</span>
 <span class="cstat-no" title="statement not covered" >    );</span>
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    toast.success("Zmiany zostały zapisane. Możesz edytować ponownie lub zaakceptować fiszkę.");</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 &nbsp;
@@ -811,7 +809,7 @@ type ViewMode = "generator" | "review";
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  const handleAcceptAll = async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (candidates.length === 0) return;</span>
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    try {</span>
       // Accept all candidates in parallel
 <span class="cstat-no" title="statement not covered" >      const promises = candidates.map(async (candidate) =&gt; {</span>
@@ -835,7 +833,7 @@ type ViewMode = "generator" | "review";
 <span class="cstat-no" title="statement not covered" >      });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      await Promise.all(promises);</span>
-      
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      toast.success(`Wszystkie ${candidates.length} fiszek zostały zaakceptowane i dodane do kolekcji.`);</span>
 <span class="cstat-no" title="statement not covered" >      setCandidates([]);</span>
 <span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
@@ -846,7 +844,7 @@ type ViewMode = "generator" | "review";
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  const handleRejectAll = async () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (candidates.length === 0) return;</span>
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    try {</span>
       // Reject all candidates in parallel
 <span class="cstat-no" title="statement not covered" >      const promises = candidates.map(async (candidate) =&gt; {</span>
@@ -867,7 +865,7 @@ type ViewMode = "generator" | "review";
 <span class="cstat-no" title="statement not covered" >      });</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      await Promise.all(promises);</span>
-      
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      toast.info(`Wszystkie ${candidates.length} propozycji zostały odrzucone.`);</span>
 <span class="cstat-no" title="statement not covered" >      setCandidates([]);</span>
       // Return to generator to create new set
@@ -898,6 +896,11 @@ type ViewMode = "generator" | "review";
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;div className="max-w-3xl mx-auto w-full"&gt;</span>
+<span class="cstat-no" title="statement not covered" >      {error &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;p role="alert" className="text-sm text-red-600 mb-3"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          {error}</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/p&gt;</span>
+      )}
 <span class="cstat-no" title="statement not covered" >      &lt;MainContent /&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;EditCardDialog</span>
 <span class="cstat-no" title="statement not covered" >        isOpen={isEditDialogOpen}</span>
@@ -919,7 +922,7 @@ type ViewMode = "generator" | "review";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-19T19:13:03.141Z
+                at 2026-01-31T21:16:46.693Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -70,4 +70,3 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return createErrorResponse("INTERNAL_ERROR", "Failed to create generation log", 500);
   }
 };
-

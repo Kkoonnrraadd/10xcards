@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/33</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/33</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
@@ -106,7 +106,11 @@
 <a name='L41'></a><a href='#L41'>41</a>
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
-<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -119,6 +123,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -164,28 +172,32 @@ interface ReviewCardProps {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export default function ReviewCard({ candidate, onAccept, onEdit, onReject }: ReviewCardProps) {</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;Card className="transition-all hover:shadow-md"&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;Card className="transition-all hover:shadow-md" data-testid="review-card"&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;CardHeader&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;CardTitle&gt;Propozycja fiszki&lt;/CardTitle&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/CardHeader&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;CardContent className="space-y-4"&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;p className="text-sm font-medium text-muted-foreground"&gt;Przód&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p className="font-semibold text-lg"&gt;{candidate.front}&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;p className="font-semibold text-lg" data-testid="card-front"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            {candidate.front}</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;div&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;p className="text-sm font-medium text-muted-foreground"&gt;Tył&lt;/p&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p className="text-base"&gt;{candidate.back}&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;p className="text-base" data-testid="card-back"&gt;</span>
+<span class="cstat-no" title="statement not covered" >            {candidate.back}</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/CardContent&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;CardFooter className="flex justify-end space-x-2 bg-muted/50 p-4 rounded-b-lg"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;Button variant="outline" size="icon" onClick={onReject} aria-label="Odrzuć"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Button variant="outline" size="icon" onClick={onReject} aria-label="Odrzuć" data-testid="reject-card-button"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;Trash2 className="h-4 w-4" /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/Button&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;Button variant="outline" size="icon" onClick={onEdit} aria-label="Edytuj"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Button variant="outline" size="icon" onClick={onEdit} aria-label="Edytuj" data-testid="edit-card-button"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;Pencil className="h-4 w-4" /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/Button&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;Button size="icon" onClick={onAccept} aria-label="Akceptuj"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Button size="icon" onClick={onAccept} aria-label="Akceptuj" data-testid="accept-card-button"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;Check className="h-4 w-4" /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/Button&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/CardFooter&gt;</span>
@@ -199,7 +211,7 @@ interface ReviewCardProps {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-10-19T19:13:03.141Z
+                at 2026-01-31T21:16:46.693Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

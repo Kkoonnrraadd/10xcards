@@ -39,14 +39,15 @@ export default function ForgotPasswordForm() {
       // const { error } = await supabase.auth.resetPasswordForEmail(email, {
       //   redirectTo: `${window.location.origin}/update-password`,
       // });
-      
+
       // if (error) throw error;
 
       setSuccess(true);
       // eslint-disable-next-line no-console
       console.log("Password reset request for:", email);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd podczas wysyłania instrukcji.";
+      const errorMessage =
+        err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd podczas wysyłania instrukcji.";
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -63,9 +64,7 @@ export default function ForgotPasswordForm() {
             </div>
           </div>
           <h1 className="text-3xl font-bold">Sprawdź swoją skrzynkę</h1>
-          <p className="text-muted-foreground">
-            Wysłaliśmy instrukcje resetowania hasła na adres:
-          </p>
+          <p className="text-muted-foreground">Wysłaliśmy instrukcje resetowania hasła na adres:</p>
           <p className="font-medium">{email}</p>
         </div>
 
@@ -109,9 +108,7 @@ export default function ForgotPasswordForm() {
     <div className="w-full max-w-md mx-auto space-y-6">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Zapomniałeś hasła?</h1>
-        <p className="text-muted-foreground">
-          Podaj swój adres e-mail, a wyślemy Ci instrukcje resetowania hasła
-        </p>
+        <p className="text-muted-foreground">Podaj swój adres e-mail, a wyślemy Ci instrukcje resetowania hasła</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -126,7 +123,6 @@ export default function ForgotPasswordForm() {
             disabled={isLoading}
             aria-invalid={error ? "true" : "false"}
             autoComplete="email"
-            autoFocus
           />
         </div>
 
@@ -154,4 +150,3 @@ export default function ForgotPasswordForm() {
     </div>
   );
 }
-

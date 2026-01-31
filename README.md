@@ -80,11 +80,13 @@ npm run e2e:report       # Show HTML report
 ```
 
 **Quick Start:**
+
 - 📚 **New to E2E testing?** Start with [`e2e/QUICK_START.md`](./e2e/QUICK_START.md) (5 minutes)
 - 📖 **Full documentation:** See [`e2e/README.md`](./e2e/README.md)
 - 🎯 **All guides:** Check [`e2e/INDEX.md`](./e2e/INDEX.md) for complete documentation index
 
 **Features:**
+
 - ✅ Page Object Models for maintainable tests
 - ✅ Comprehensive test coverage (auth, flashcards, UI)
 - ✅ Helper functions and utilities
@@ -92,6 +94,7 @@ npm run e2e:report       # Show HTML report
 - ✅ Detailed documentation and examples
 
 **Test Structure:**
+
 ```
 e2e/
 ├── pages/           # Page Object Models
@@ -110,18 +113,17 @@ npx playwright show-trace trace.zip   # View test trace
 
 See [`e2e/CHEATSHEET.md`](./e2e/CHEATSHEET.md) for more commands and tips.
 
-
 ## Project Structure
 
 ```md
 .
 ├── src/
-│   ├── layouts/    # Astro layouts
-│   ├── pages/      # Astro pages
-│   │   └── api/    # API endpoints
-│   ├── components/ # UI components (Astro & React)
-│   └── assets/     # Static assets
-├── public/         # Public assets
+│ ├── layouts/ # Astro layouts
+│ ├── pages/ # Astro pages
+│ │ └── api/ # API endpoints
+│ ├── components/ # UI components (Astro & React)
+│ └── assets/ # Static assets
+├── public/ # Public assets
 ```
 
 ## AI Development Support

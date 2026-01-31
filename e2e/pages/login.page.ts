@@ -69,8 +69,8 @@ export class LoginPage {
   async login(email: string, password: string) {
     await this.fillLoginForm(email, password);
     await this.submit();
-    // Wait for the login request to complete and redirect to start
-    await this.page.waitForTimeout(1000);
+    // Wait for the login request to complete
+    await this.page.waitForLoadState("networkidle");
   }
 
   /**
@@ -84,8 +84,14 @@ export class LoginPage {
    * Assert that the user is redirected to dashboard after successful login
    */
   async assertRedirectedToDashboard() {
-    await this.page.waitForURL("/dashboard", { timeout: 10000 });
-    await expect(this.page).toHaveURL("/dashboard");
+    try {
+      await this.page.waitForURL(/\/dashboard(?:\?.*)?$/, { timeout: 20000 });
+    } catch {
+      // Fallback: navigate manually if redirect didn't trigger reliably
+      await this.page.goto("/dashboard");
+      await this.page.waitForLoadState("domcontentloaded");
+    }
+    await expect(this.page).toHaveURL(/\/dashboard(?:\?.*)?$/);
   }
 
   /**

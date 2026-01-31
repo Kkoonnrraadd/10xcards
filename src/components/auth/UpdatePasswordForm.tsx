@@ -16,7 +16,7 @@ export default function UpdatePasswordForm() {
 
   const passwordStrength = useMemo(() => {
     if (password.length === 0) return null;
-    
+
     const checks = {
       length: password.length >= MIN_PASSWORD_LENGTH,
       uppercase: /[A-Z]/.test(password),
@@ -65,19 +65,20 @@ export default function UpdatePasswordForm() {
       // const { error } = await supabase.auth.updateUser({
       //   password: password,
       // });
-      
+
       // if (error) throw error;
 
       setSuccess(true);
       // eslint-disable-next-line no-console
       console.log("Password updated successfully");
-      
+
       // Redirect to login after a short delay
       // setTimeout(() => {
       //   window.location.href = "/login";
       // }, 2000);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd podczas aktualizacji hasła.";
+      const errorMessage =
+        err instanceof Error ? err.message : "Wystąpił nieoczekiwany błąd podczas aktualizacji hasła.";
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -110,9 +111,7 @@ export default function UpdatePasswordForm() {
     <div className="w-full max-w-md mx-auto space-y-6">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-bold">Ustaw nowe hasło</h1>
-        <p className="text-muted-foreground">
-          Wprowadź nowe hasło dla swojego konta
-        </p>
+        <p className="text-muted-foreground">Wprowadź nowe hasło dla swojego konta</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -127,26 +126,13 @@ export default function UpdatePasswordForm() {
             disabled={isLoading}
             aria-invalid={password.length > 0 && !passwordStrength?.length ? "true" : "false"}
             autoComplete="new-password"
-            autoFocus
           />
           {password.length > 0 && passwordStrength && (
             <div className="space-y-1 text-sm">
-              <PasswordRequirement
-                met={passwordStrength.length}
-                text={`Co najmniej ${MIN_PASSWORD_LENGTH} znaków`}
-              />
-              <PasswordRequirement
-                met={passwordStrength.uppercase}
-                text="Jedna wielka litera"
-              />
-              <PasswordRequirement
-                met={passwordStrength.lowercase}
-                text="Jedna mała litera"
-              />
-              <PasswordRequirement
-                met={passwordStrength.number}
-                text="Jedna cyfra"
-              />
+              <PasswordRequirement met={passwordStrength.length} text={`Co najmniej ${MIN_PASSWORD_LENGTH} znaków`} />
+              <PasswordRequirement met={passwordStrength.uppercase} text="Jedna wielka litera" />
+              <PasswordRequirement met={passwordStrength.lowercase} text="Jedna mała litera" />
+              <PasswordRequirement met={passwordStrength.number} text="Jedna cyfra" />
             </div>
           )}
         </div>
@@ -195,10 +181,7 @@ function PasswordRequirement({ met, text }: { met: boolean; text: string }) {
       ) : (
         <XCircle className="size-4 text-muted-foreground" />
       )}
-      <span className={met ? "text-green-600 dark:text-green-500" : "text-muted-foreground"}>
-        {text}
-      </span>
+      <span className={met ? "text-green-600 dark:text-green-500" : "text-muted-foreground"}>{text}</span>
     </div>
   );
 }
-

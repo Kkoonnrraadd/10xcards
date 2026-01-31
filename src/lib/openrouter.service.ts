@@ -51,7 +51,7 @@ export class OpenRouterService {
 
     try {
       const response = await this._sendRequest(payload);
-      const content = response.choices[0].message.content;
+      const content = (response as { choices: { message: { content: string } }[] }).choices[0].message.content;
 
       if (options.response_format?.type === "json_schema") {
         return JSON.parse(content) as T;
@@ -59,9 +59,9 @@ export class OpenRouterService {
 
       return content as T;
     } catch (error) {
-      // Log the error for debugging
+      // expected by unit tests
+      // eslint-disable-next-line no-console
       console.error("Error in generateChatCompletion:", error);
-      // Re-throw the structured error for the caller to handle
       throw error;
     }
   }
@@ -72,7 +72,7 @@ export class OpenRouterService {
    * @returns Promise resolving to the API response
    * @throws {OpenRouterError} If the request fails
    */
-  private async _sendRequest(payload: object): Promise<any> {
+  private async _sendRequest(payload: object): Promise<unknown> {
     const response = await fetch(`${this.apiBaseUrl}/chat/completions`, {
       method: "POST",
       headers: {

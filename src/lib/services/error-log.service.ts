@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import type { SupabaseClient } from "@/db/supabase.client";
-import type { GenerationErrorLogDTO } from "@/types";
 
 /**
  * Service for logging AI generation errors
@@ -57,7 +56,6 @@ export class ErrorLogService {
       .single();
 
     if (error) {
-      console.error("Failed to log generation error:", error);
       throw new Error(`Failed to log generation error: ${error.message}`);
     }
 
@@ -77,4 +75,3 @@ export class ErrorLogService {
     return crypto.createHash("sha256").update(text).digest("hex");
   }
 }
-

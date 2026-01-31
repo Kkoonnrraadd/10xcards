@@ -24,6 +24,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 **Authentication:** Required (JWT token)
 
 **Request Body:**
+
 ```json
 {
   "source_text": "string (1000-10000 characters)"
@@ -31,6 +32,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 ```
 
 **Success Response (200 OK):**
+
 ```json
 {
   "candidates": [
@@ -45,6 +47,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 **Error Responses:**
 
 - **400 Bad Request** - Invalid input
+
 ```json
 {
   "error": {
@@ -61,6 +64,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 ```
 
 - **401 Unauthorized** - Missing or invalid authentication
+
 ```json
 {
   "error": {
@@ -71,6 +75,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 ```
 
 - **429 Too Many Requests** - Rate limit exceeded
+
 ```json
 {
   "error": {
@@ -84,6 +89,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 ```
 
 - **500 Internal Server Error** - AI service error (also logs to `generation_error_logs`)
+
 ```json
 {
   "error": {
@@ -97,6 +103,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 ```
 
 - **504 Gateway Timeout** - AI service timeout
+
 ```json
 {
   "error": {
@@ -107,6 +114,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 ```
 
 **Business Logic:**
+
 1. Validate source text length (1000-10000 characters)
 2. Call OpenRouter AI API with structured prompt
 3. Parse AI response into candidate array
@@ -131,6 +139,7 @@ Note: User authentication and profile management is handled by Supabase Auth and
 **Request Body:**
 
 For manual creation:
+
 ```json
 {
   "front": "string (max 200 characters, required)",
@@ -139,6 +148,7 @@ For manual creation:
 ```
 
 For accepting AI-generated candidate:
+
 ```json
 {
   "front": "string (max 200 characters, required)",
@@ -151,6 +161,7 @@ For accepting AI-generated candidate:
 ```
 
 **Success Response (201 Created):**
+
 ```json
 {
   "id": "uuid",
@@ -169,6 +180,7 @@ For accepting AI-generated candidate:
 **Error Responses:**
 
 - **400 Bad Request** - Validation error
+
 ```json
 {
   "error": {
@@ -185,6 +197,7 @@ For accepting AI-generated candidate:
 - **401 Unauthorized** - Missing or invalid authentication
 
 **Business Logic:**
+
 1. Validate `front` (required, max 200 chars) and `back` (required, max 500 chars)
 2. Extract authenticated user ID from JWT
 3. If `generation_metadata` is present:
@@ -212,11 +225,13 @@ For accepting AI-generated candidate:
 **Authentication:** Required (JWT token)
 
 **Query Parameters:**
+
 - `page` (integer, optional, default: 1) - Page number (≥ 1)
 - `limit` (integer, optional, default: 20) - Items per page (1-100)
 - `search` (string, optional) - Search query to filter by front or back content
 
 **Success Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -245,6 +260,7 @@ For accepting AI-generated candidate:
 **Error Responses:**
 
 - **400 Bad Request** - Invalid pagination parameters
+
 ```json
 {
   "error": {
@@ -261,6 +277,7 @@ For accepting AI-generated candidate:
 - **401 Unauthorized** - Missing or invalid authentication
 
 **Business Logic:**
+
 1. Parse and validate pagination parameters (page ≥ 1, limit 1-100)
 2. Filter flashcards by authenticated user ID (via RLS)
 3. If `search` parameter provided:
@@ -285,9 +302,11 @@ For accepting AI-generated candidate:
 **Authentication:** Required (JWT token)
 
 **Path Parameters:**
+
 - `id` (uuid, required) - Flashcard ID
 
 **Success Response (200 OK):**
+
 ```json
 {
   "id": "uuid",
@@ -306,6 +325,7 @@ For accepting AI-generated candidate:
 **Error Responses:**
 
 - **400 Bad Request** - Invalid ID format
+
 ```json
 {
   "error": {
@@ -318,6 +338,7 @@ For accepting AI-generated candidate:
 - **401 Unauthorized** - Missing or invalid authentication
 
 - **404 Not Found** - Flashcard not found or doesn't belong to user
+
 ```json
 {
   "error": {
@@ -328,6 +349,7 @@ For accepting AI-generated candidate:
 ```
 
 **Business Logic:**
+
 1. Validate ID is valid UUID format
 2. Query flashcard by ID and user_id (RLS ensures user ownership)
 3. Return 404 if not found
@@ -346,9 +368,11 @@ For accepting AI-generated candidate:
 **Authentication:** Required (JWT token)
 
 **Path Parameters:**
+
 - `id` (uuid, required) - Flashcard ID
 
 **Request Body:**
+
 ```json
 {
   "front": "string (max 200 characters, optional)",
@@ -357,6 +381,7 @@ For accepting AI-generated candidate:
 ```
 
 **Success Response (200 OK):**
+
 ```json
 {
   "id": "uuid",
@@ -375,6 +400,7 @@ For accepting AI-generated candidate:
 **Error Responses:**
 
 - **400 Bad Request** - Validation error
+
 ```json
 {
   "error": {
@@ -393,6 +419,7 @@ For accepting AI-generated candidate:
 - **404 Not Found** - Flashcard not found or doesn't belong to user
 
 **Business Logic:**
+
 1. Validate ID is valid UUID format
 2. Validate provided fields (front ≤ 200 chars, back ≤ 500 chars)
 3. Update flashcard where id=:id AND user_id=current_user (RLS enforces ownership)
@@ -413,6 +440,7 @@ For accepting AI-generated candidate:
 **Authentication:** Required (JWT token)
 
 **Path Parameters:**
+
 - `id` (uuid, required) - Flashcard ID
 
 **Success Response (204 No Content)**
@@ -422,6 +450,7 @@ No response body.
 **Error Responses:**
 
 - **400 Bad Request** - Invalid ID format
+
 ```json
 {
   "error": {
@@ -434,6 +463,7 @@ No response body.
 - **401 Unauthorized** - Missing or invalid authentication
 
 - **404 Not Found** - Flashcard not found or doesn't belong to user
+
 ```json
 {
   "error": {
@@ -444,6 +474,7 @@ No response body.
 ```
 
 **Business Logic:**
+
 1. Validate ID is valid UUID format
 2. Delete flashcard where id=:id AND user_id=current_user (RLS enforces ownership)
 3. Return 404 if flashcard not found
@@ -464,6 +495,7 @@ No response body.
 **Authentication:** Required (JWT token)
 
 **Request Body:**
+
 ```json
 {
   "status": "rejected",
@@ -473,6 +505,7 @@ No response body.
 ```
 
 **Success Response (201 Created):**
+
 ```json
 {
   "id": "uuid",
@@ -488,6 +521,7 @@ No response body.
 **Error Responses:**
 
 - **400 Bad Request** - Validation error
+
 ```json
 {
   "error": {
@@ -504,6 +538,7 @@ No response body.
 - **401 Unauthorized** - Missing or invalid authentication
 
 **Business Logic:**
+
 1. Validate `status` is 'rejected'
 2. Validate `original_front` and `original_back` are provided
 3. Extract authenticated user ID from JWT
@@ -527,9 +562,11 @@ No response body.
 **Authentication:** Required (JWT token)
 
 **Query Parameters:**
+
 - `limit` (integer, optional, default: 20) - Maximum number of flashcards to return (1-100)
 
 **Success Response (200 OK):**
+
 ```json
 {
   "data": [
@@ -553,6 +590,7 @@ No response body.
 **Error Responses:**
 
 - **400 Bad Request** - Invalid limit parameter
+
 ```json
 {
   "error": {
@@ -570,6 +608,7 @@ No response body.
 - **401 Unauthorized** - Missing or invalid authentication
 
 **Business Logic:**
+
 1. Validate limit parameter (1-100, default: 20)
 2. Query flashcards where:
    - `user_id = current_user` (via RLS)
@@ -592,6 +631,7 @@ No response body.
 **Authentication:** Required (JWT token)
 
 **Request Body:**
+
 ```json
 {
   "flashcard_id": "uuid (required)",
@@ -600,12 +640,14 @@ No response body.
 ```
 
 Rating scale:
+
 - 1: Again (complete failure)
 - 2: Hard (difficult but recalled)
 - 3: Good (recalled with some effort)
 - 4: Easy (perfect recall)
 
 **Success Response (200 OK):**
+
 ```json
 {
   "id": "uuid",
@@ -629,6 +671,7 @@ Rating scale:
 **Error Responses:**
 
 - **400 Bad Request** - Validation error
+
 ```json
 {
   "error": {
@@ -646,6 +689,7 @@ Rating scale:
 - **401 Unauthorized** - Missing or invalid authentication
 
 - **404 Not Found** - Flashcard not found or doesn't belong to user
+
 ```json
 {
   "error": {
@@ -656,6 +700,7 @@ Rating scale:
 ```
 
 **Business Logic:**
+
 1. Validate `flashcard_id` is valid UUID
 2. Validate `rating` is integer 1-4
 3. Fetch flashcard (verify ownership via RLS)
@@ -708,10 +753,10 @@ The API uses **Supabase Authentication** with JWT (JSON Web Tokens) for user aut
      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
        global: {
          headers: {
-           Authorization: `Bearer ${userJwt}`
-         }
-       }
-     })
+           Authorization: `Bearer ${userJwt}`,
+         },
+       },
+     });
      ```
 
 ### Authorization (Row-Level Security)
@@ -751,12 +796,14 @@ All database tables have **Row-Level Security (RLS)** policies enabled to ensure
 ### Password Management
 
 Handled by Supabase Auth:
+
 - **Change Password:** `supabase.auth.updateUser({ password: newPassword })`
 - **Reset Password:** `supabase.auth.resetPasswordForEmail(email)`
 
 ### Account Deletion
 
 Handled by Supabase Auth:
+
 - Call `supabase.auth.admin.deleteUser(userId)` (requires service role)
 - Database cascade deletion (ON DELETE CASCADE) automatically removes all user data
 - Deletes from: `users`, `flashcards`, `generation_logs`, `generation_error_logs`
@@ -769,35 +816,36 @@ Handled by Supabase Auth:
 
 #### Input Length Validation
 
-| Field | Min Length | Max Length | Required | Validated At |
-|-------|-----------|-----------|----------|--------------|
-| `source_text` (generation) | 1000 chars | 10000 chars | Yes | Frontend, Backend |
-| `flashcard.front` | 1 char | 200 chars | Yes | Frontend, Backend, Database (varchar 200) |
-| `flashcard.back` | 1 char | 500 chars | Yes | Frontend, Backend, Database (varchar 500) |
+| Field                      | Min Length | Max Length  | Required | Validated At                              |
+| -------------------------- | ---------- | ----------- | -------- | ----------------------------------------- |
+| `source_text` (generation) | 1000 chars | 10000 chars | Yes      | Frontend, Backend                         |
+| `flashcard.front`          | 1 char     | 200 chars   | Yes      | Frontend, Backend, Database (varchar 200) |
+| `flashcard.back`           | 1 char     | 500 chars   | Yes      | Frontend, Backend, Database (varchar 500) |
 
 #### Pagination Validation
 
-| Parameter | Min Value | Max Value | Default | Type |
-|-----------|-----------|-----------|---------|------|
-| `page` | 1 | - | 1 | Integer |
-| `limit` | 1 | 100 | 20 | Integer |
+| Parameter | Min Value | Max Value | Default | Type    |
+| --------- | --------- | --------- | ------- | ------- |
+| `page`    | 1         | -         | 1       | Integer |
+| `limit`   | 1         | 100       | 20      | Integer |
 
 #### Study Rating Validation
 
-| Parameter | Min Value | Max Value | Type | Description |
-|-----------|-----------|-----------|------|-------------|
-| `rating` | 1 | 4 | Integer | 1=Again, 2=Hard, 3=Good, 4=Easy |
+| Parameter | Min Value | Max Value | Type    | Description                     |
+| --------- | --------- | --------- | ------- | ------------------------------- |
+| `rating`  | 1         | 4         | Integer | 1=Again, 2=Hard, 3=Good, 4=Easy |
 
 #### UUID Validation
 
 All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
+
 - Pattern: `^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$`
 - Error: 400 Bad Request with message "Invalid ID format"
 
 #### Enum Validation
 
-| Field | Allowed Values | Context |
-|-------|---------------|---------|
+| Field                    | Allowed Values                               | Context       |
+| ------------------------ | -------------------------------------------- | ------------- |
 | `generation_logs.status` | 'accepted', 'accepted_with_edit', 'rejected' | Database ENUM |
 
 ### 4.2. Business Logic Implementation
@@ -807,6 +855,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `POST /api/flashcards/generate`
 
 **Process:**
+
 1. **Validate Input:**
    - Check `source_text` length (1000-10000 chars)
    - Return 400 if invalid
@@ -814,16 +863,17 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 2. **Prepare AI Request:**
    - Construct prompt with instructions and character limits
    - Example prompt structure:
+
      ```
      Generate flashcards from the following text. Each flashcard should have:
      - front: A question or prompt (max 200 characters)
      - back: An answer or explanation (max 500 characters)
-     
+
      Create 5-10 flashcards that cover the key concepts.
-     
+
      Text:
      {source_text}
-     
+
      Return as JSON array: [{"front": "...", "back": "..."}, ...]
      ```
 
@@ -858,6 +908,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `POST /api/flashcards` (with `generation_metadata`)
 
 **Process:**
+
 1. **Validate Input:**
    - Check `front` (required, ≤ 200 chars)
    - Check `back` (required, ≤ 500 chars)
@@ -893,6 +944,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `POST /api/generation-logs`
 
 **Process:**
+
 1. **Validate Input:**
    - Check `status` is 'rejected'
    - Check `original_front` and `original_back` are provided
@@ -913,6 +965,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `POST /api/flashcards` (without `generation_metadata`)
 
 **Process:**
+
 1. **Validate Input:**
    - Check `front` (required, ≤ 200 chars)
    - Check `back` (required, ≤ 500 chars)
@@ -934,6 +987,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `GET /api/flashcards`
 
 **Process:**
+
 1. **Validate Parameters:**
    - Parse `page` (default: 1, min: 1)
    - Parse `limit` (default: 20, min: 1, max: 100)
@@ -964,6 +1018,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `PATCH /api/flashcards/:id`
 
 **Process:**
+
 1. **Validate Input:**
    - Check ID is valid UUID
    - If `front` provided: Check ≤ 200 chars
@@ -985,6 +1040,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `DELETE /api/flashcards/:id`
 
 **Process:**
+
 1. **Validate Input:**
    - Check ID is valid UUID
    - Return 400 if invalid
@@ -1002,6 +1058,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `GET /api/study/due`
 
 **Process:**
+
 1. **Validate Parameters:**
    - Parse `limit` (default: 20, min: 1, max: 100)
    - Return 400 if invalid
@@ -1018,6 +1075,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 **Endpoint:** `POST /api/study/review`
 
 **Process:**
+
 1. **Validate Input:**
    - Check `flashcard_id` is valid UUID
    - Check `rating` is integer 1-4
@@ -1064,6 +1122,7 @@ All ID parameters (`:id`, `flashcard_id`) must be valid UUID v4 format:
 #### Standard Error Response Format
 
 All errors follow this structure:
+
 ```json
 {
   "error": {
@@ -1078,40 +1137,41 @@ All errors follow this structure:
 
 #### HTTP Status Codes
 
-| Status Code | Usage |
-|-------------|-------|
-| 200 OK | Successful GET, PATCH, POST (non-creation) |
-| 201 Created | Successful POST (resource creation) |
-| 204 No Content | Successful DELETE |
-| 400 Bad Request | Validation error, malformed request |
-| 401 Unauthorized | Missing or invalid authentication |
-| 404 Not Found | Resource not found or not owned by user |
-| 429 Too Many Requests | Rate limit exceeded |
-| 500 Internal Server Error | Server error, AI service error |
-| 504 Gateway Timeout | AI service timeout |
+| Status Code               | Usage                                      |
+| ------------------------- | ------------------------------------------ |
+| 200 OK                    | Successful GET, PATCH, POST (non-creation) |
+| 201 Created               | Successful POST (resource creation)        |
+| 204 No Content            | Successful DELETE                          |
+| 400 Bad Request           | Validation error, malformed request        |
+| 401 Unauthorized          | Missing or invalid authentication          |
+| 404 Not Found             | Resource not found or not owned by user    |
+| 429 Too Many Requests     | Rate limit exceeded                        |
+| 500 Internal Server Error | Server error, AI service error             |
+| 504 Gateway Timeout       | AI service timeout                         |
 
 #### Error Codes
 
-| Error Code | HTTP Status | Description |
-|-----------|-------------|-------------|
-| `VALIDATION_ERROR` | 400 | Input validation failed |
-| `UNAUTHORIZED` | 401 | Authentication required or invalid |
-| `NOT_FOUND` | 404 | Resource not found |
-| `RATE_LIMIT_EXCEEDED` | 429 | Too many requests |
-| `AI_GENERATION_FAILED` | 500 | AI service error |
-| `AI_TIMEOUT` | 504 | AI service timeout |
-| `INTERNAL_ERROR` | 500 | Unexpected server error |
+| Error Code             | HTTP Status | Description                        |
+| ---------------------- | ----------- | ---------------------------------- |
+| `VALIDATION_ERROR`     | 400         | Input validation failed            |
+| `UNAUTHORIZED`         | 401         | Authentication required or invalid |
+| `NOT_FOUND`            | 404         | Resource not found                 |
+| `RATE_LIMIT_EXCEEDED`  | 429         | Too many requests                  |
+| `AI_GENERATION_FAILED` | 500         | AI service error                   |
+| `AI_TIMEOUT`           | 504         | AI service timeout                 |
+| `INTERNAL_ERROR`       | 500         | Unexpected server error            |
 
 ### 4.4. Rate Limiting
 
 Rate limits are applied per authenticated user:
 
-| Endpoint Pattern | Limit | Window |
-|-----------------|-------|--------|
-| `POST /api/flashcards/generate` | 10 requests | 1 minute |
-| All other endpoints | 100 requests | 1 minute |
+| Endpoint Pattern                | Limit        | Window   |
+| ------------------------------- | ------------ | -------- |
+| `POST /api/flashcards/generate` | 10 requests  | 1 minute |
+| All other endpoints             | 100 requests | 1 minute |
 
 **Rate Limit Headers:**
+
 ```
 X-RateLimit-Limit: 10
 X-RateLimit-Remaining: 7
@@ -1119,6 +1179,7 @@ X-RateLimit-Reset: 1697635200
 ```
 
 **Rate Limit Exceeded Response:**
+
 ```json
 {
   "error": {
@@ -1158,35 +1219,34 @@ X-RateLimit-Reset: 1697635200
 
 - Use `@supabase/supabase-js` client library
 - For authenticated requests:
+
   ```typescript
-  const authHeader = request.headers.get('Authorization');
-  const token = authHeader?.replace('Bearer ', '');
-  
-  const supabase = createClient(
-    import.meta.env.SUPABASE_URL,
-    import.meta.env.SUPABASE_ANON_KEY,
-    {
-      global: {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    }
-  );
+  const authHeader = request.headers.get("Authorization");
+  const token = authHeader?.replace("Bearer ", "");
+
+  const supabase = createClient(import.meta.env.SUPABASE_URL, import.meta.env.SUPABASE_ANON_KEY, {
+    global: {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  });
   ```
+
 - RLS policies automatically enforce user_id filtering
 
 #### FSRS Library
 
 - Use `ts-fsrs` package for TypeScript FSRS implementation
 - Initialize with default parameters:
+
   ```typescript
-  import { FSRS, Rating } from 'ts-fsrs';
-  
+  import { FSRS, Rating } from "ts-fsrs";
+
   const fsrs = new FSRS();
   const card = {
     stability: flashcard.stability || undefined,
     difficulty: flashcard.difficulty || undefined,
   };
-  
+
   const result = fsrs.repeat(card, rating);
   // result contains: new_stability, new_difficulty, interval
   ```
@@ -1215,6 +1275,7 @@ X-RateLimit-Reset: 1697635200
 #### Automatic Timestamps
 
 Create PostgreSQL function and trigger for `updated_at`:
+
 ```sql
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -1234,6 +1295,7 @@ CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
 #### User Profile Creation
 
 Create PostgreSQL function and trigger to auto-create user profile:
+
 ```sql
 CREATE OR REPLACE FUNCTION create_user_profile()
 RETURNS TRIGGER AS $$
@@ -1252,6 +1314,7 @@ CREATE TRIGGER on_auth_user_created
 #### Indexes
 
 Ensure indexes exist for performance:
+
 ```sql
 CREATE INDEX idx_flashcards_user_id ON flashcards(user_id);
 CREATE INDEX idx_flashcards_due_date ON flashcards(due_date);
@@ -1343,6 +1406,7 @@ The following features are not part of the MVP but may be considered for future 
 For MVP, no versioning is implemented. All endpoints are under `/api/`.
 
 For future versions, consider:
+
 - URL versioning: `/api/v1/`, `/api/v2/`
 - Header versioning: `Accept: application/vnd.10xcards.v1+json`
 
@@ -1353,6 +1417,7 @@ For future versions, consider:
 Since frontend (Astro) and API are in the same application, CORS is not required for MVP.
 
 If frontend and backend are deployed separately in the future:
+
 ```typescript
 // CORS headers for API responses
 {
@@ -1370,6 +1435,7 @@ If frontend and backend are deployed separately in the future:
 For MVP, this document serves as the API specification.
 
 For future iterations, consider:
+
 - **OpenAPI/Swagger:** Generate interactive API documentation
 - **Postman Collection:** Provide collection for testing
 - **SDK Generation:** Auto-generate client SDKs from OpenAPI spec
@@ -1378,15 +1444,14 @@ For future iterations, consider:
 
 ## Appendix: Complete Endpoint Summary
 
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/api/flashcards/generate` | Generate flashcard candidates from text | Yes |
-| POST | `/api/flashcards` | Create flashcard (manual or accept AI candidate) | Yes |
-| GET | `/api/flashcards` | List flashcards with pagination and search | Yes |
-| GET | `/api/flashcards/:id` | Get single flashcard | Yes |
-| PATCH | `/api/flashcards/:id` | Update flashcard | Yes |
-| DELETE | `/api/flashcards/:id` | Delete flashcard | Yes |
-| POST | `/api/generation-logs` | Create log entry (reject candidate) | Yes |
-| GET | `/api/study/due` | Get due flashcards for study session | Yes |
-| POST | `/api/study/review` | Submit review and update FSRS parameters | Yes |
-
+| Method | Endpoint                   | Description                                      | Auth Required |
+| ------ | -------------------------- | ------------------------------------------------ | ------------- |
+| POST   | `/api/flashcards/generate` | Generate flashcard candidates from text          | Yes           |
+| POST   | `/api/flashcards`          | Create flashcard (manual or accept AI candidate) | Yes           |
+| GET    | `/api/flashcards`          | List flashcards with pagination and search       | Yes           |
+| GET    | `/api/flashcards/:id`      | Get single flashcard                             | Yes           |
+| PATCH  | `/api/flashcards/:id`      | Update flashcard                                 | Yes           |
+| DELETE | `/api/flashcards/:id`      | Delete flashcard                                 | Yes           |
+| POST   | `/api/generation-logs`     | Create log entry (reject candidate)              | Yes           |
+| GET    | `/api/study/due`           | Get due flashcards for study session             | Yes           |
+| POST   | `/api/study/review`        | Submit review and update FSRS parameters         | Yes           |

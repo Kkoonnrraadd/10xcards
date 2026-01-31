@@ -3,7 +3,6 @@ import { ErrorLogService } from "./error-log.service";
 import { AIGenerationError, AITimeoutError } from "../utils/error";
 import { AI_CONFIG, VALIDATION_LIMITS } from "../constants";
 import { OpenRouterService } from "../openrouter.service";
-import { OpenRouterError } from "../errors/OpenRouterError";
 
 /**
  * Service for generating flashcards using AI

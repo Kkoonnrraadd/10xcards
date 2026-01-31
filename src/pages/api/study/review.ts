@@ -87,4 +87,3 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return createErrorResponse("INTERNAL_ERROR", "Failed to submit review", 500);
   }
 };
-
