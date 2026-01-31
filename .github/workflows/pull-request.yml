@@ -22,7 +22,7 @@ jobs:
       - name: Lint
         run: |
           npx prettier --check .
-          npx eslint --ext .ts,.tsx,.js,.jsx,.astro .
+          npx eslint .
 
   unit-test:
     name: Unit tests

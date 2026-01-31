@@ -19,24 +19,26 @@ const PROTECTED_PATHS = ["/dashboard", "/account"];
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const pathname = context.url.pathname;
-  // In test mode, bypass Supabase and treat user as authenticated
+
+  // Always create Supabase server instance - needed by API endpoints
+  const supabase = createSupabaseServerInstance({
+    cookies: context.cookies,
+    headers: context.request.headers,
+  });
+  context.locals.supabase = supabase;
+
+  // In test mode, bypass auth and treat user as authenticated for protected routes
   if (import.meta.env.MODE === "test" || import.meta.env.PUBLIC_E2E_AUTH_BYPASS === "true") {
     const isProtected = PROTECTED_PATHS.some((path) => pathname.startsWith(path));
     // For protected routes, simulate an authenticated user.
     // For public/auth routes, keep unauthenticated to allow UI/snapshots.
     context.locals.user = isProtected ? { id: "test-user", email: "test@example.com" } : null;
   } else {
-    // Create Supabase server instance with cookies
-    const supabase = createSupabaseServerInstance({
-      cookies: context.cookies,
-      headers: context.request.headers,
-    });
-    context.locals.supabase = supabase;
-
-    // Get user session
+    // Get user session from Supabase
     const {
       data: { user },
     } = await supabase.auth.getUser();
+
     // Store user in locals
     if (user) {
       context.locals.user = {
