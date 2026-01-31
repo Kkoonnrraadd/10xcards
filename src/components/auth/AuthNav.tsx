@@ -33,7 +33,8 @@ export default function AuthNav({ isAuthenticated, userEmail }: AuthNavProps) {
 
       // Redirect to home page
       window.location.href = "/";
-    } catch (err) {
+    } catch {
+      return;
     } finally {
       setIsLoggingOut(false);
       setIsLogoutDialogOpen(false);

@@ -198,6 +198,7 @@ src/
 - **Auth**: Wymagana (JWT)
 - **Rate Limit**: 100 req/min
 - **Request Body**:
+
   ```json
   {
     "flashcard_id": "uuid",
@@ -209,6 +210,7 @@ src/
   - 2 = Hard (difficult but recalled)
   - 3 = Good (recalled with some effort)
   - 4 = Easy (perfect recall)
+
 - **Response (200)**: Zaktualizowana fiszka z nowymi parametrami FSRS
 - **Errors**: 400, 401, 404, 500
 - **Status**: ✅ Zaimplementowane (z mock FSRS)

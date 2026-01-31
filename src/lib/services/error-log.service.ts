@@ -1,6 +1,5 @@
 import crypto from "crypto";
 import type { SupabaseClient } from "@/db/supabase.client";
-import type { GenerationErrorLogDTO } from "@/types";
 
 /**
  * Service for logging AI generation errors

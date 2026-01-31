@@ -123,7 +123,6 @@ export default function ForgotPasswordForm() {
             disabled={isLoading}
             aria-invalid={error ? "true" : "false"}
             autoComplete="email"
-            autoFocus
           />
         </div>
 

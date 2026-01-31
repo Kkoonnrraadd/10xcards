@@ -1,4 +1,4 @@
-import type { Tables, TablesInsert, TablesUpdate, Enums } from "./db/database.types";
+import type { Tables, TablesUpdate, Enums } from "./db/database.types";
 
 // ============================================================================
 // Base Entity DTOs (directly mapped from database tables)
@@ -186,7 +186,7 @@ export interface ApiErrorResponseDTO {
   error: {
     code: string;
     message: string;
-    details?: Record<string, any>;
+    details?: Record<string, unknown>;
   };
 }
 

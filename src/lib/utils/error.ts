@@ -26,7 +26,7 @@ export function createErrorResponse(
   code: ApiErrorCode,
   message: string,
   status: number,
-  details?: Record<string, any>
+  details?: Record<string, unknown>
 ): Response {
   const body: ApiErrorResponseDTO = {
     error: {

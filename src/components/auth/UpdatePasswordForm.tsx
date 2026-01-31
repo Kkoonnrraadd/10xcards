@@ -126,7 +126,6 @@ export default function UpdatePasswordForm() {
             disabled={isLoading}
             aria-invalid={password.length > 0 && !passwordStrength?.length ? "true" : "false"}
             autoComplete="new-password"
-            autoFocus
           />
           {password.length > 0 && passwordStrength && (
             <div className="space-y-1 text-sm">

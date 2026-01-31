@@ -20,7 +20,9 @@ jobs:
         uses: ./.github/actions/node-setup
 
       - name: Lint
-        run: npm run lint
+        run: |
+          npx prettier --check .
+          npx eslint --ext .ts,.tsx,.js,.jsx,.astro .
 
   unit-test:
     name: Unit tests

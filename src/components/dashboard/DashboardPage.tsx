@@ -263,6 +263,11 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-3xl mx-auto w-full">
+      {error && (
+        <p role="alert" className="text-sm text-red-600 mb-3">
+          {error}
+        </p>
+      )}
       <MainContent />
       <EditCardDialog
         isOpen={isEditDialogOpen}

@@ -4,9 +4,9 @@
  */
 export class OpenRouterError extends Error {
   public readonly statusCode: number;
-  public readonly errorDetails: any;
+  public readonly errorDetails: unknown;
 
-  constructor(message: string, statusCode: number, errorDetails?: any) {
+  constructor(message: string, statusCode: number, errorDetails?: unknown) {
     super(message);
     this.name = "OpenRouterError";
     this.statusCode = statusCode;

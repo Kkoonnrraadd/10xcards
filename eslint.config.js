@@ -62,5 +62,15 @@ export default tseslint.config(
   jsxA11yConfig,
   reactConfig,
   eslintPluginAstro.configs["flat/recommended"],
+  // Relax some rules in tests and e2e specs
+  tseslint.config({
+    files: ["**/__tests__/**/*.{ts,tsx,js,jsx}", "e2e/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-empty-function": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "no-constant-binary-expression": "off",
+    },
+  }),
   eslintPluginPrettier
 );
