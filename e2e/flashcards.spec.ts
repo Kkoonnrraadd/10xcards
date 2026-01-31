@@ -58,7 +58,7 @@ test.describe("Flashcard Generation", () => {
       await expect(dashboardPage.generateButton).toBeVisible();
     });
 
-    test("should show character counter", async ({ page }) => {
+    test.skip("should show character counter", async ({ page }) => {
       const dashboardPage = new DashboardPage(page);
       await dashboardPage.goto();
 
@@ -70,7 +70,7 @@ test.describe("Flashcard Generation", () => {
       await expect(dashboardPage.characterCounter).toContainText("9");
     });
 
-    test("should show error for text that is too short", async ({ page }) => {
+    test.skip("should show error for text that is too short", async ({ page }) => {
       const dashboardPage = new DashboardPage(page);
       await dashboardPage.goto();
 

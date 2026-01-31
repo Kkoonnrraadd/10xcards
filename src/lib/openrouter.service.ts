@@ -49,14 +49,21 @@ export class OpenRouterService {
       top_p: options.top_p,
     };
 
-    const response = await this._sendRequest(payload);
-    const content = (response as { choices: { message: { content: string } }[] }).choices[0].message.content;
+    try {
+      const response = await this._sendRequest(payload);
+      const content = (response as { choices: { message: { content: string } }[] }).choices[0].message.content;
 
-    if (options.response_format?.type === "json_schema") {
-      return JSON.parse(content) as T;
+      if (options.response_format?.type === "json_schema") {
+        return JSON.parse(content) as T;
+      }
+
+      return content as T;
+    } catch (error) {
+      // expected by unit tests
+      // eslint-disable-next-line no-console
+      console.error("Error in generateChatCompletion:", error);
+      throw error;
     }
-
-    return content as T;
   }
 
   /**
